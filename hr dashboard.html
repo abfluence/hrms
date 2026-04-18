@@ -631,6 +631,171 @@ body{
 .health-red{background:var(--red)}
 
 /* ═══════════════════════════════════════
+   QUICK ACTIONS BAR
+═══════════════════════════════════════ */
+.qa-bar{
+  display:flex;gap:8px;margin-bottom:20px;
+  overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:none;
+}
+.qa-bar::-webkit-scrollbar{display:none}
+.qa-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 14px;border-radius:var(--rs);
+  font-size:12px;font-weight:600;
+  white-space:nowrap;cursor:pointer;border:none;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);transition:all .15s;box-shadow:var(--sh);
+  flex-shrink:0;
+}
+.qa-btn:hover{background:#fff;box-shadow:var(--sh2);transform:translateY(-1px)}
+.qa-btn svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0}
+.qa-btn.accent{background:var(--orange);color:#fff;border-color:var(--orange)}
+.qa-btn.accent:hover{background:#d44814;box-shadow:0 4px 12px rgba(232,82,26,.30)}
+
+/* ═══════════════════════════════════════
+   REVENUE TARGET BAR
+═══════════════════════════════════════ */
+.target-bar-wrap{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px 24px;
+  box-shadow:var(--sh);margin-bottom:20px;
+}
+.target-bar-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.target-bar-title{font-size:13px;font-weight:700}
+.target-bar-meta{font-size:12px;color:var(--text2)}
+.target-bar-stats{
+  display:flex;gap:32px;margin-bottom:12px;
+}
+.target-stat-label{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text2);margin-bottom:2px}
+.target-stat-val{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+.target-bar-track{
+  height:10px;background:var(--bg2);border-radius:5px;overflow:hidden;position:relative;
+}
+.target-bar-fill{
+  height:100%;border-radius:5px;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+  transition:width .6s ease;position:relative;
+}
+.target-bar-fill::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:3px;
+  background:rgba(255,255,255,0.5);border-radius:2px;
+}
+.target-bar-pct{
+  position:absolute;right:0;top:-22px;
+  font-size:11px;font-weight:700;color:var(--orange);
+}
+
+/* ═══════════════════════════════════════
+   CLIENT HEALTH CARDS
+═══════════════════════════════════════ */
+.client-health-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:10px;
+  margin-bottom:20px;
+}
+.ch-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--rs);padding:12px 10px;
+  box-shadow:var(--sh);cursor:pointer;transition:all .15s;
+  text-align:center;
+}
+.ch-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.ch-avatar{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;
+  margin:0 auto 8px;
+}
+.ch-name{font-size:11px;font-weight:700;line-height:1.3;margin-bottom:4px}
+.ch-loc{font-size:10px;color:var(--text2);margin-bottom:8px}
+.ch-score{font-size:18px;font-weight:800;letter-spacing:-0.02em;margin-bottom:3px}
+.ch-score.green{color:var(--green)}
+.ch-score.yellow{color:var(--yellow)}
+.ch-score.red{color:var(--red)}
+.ch-mrr{font-size:10px;color:var(--text2)}
+.ch-bar{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-top:6px}
+.ch-bar-fill{height:100%;border-radius:2px}
+
+/* ═══════════════════════════════════════
+   SERVICE HEALTH GRID
+═══════════════════════════════════════ */
+.svc-health-grid{
+  display:flex;flex-direction:column;gap:8px;
+}
+.svc-health-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;
+  background:var(--bg);border-radius:var(--rs);
+}
+.svc-health-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.svc-health-name{font-size:12px;font-weight:600;flex:1}
+.svc-health-clients{font-size:11px;color:var(--text2);margin-right:8px}
+.svc-health-metric{font-size:11px;font-weight:700}
+.svc-health-metric.green{color:var(--green)}
+.svc-health-metric.yellow{color:var(--yellow)}
+.svc-health-metric.red{color:var(--red)}
+
+/* ═══════════════════════════════════════
+   DEADLINES LIST
+═══════════════════════════════════════ */
+.deadline-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.deadline-item:last-child{border-bottom:none}
+.deadline-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.deadline-icon svg{width:14px;height:14px}
+.deadline-info{flex:1;min-width:0}
+.deadline-title{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deadline-sub{font-size:11px;color:var(--text2);margin-top:1px}
+.deadline-due{font-size:11px;font-weight:700;white-space:nowrap}
+.deadline-due.urgent{color:var(--red)}
+.deadline-due.soon{color:var(--yellow)}
+.deadline-due.ok{color:var(--green)}
+
+/* ═══════════════════════════════════════
+   PIPELINE MINI
+═══════════════════════════════════════ */
+.pipeline-mini{display:flex;gap:8px;align-items:stretch;margin-bottom:8px}
+.pipe-stage{
+  flex:1;background:var(--bg);border-radius:var(--rs);
+  padding:10px;text-align:center;
+}
+.pipe-stage-label{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
+.pipe-stage-count{font-size:22px;font-weight:800;letter-spacing:-0.03em;line-height:1}
+.pipe-stage-val{font-size:10px;color:var(--text2);margin-top:2px}
+
+/* ═══════════════════════════════════════
+   PRIORITY ITEMS (enhanced)
+═══════════════════════════════════════ */
+.priority-list{display:flex;flex-direction:column;gap:8px}
+.priority-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;background:var(--bg);border-radius:var(--rs);
+  cursor:pointer;transition:background .12s;
+}
+.priority-item:hover{background:var(--bg2)}
+.priority-badge{
+  font-size:9px;font-weight:800;letter-spacing:0.06em;
+  text-transform:uppercase;padding:2px 7px;border-radius:var(--rx);
+  flex-shrink:0;
+}
+.pb-urgent{background:var(--red-bg);color:var(--red)}
+.pb-high{background:var(--orange-bg2);color:var(--orange)}
+.pb-normal{background:var(--blue-bg);color:var(--blue)}
+.pb-low{background:var(--bg2);color:var(--text2)}
+.priority-text{flex:1}
+.priority-title{font-size:13px;font-weight:600}
+.priority-sub{font-size:11px;color:var(--text2);margin-top:1px}
+.priority-time{font-size:11px;color:var(--text3);white-space:nowrap}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -821,25 +986,63 @@ body{
 
     <!-- ══════════ COMMAND CENTER ══════════ -->
     <div class="page active" id="page-command">
+
+      <!-- Page Header -->
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Command Center</div>
-          <div class="ph-sub">Thursday, April 17 — Good morning, HR.</div>
+          <div class="ph-sub" id="cc-greeting">Friday, April 17 — Good evening, HR.</div>
         </div>
         <div class="ph-actions">
-          <button class="btn btn-secondary btn-sm" onclick="toast('Opening quick add…','info')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Quick Add
+          <button class="btn btn-secondary btn-sm" onclick="toast('Refresh data','info')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Refresh
           </button>
-          <button class="btn btn-primary btn-sm" onclick="go('clientreports',document.querySelector('.nav'))">
+          <button class="btn btn-primary btn-sm" onclick="go('clientreports', document.querySelectorAll('.nav')[19])">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             Generate Report
           </button>
         </div>
       </div>
 
-      <!-- KPI Strip -->
-      <div class="g4" style="margin-bottom:20px">
+      <!-- Quick Actions Bar -->
+      <div class="qa-bar">
+        <button class="qa-btn accent" onclick="toast('Add lead form — coming in Phase 3','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Lead
+        </button>
+        <button class="qa-btn" onclick="toast('New client onboarding — coming in Phase 3','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Onboard Client
+        </button>
+        <button class="qa-btn" onclick="toast('New proposal — coming in Phase 3','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          New Proposal
+        </button>
+        <button class="qa-btn" onclick="go('calendar', document.querySelectorAll('.nav')[17])">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Schedule Content
+        </button>
+        <button class="qa-btn" onclick="go('paid', document.querySelectorAll('.nav')[6])">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+          Launch Campaign
+        </button>
+        <button class="qa-btn" onclick="go('aihub', document.querySelectorAll('.nav')[13])">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
+          Run AI Tool
+        </button>
+        <button class="qa-btn" onclick="go('clientreports', document.querySelectorAll('.nav')[19])">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+          Generate Report
+        </button>
+        <button class="qa-btn" onclick="toast('Invoice creator — coming in Phase 8','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Send Invoice
+        </button>
+      </div>
+
+      <!-- KPI Row 1 -->
+      <div class="g4" style="margin-bottom:12px">
         <div class="kpi">
           <div class="kpi-icon" style="background:var(--orange-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
           <div class="kpi-label">Monthly Recurring Revenue</div>
@@ -870,7 +1073,7 @@ body{
         </div>
       </div>
 
-      <!-- Second Row KPIs -->
+      <!-- KPI Row 2 -->
       <div class="g4" style="margin-bottom:20px">
         <div class="kpi">
           <div class="kpi-icon" style="background:var(--teal-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
@@ -902,48 +1105,256 @@ body{
         </div>
       </div>
 
-      <!-- Bottom Section -->
-      <div class="g21">
+      <!-- Revenue Target Bar -->
+      <div class="target-bar-wrap">
+        <div class="target-bar-header">
+          <div class="target-bar-title">April Revenue Target</div>
+          <div class="target-bar-meta">13 days remaining this month</div>
+        </div>
+        <div class="target-bar-stats">
+          <div><div class="target-stat-label">Current MRR</div><div class="target-stat-val" style="color:var(--orange)">$8,450</div></div>
+          <div><div class="target-stat-label">Monthly Target</div><div class="target-stat-val">$12,000</div></div>
+          <div><div class="target-stat-label">Gap to Target</div><div class="target-stat-val" style="color:var(--red)">$3,550</div></div>
+          <div><div class="target-stat-label">Projected (MoM)</div><div class="target-stat-val" style="color:var(--green)">$10,200</div></div>
+          <div><div class="target-stat-label">Best Case</div><div class="target-stat-val" style="color:var(--blue)">$11,800</div></div>
+        </div>
+        <div class="target-bar-track">
+          <div class="target-bar-fill" style="width:70.4%">
+            <span class="target-bar-pct">70.4%</span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text2)">
+          <span>$0</span>
+          <span style="color:var(--blue)">Projected $10,200</span>
+          <span>Target $12,000</span>
+        </div>
+      </div>
+
+      <!-- Client Health Snapshot -->
+      <div style="margin-bottom:20px">
+        <div class="section-title" style="margin-bottom:10px">
+          Client Health Snapshot
+          <span class="section-link" onclick="go('clients', document.querySelectorAll('.nav')[2])">View all clients</span>
+        </div>
+        <div class="client-health-grid">
+          <div class="ch-card" onclick="toast('Dr. Usman — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--orange)">DU</div>
+            <div class="ch-name">Dr. Usman</div>
+            <div class="ch-loc">Saudi Arabia</div>
+            <div class="ch-score green">94%</div>
+            <div class="ch-mrr">$1,800/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:94%;background:var(--green)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('TechPak — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--blue)">TP</div>
+            <div class="ch-name">TechPak Solutions</div>
+            <div class="ch-loc">Karachi</div>
+            <div class="ch-score green">88%</div>
+            <div class="ch-mrr">$2,200/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:88%;background:var(--green)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('Karachi Eats — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--pink)">KE</div>
+            <div class="ch-name">Karachi Eats</div>
+            <div class="ch-loc">Karachi</div>
+            <div class="ch-score green">82%</div>
+            <div class="ch-mrr">$950/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:82%;background:var(--green)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('NovaMed — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--teal)">NM</div>
+            <div class="ch-name">NovaMed Clinic</div>
+            <div class="ch-loc">Riyadh</div>
+            <div class="ch-score yellow">71%</div>
+            <div class="ch-mrr">$1,100/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:71%;background:var(--yellow)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('DXB Retail — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--purple)">DG</div>
+            <div class="ch-name">DXB Retail Group</div>
+            <div class="ch-loc">Dubai</div>
+            <div class="ch-score green">90%</div>
+            <div class="ch-mrr">$1,600/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:90%;background:var(--green)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('EduPath — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--yellow)">EP</div>
+            <div class="ch-name">EduPath Online</div>
+            <div class="ch-loc">Lahore</div>
+            <div class="ch-score yellow">68%</div>
+            <div class="ch-mrr">$450/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:68%;background:var(--yellow)"></div></div>
+          </div>
+          <div class="ch-card" onclick="toast('GulfStyle — Full client view in Phase 3','info')">
+            <div class="ch-avatar" style="background:var(--red)">GS</div>
+            <div class="ch-name">GulfStyle Fashion</div>
+            <div class="ch-loc">Dubai</div>
+            <div class="ch-score red">55%</div>
+            <div class="ch-mrr">$350/mo</div>
+            <div class="ch-bar"><div class="ch-bar-fill" style="width:55%;background:var(--red)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts + Pipeline Row -->
+      <div class="g21" style="margin-bottom:20px">
         <!-- Revenue Chart -->
         <div class="card">
-          <div class="section-title">Revenue Trend <span class="tag tag-green">On Track</span></div>
-          <canvas id="revenueChart" height="100"></canvas>
+          <div class="section-title">
+            Revenue Trend (6 months)
+            <div style="display:flex;gap:8px;align-items:center">
+              <span class="tag tag-green">On Track</span>
+              <span style="font-size:11px;color:var(--text2)">MoM Growth: +12%</span>
+            </div>
+          </div>
+          <canvas id="revenueChart" height="90"></canvas>
         </div>
+        <!-- Pipeline Snapshot -->
+        <div class="card">
+          <div class="section-title">Pipeline Snapshot <span class="section-link" onclick="go('leads', document.querySelectorAll('.nav')[1])">View Pipeline</span></div>
+          <div class="pipeline-mini">
+            <div class="pipe-stage"><div class="pipe-stage-label">New</div><div class="pipe-stage-count" style="color:var(--purple)">6</div><div class="pipe-stage-val">leads</div></div>
+            <div class="pipe-stage"><div class="pipe-stage-label">Contacted</div><div class="pipe-stage-count" style="color:var(--blue)">8</div><div class="pipe-stage-val">leads</div></div>
+            <div class="pipe-stage"><div class="pipe-stage-label">Proposal</div><div class="pipe-stage-count" style="color:var(--yellow)">6</div><div class="pipe-stage-val">sent</div></div>
+            <div class="pipe-stage"><div class="pipe-stage-label">Won</div><div class="pipe-stage-count" style="color:var(--green)">14</div><div class="pipe-stage-val">total</div></div>
+          </div>
+          <div style="margin-top:12px">
+            <canvas id="pipelineChart" height="100"></canvas>
+          </div>
+          <div class="divider"></div>
+          <div style="font-size:12px;color:var(--text2);display:flex;justify-content:space-between">
+            <span>Conversion rate</span>
+            <strong style="color:var(--green)">36.8%</strong>
+          </div>
+          <div style="font-size:12px;color:var(--text2);display:flex;justify-content:space-between;margin-top:4px">
+            <span>Pipeline value</span>
+            <strong>$24,600</strong>
+          </div>
+          <div style="font-size:12px;color:var(--text2);display:flex;justify-content:space-between;margin-top:4px">
+            <span>Avg deal size</span>
+            <strong>$1,750/mo</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Health + Deadlines + Activity -->
+      <div class="g3" style="margin-bottom:20px">
+
+        <!-- Service Health -->
+        <div class="card">
+          <div class="section-title">Service Health <span style="font-size:11px;color:var(--text2);font-weight:400">Across all clients</span></div>
+          <div class="svc-health-grid">
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--green)"></div><div class="svc-health-name">Brand & Strategy</div><div class="svc-health-clients">3 clients</div><div class="svc-health-metric green">On track</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--green)"></div><div class="svc-health-name">Social Media</div><div class="svc-health-clients">6 clients</div><div class="svc-health-metric green">Healthy</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--green)"></div><div class="svc-health-name">Paid Media</div><div class="svc-health-clients">5 clients</div><div class="svc-health-metric green">312% ROAS</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--yellow)"></div><div class="svc-health-name">SEO / AEO / GEO</div><div class="svc-health-clients">4 clients</div><div class="svc-health-metric yellow">Slow growth</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--yellow)"></div><div class="svc-health-name">Content Marketing</div><div class="svc-health-clients">5 clients</div><div class="svc-health-metric yellow">3 overdue</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--green)"></div><div class="svc-health-name">Web & Funnels</div><div class="svc-health-clients">2 clients</div><div class="svc-health-metric green">On schedule</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--red)"></div><div class="svc-health-name">Lead Gen & Sales</div><div class="svc-health-clients">3 clients</div><div class="svc-health-metric red">Below target</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--green)"></div><div class="svc-health-name">PR & Authority</div><div class="svc-health-clients">2 clients</div><div class="svc-health-metric green">2 features</div></div>
+            <div class="svc-health-row"><div class="svc-health-dot" style="background:var(--purple)"></div><div class="svc-health-name">AI Hub</div><div class="svc-health-clients">3 clients</div><div class="svc-health-metric" style="color:var(--purple)">New service</div></div>
+          </div>
+        </div>
+
+        <!-- Upcoming Deadlines -->
+        <div class="card">
+          <div class="section-title">Upcoming Deadlines</div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--red-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">GulfStyle Proposal</div><div class="deadline-sub">Send revised proposal</div></div>
+            <div class="deadline-due urgent">Today</div>
+          </div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--orange-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">April Content Calendar</div><div class="deadline-sub">3 clients pending approval</div></div>
+            <div class="deadline-due urgent">Tomorrow</div>
+          </div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--yellow-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">NovaMed Monthly Report</div><div class="deadline-sub">April performance report</div></div>
+            <div class="deadline-due soon">Apr 20</div>
+          </div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--blue-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">TechPak Meta Ads</div><div class="deadline-sub">Campaign creative due</div></div>
+            <div class="deadline-due soon">Apr 22</div>
+          </div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--green-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">EduPath Strategy Call</div><div class="deadline-sub">Monthly review + upsell</div></div>
+            <div class="deadline-due ok">Apr 25</div>
+          </div>
+          <div class="deadline-item">
+            <div class="deadline-icon" style="background:var(--purple-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/></svg></div>
+            <div class="deadline-info"><div class="deadline-title">Invoices Due</div><div class="deadline-sub">5 clients — April billing</div></div>
+            <div class="deadline-due ok">Apr 30</div>
+          </div>
+        </div>
+
         <!-- Activity Feed -->
         <div class="card">
           <div class="section-title">Recent Activity <span class="section-link">View all</span></div>
           <div class="feed-item"><div class="feed-dot" style="background:var(--green)"></div><div><div class="feed-text"><strong>New client onboarded</strong> — TechPak Solutions</div><div class="feed-time">2 hours ago</div></div></div>
           <div class="feed-item"><div class="feed-dot" style="background:var(--orange)"></div><div><div class="feed-text"><strong>Proposal sent</strong> — GulfStyle E-commerce</div><div class="feed-time">4 hours ago</div></div></div>
-          <div class="feed-item"><div class="feed-dot" style="background:var(--blue)"></div><div><div class="feed-text"><strong>Meta Ads campaign</strong> launched for Karachi Eats</div><div class="feed-time">Yesterday</div></div></div>
-          <div class="feed-item"><div class="feed-dot" style="background:var(--purple)"></div><div><div class="feed-text"><strong>AI chatbot deployed</strong> — Dr. Usman WhatsApp Bot</div><div class="feed-time">Yesterday</div></div></div>
-          <div class="feed-item"><div class="feed-dot" style="background:var(--teal)"></div><div><div class="feed-text"><strong>Monthly report generated</strong> — NovaMed Clinic</div><div class="feed-time">2 days ago</div></div></div>
-          <div class="feed-item"><div class="feed-dot" style="background:var(--yellow)"></div><div><div class="feed-text"><strong>Lead converted</strong> — DXB Retail Group → Client</div><div class="feed-time">3 days ago</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--blue)"></div><div><div class="feed-text"><strong>Meta Ads launched</strong> — Karachi Eats</div><div class="feed-time">Yesterday</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--purple)"></div><div><div class="feed-text"><strong>AI chatbot deployed</strong> — Dr. Usman WA Bot</div><div class="feed-time">Yesterday</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--teal)"></div><div><div class="feed-text"><strong>Report generated</strong> — NovaMed Clinic</div><div class="feed-time">2 days ago</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--green)"></div><div><div class="feed-text"><strong>Lead converted</strong> — DXB Retail → Client</div><div class="feed-time">3 days ago</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--red)"></div><div><div class="feed-text"><strong>Health alert</strong> — GulfStyle score dropped</div><div class="feed-time">3 days ago</div></div></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--yellow)"></div><div><div class="feed-text"><strong>Proposal viewed</strong> — EduPath Online (2x)</div><div class="feed-time">4 days ago</div></div></div>
         </div>
       </div>
 
       <!-- Today's Priorities -->
-      <div class="mt20">
-        <div class="card">
-          <div class="section-title">Today's Priorities</div>
-          <div class="g3 gap-sm">
-            <div class="card-sm" style="border-left:3px solid var(--red)">
-              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:4px">URGENT</div>
-              <div style="font-size:13px;font-weight:600">Send proposal to GulfStyle</div>
-              <div style="font-size:12px;color:var(--text2);margin-top:2px">Deadline: Today 6pm</div>
+      <div class="card">
+        <div class="section-title">
+          Today's Priorities
+          <span style="font-size:12px;color:var(--text2);font-weight:400">Friday, April 17</span>
+        </div>
+        <div class="priority-list">
+          <div class="priority-item">
+            <span class="priority-badge pb-urgent">Urgent</span>
+            <div class="priority-text">
+              <div class="priority-title">Send revised proposal — GulfStyle E-commerce</div>
+              <div class="priority-sub">Client requested changes to paid media scope. Deadline 6pm.</div>
             </div>
-            <div class="card-sm" style="border-left:3px solid var(--orange)">
-              <div style="font-size:11px;font-weight:600;color:var(--orange);margin-bottom:4px">HIGH</div>
-              <div style="font-size:13px;font-weight:600">Review April content calendar</div>
-              <div style="font-size:12px;color:var(--text2);margin-top:2px">3 clients pending approval</div>
+            <span class="priority-time">Due: 6:00 PM</span>
+          </div>
+          <div class="priority-item">
+            <span class="priority-badge pb-high">High</span>
+            <div class="priority-text">
+              <div class="priority-title">Approve April content calendar — 3 clients</div>
+              <div class="priority-sub">Karachi Eats, NovaMed, DXB Retail pending final sign-off</div>
             </div>
-            <div class="card-sm" style="border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:4px">NORMAL</div>
-              <div style="font-size:13px;font-weight:600">Onboarding call — TechPak</div>
-              <div style="font-size:12px;color:var(--text2);margin-top:2px">3:00 PM today</div>
+            <span class="priority-time">Today</span>
+          </div>
+          <div class="priority-item">
+            <span class="priority-badge pb-high">High</span>
+            <div class="priority-text">
+              <div class="priority-title">TechPak onboarding call</div>
+              <div class="priority-sub">Intro call + AI-First package walkthrough</div>
             </div>
+            <span class="priority-time">3:00 PM</span>
+          </div>
+          <div class="priority-item">
+            <span class="priority-badge pb-normal">Normal</span>
+            <div class="priority-text">
+              <div class="priority-title">Review Lead Gen performance — GulfStyle, EduPath</div>
+              <div class="priority-sub">Both clients below outreach targets. Investigate and adjust strategy.</div>
+            </div>
+            <span class="priority-time">This week</span>
+          </div>
+          <div class="priority-item">
+            <span class="priority-badge pb-low">Low</span>
+            <div class="priority-text">
+              <div class="priority-title">Update agency scorecard — March vs April</div>
+              <div class="priority-sub">Monthly internal review</div>
+            </div>
+            <span class="priority-time">This week</span>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- ══════════ LEADS PIPELINE ══════════ -->
@@ -1196,40 +1607,88 @@ function initCharts(page) {
   initiated.add(page);
 
   if (page === 'command') {
+    // Revenue Chart
     const ctx = document.getElementById('revenueChart');
-    if (!ctx) return;
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
-        datasets: [{
-          label: 'MRR ($)',
-          data: [4200, 5100, 5800, 6400, 7550, 8450],
-          borderColor: '#e8521a',
-          backgroundColor: 'rgba(232,82,26,0.08)',
-          borderWidth: 2.5,
-          pointBackgroundColor: '#e8521a',
-          pointRadius: 4,
-          fill: true,
-          tension: 0.4,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: {
-            beginAtZero: false,
-            grid: { color: 'rgba(0,0,0,0.04)' },
-            ticks: { font: { size: 11 }, color: 'rgba(15,17,23,0.4)', callback: v => '$' + v.toLocaleString() }
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+          datasets: [
+            {
+              label: 'MRR ($)',
+              data: [4200, 5100, 5800, 6400, 7550, 8450],
+              borderColor: '#e8521a',
+              backgroundColor: 'rgba(232,82,26,0.08)',
+              borderWidth: 2.5,
+              pointBackgroundColor: '#e8521a',
+              pointRadius: 4,
+              fill: true,
+              tension: 0.4,
+            },
+            {
+              label: 'Target ($)',
+              data: [6000, 7000, 8000, 9000, 10000, 12000],
+              borderColor: 'rgba(37,99,235,0.4)',
+              backgroundColor: 'transparent',
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false,
+              tension: 0.4,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: { font: { size: 11 }, color: 'rgba(15,17,23,0.5)', boxWidth: 20, padding: 12 }
+            }
           },
-          x: {
-            grid: { display: false },
-            ticks: { font: { size: 11 }, color: 'rgba(15,17,23,0.4)' }
+          scales: {
+            y: {
+              beginAtZero: false,
+              grid: { color: 'rgba(0,0,0,0.04)' },
+              ticks: { font: { size: 11 }, color: 'rgba(15,17,23,0.4)', callback: v => '$' + v.toLocaleString() }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 11 }, color: 'rgba(15,17,23,0.4)' }
+            }
           }
         }
-      }
-    });
+      });
+    }
+
+    // Pipeline Donut Chart
+    const pctx = document.getElementById('pipelineChart');
+    if (pctx) {
+      new Chart(pctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['New', 'Contacted', 'Proposal', 'Won', 'Lost'],
+          datasets: [{
+            data: [6, 8, 6, 14, 4],
+            backgroundColor: ['#7c3aed','#2563eb','#d97706','#16a34a','#dc2626'],
+            borderWidth: 0,
+            hoverOffset: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          cutout: '68%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { font: { size: 10 }, color: 'rgba(15,17,23,0.5)', boxWidth: 10, padding: 8 }
+            }
+          }
+        }
+      });
+    }
   }
 }
 
@@ -1261,7 +1720,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const d = new Date();
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const sub = document.querySelector('#page-command .ph-sub');
+  const sub = document.getElementById('cc-greeting');
   if (sub) sub.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()} — Good ${d.getHours() < 12 ? 'morning' : d.getHours() < 17 ? 'afternoon' : 'evening'}, HR.`;
 });
 </script>
