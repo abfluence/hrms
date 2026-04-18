@@ -1075,6 +1075,85 @@ body{
 .prop-total-val{font-size:20px;font-weight:800;color:var(--orange)}
 
 /* ═══════════════════════════════════════
+   FILTER TABS (pill style)
+═══════════════════════════════════════ */
+.filter-tabs{
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;
+}
+.filter-tab{
+  padding:6px 14px;border-radius:var(--rx);
+  font-size:12px;font-weight:600;cursor:pointer;border:none;
+  background:var(--surface2);color:var(--text2);
+  border:1px solid var(--border);transition:all .15s;
+}
+.filter-tab:hover{background:#fff;color:var(--text);box-shadow:var(--sh)}
+.filter-tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+/* ═══════════════════════════════════════
+   PROJECT CARDS
+═══════════════════════════════════════ */
+.project-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin-bottom:24px;
+}
+.project-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;
+  box-shadow:var(--sh);transition:all .15s;cursor:pointer;
+}
+.project-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.project-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.project-client{display:flex;align-items:center;gap:8px}
+.project-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.project-client-name{font-size:12px;font-weight:700}
+.project-client-loc{font-size:10px;color:var(--text2)}
+.project-name{font-size:14px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.project-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.4}
+.project-progress-label{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+.project-progress-label span:first-child{color:var(--text2);font-weight:500}
+.project-progress-label span:last-child{font-weight:700}
+.project-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.project-due{font-size:11px;color:var(--text2)}
+.project-due strong{color:var(--text)}
+.project-deliverables{font-size:11px;color:var(--text2)}
+
+/* ═══════════════════════════════════════
+   CHECKLIST
+═══════════════════════════════════════ */
+.checklist{display:flex;flex-direction:column;gap:6px}
+.check-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:var(--rs);
+  background:var(--bg);font-size:13px;
+}
+.check-item.done{opacity:.55}
+.check-box{
+  width:18px;height:18px;border-radius:4px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  border:1.5px solid var(--border2);cursor:pointer;transition:all .15s;
+}
+.check-item.done .check-box{background:var(--green);border-color:var(--green);color:#fff}
+.check-label{flex:1;font-weight:500}
+.check-item.done .check-label{text-decoration:line-through;color:var(--text2)}
+.check-client{font-size:11px;color:var(--text3);white-space:nowrap}
+.check-due{font-size:10px;font-weight:600;white-space:nowrap;padding:2px 7px;border-radius:10px}
+.check-due.urgent{background:var(--red-bg);color:var(--red)}
+.check-due.soon{background:var(--yellow-bg);color:var(--yellow)}
+.check-due.ok{background:var(--green-bg);color:var(--green)}
+
+/* ═══════════════════════════════════════
+   COMPETITOR TRACKER
+═══════════════════════════════════════ */
+.comp-strength{
+  display:flex;gap:4px;align-items:center;
+}
+.comp-bar{
+  height:6px;width:60px;background:var(--bg2);
+  border-radius:3px;overflow:hidden;
+}
+.comp-bar-fill{height:100%;border-radius:3px}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -2157,9 +2236,411 @@ body{
       </div>
     </div>
 
+    <!-- ══════════ BRAND & STRATEGY ══════════ -->
     <div class="page" id="page-brand">
-      <div class="ph"><div class="ph-left"><div class="ph-title">Brand & Strategy</div><div class="ph-sub">Brand identity, positioning, GTM, competitor analysis</div></div></div>
-      <div class="module-coming"><div class="module-coming-icon" style="background:var(--yellow-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Brand & Strategy</h3><p>Project tracker for brand identity, competitor analysis, market research, and go-to-market strategy. Building in Phase 4A.</p></div>
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Brand & Strategy</div>
+          <div class="ph-sub">3 clients · 11 active projects · 6 deliverables due this week</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-secondary btn-sm" onclick="toast('Export projects','info')">Export</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('newBrandProjectModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Project
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="stat-strip" style="grid-template-columns:repeat(5,1fr);margin-bottom:20px">
+        <div class="stat-strip-item"><div class="stat-strip-label">Active Projects</div><div class="stat-strip-val" style="color:var(--orange)">11</div><div class="stat-strip-sub">Across 3 services</div></div>
+        <div class="stat-strip-item"><div class="stat-strip-label">Clients on Brand</div><div class="stat-strip-val" style="color:var(--blue)">3</div><div class="stat-strip-sub">Dr. Usman, TechPak, DXB</div></div>
+        <div class="stat-strip-item"><div class="stat-strip-label">Due This Week</div><div class="stat-strip-val" style="color:var(--red)">6</div><div class="stat-strip-sub">Deliverables</div></div>
+        <div class="stat-strip-item"><div class="stat-strip-label">Completed</div><div class="stat-strip-val" style="color:var(--green)">8</div><div class="stat-strip-sub">This month</div></div>
+        <div class="stat-strip-item"><div class="stat-strip-label">In Review</div><div class="stat-strip-val" style="color:var(--yellow)">3</div><div class="stat-strip-sub">Awaiting approval</div></div>
+      </div>
+
+      <!-- Service Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterProjects('all',this)">All Projects</button>
+        <button class="filter-tab" onclick="filterProjects('identity',this)">Brand Identity</button>
+        <button class="filter-tab" onclick="filterProjects('positioning',this)">Positioning & Messaging</button>
+        <button class="filter-tab" onclick="filterProjects('competitor',this)">Competitor Analysis</button>
+        <button class="filter-tab" onclick="filterProjects('research',this)">Market Research</button>
+        <button class="filter-tab" onclick="filterProjects('gtm',this)">GTM Strategy</button>
+      </div>
+
+      <!-- Project Cards -->
+      <div class="project-grid" id="brandProjectGrid">
+
+        <!-- Dr. Usman — Brand Identity -->
+        <div class="project-card" data-type="identity" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--orange)">DU</div>
+              <div><div class="project-client-name">Dr. Usman</div><div class="project-client-loc">Saudi Arabia</div></div>
+            </div>
+            <span class="tag tag-yellow">In Review</span>
+          </div>
+          <div class="project-name">Brand Identity v2</div>
+          <div class="project-desc">Updated logo suite, color palette refinement, typography system, brand guide document</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--orange)">85%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:85%;background:var(--orange)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 20</strong></div>
+            <div class="project-deliverables">6/7 deliverables</div>
+            <span class="tag tag-yellow">Identity</span>
+          </div>
+        </div>
+
+        <!-- Dr. Usman — Positioning -->
+        <div class="project-card" data-type="positioning" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--orange)">DU</div>
+              <div><div class="project-client-name">Dr. Usman</div><div class="project-client-loc">Saudi Arabia</div></div>
+            </div>
+            <span class="tag tag-green">Complete</span>
+          </div>
+          <div class="project-name">Authority Positioning Strategy</div>
+          <div class="project-desc">Medical authority messaging, ICP definition, value proposition, content pillars</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--green)">100%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:100%;background:var(--green)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Done <strong>Apr 10</strong></div>
+            <div class="project-deliverables">5/5 deliverables</div>
+            <span class="tag tag-teal">Positioning</span>
+          </div>
+        </div>
+
+        <!-- Dr. Usman — Competitor Analysis -->
+        <div class="project-card" data-type="competitor" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--orange)">DU</div>
+              <div><div class="project-client-name">Dr. Usman</div><div class="project-client-loc">Saudi Arabia</div></div>
+            </div>
+            <span class="tag tag-blue">In Progress</span>
+          </div>
+          <div class="project-name">Gulf Medical Competitor Audit</div>
+          <div class="project-desc">10 competitor profiles — Gulf region medical influencers & clinics</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--blue)">60%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:60%;background:var(--blue)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 28</strong></div>
+            <div class="project-deliverables">6/10 profiles</div>
+            <span class="tag tag-purple">Competitor</span>
+          </div>
+        </div>
+
+        <!-- TechPak — Brand Identity -->
+        <div class="project-card" data-type="identity" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--blue)">TP</div>
+              <div><div class="project-client-name">TechPak Solutions</div><div class="project-client-loc">Karachi</div></div>
+            </div>
+            <span class="tag tag-green">Complete</span>
+          </div>
+          <div class="project-name">SaaS Brand Identity</div>
+          <div class="project-desc">Logo system, product UI colors, brand guide, icon set, pitch deck template</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--green)">100%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:100%;background:var(--green)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Done <strong>Apr 5</strong></div>
+            <div class="project-deliverables">8/8 deliverables</div>
+            <span class="tag tag-yellow">Identity</span>
+          </div>
+        </div>
+
+        <!-- TechPak — GTM Strategy -->
+        <div class="project-card" data-type="gtm" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--blue)">TP</div>
+              <div><div class="project-client-name">TechPak Solutions</div><div class="project-client-loc">Karachi</div></div>
+            </div>
+            <span class="tag tag-blue">In Progress</span>
+          </div>
+          <div class="project-name">Pakistan B2B GTM Strategy</div>
+          <div class="project-desc">ICP mapping, channel strategy, lead gen playbook, sales deck, pricing tiers</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--blue)">40%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:40%;background:var(--blue)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>May 5</strong></div>
+            <div class="project-deliverables">2/5 deliverables</div>
+            <span class="tag tag-green">GTM</span>
+          </div>
+        </div>
+
+        <!-- TechPak — Market Research -->
+        <div class="project-card" data-type="research" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--blue)">TP</div>
+              <div><div class="project-client-name">TechPak Solutions</div><div class="project-client-loc">Karachi</div></div>
+            </div>
+            <span class="tag tag-blue">In Progress</span>
+          </div>
+          <div class="project-name">Pakistan SaaS Market Research</div>
+          <div class="project-desc">TAM/SAM/SOM analysis, buyer persona deep-dives, market sizing report</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--purple)">65%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:65%;background:var(--purple)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 25</strong></div>
+            <div class="project-deliverables">3/5 sections</div>
+            <span class="tag tag-blue">Research</span>
+          </div>
+        </div>
+
+        <!-- DXB Retail — Brand Identity -->
+        <div class="project-card" data-type="identity" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--purple)">DG</div>
+              <div><div class="project-client-name">DXB Retail Group</div><div class="project-client-loc">Dubai</div></div>
+            </div>
+            <span class="tag tag-green">Complete</span>
+          </div>
+          <div class="project-name">Retail Brand Refresh</div>
+          <div class="project-desc">Multi-brand identity system, in-store visual guidelines, packaging templates</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--green)">100%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:100%;background:var(--green)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Done <strong>Mar 28</strong></div>
+            <div class="project-deliverables">10/10 deliverables</div>
+            <span class="tag tag-yellow">Identity</span>
+          </div>
+        </div>
+
+        <!-- DXB Retail — GTM Strategy -->
+        <div class="project-card" data-type="gtm" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--purple)">DG</div>
+              <div><div class="project-client-name">DXB Retail Group</div><div class="project-client-loc">Dubai</div></div>
+            </div>
+            <span class="tag tag-blue">In Progress</span>
+          </div>
+          <div class="project-name">UAE E-commerce GTM Plan</div>
+          <div class="project-desc">Dubai + Sharjah market entry, channel mix, influencer strategy, launch calendar</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--orange)">70%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:70%;background:var(--orange)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 22</strong></div>
+            <div class="project-deliverables">4/6 deliverables</div>
+            <span class="tag tag-green">GTM</span>
+          </div>
+        </div>
+
+        <!-- DXB Retail — Competitor Analysis -->
+        <div class="project-card" data-type="competitor" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--purple)">DG</div>
+              <div><div class="project-client-name">DXB Retail Group</div><div class="project-client-loc">Dubai</div></div>
+            </div>
+            <span class="tag tag-yellow">In Review</span>
+          </div>
+          <div class="project-name">UAE Retail Competitor Audit</div>
+          <div class="project-desc">15 competitor deep-dives — pricing, social presence, ad spend estimates, brand positioning</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--yellow)">90%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:90%;background:var(--yellow)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 19</strong></div>
+            <div class="project-deliverables">14/15 profiles</div>
+            <span class="tag tag-purple">Competitor</span>
+          </div>
+        </div>
+
+        <!-- NovaMed — Positioning -->
+        <div class="project-card" data-type="positioning" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--teal)">NM</div>
+              <div><div class="project-client-name">NovaMed Clinic</div><div class="project-client-loc">Riyadh</div></div>
+            </div>
+            <span class="tag tag-blue">In Progress</span>
+          </div>
+          <div class="project-name">Clinic Brand Positioning</div>
+          <div class="project-desc">Patient persona mapping, clinic differentiators, Arabic messaging framework</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--teal)">50%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:50%;background:var(--teal)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>May 1</strong></div>
+            <div class="project-deliverables">3/6 deliverables</div>
+            <span class="tag tag-teal">Positioning</span>
+          </div>
+        </div>
+
+        <!-- EduPath — Brand Identity -->
+        <div class="project-card" data-type="identity" onclick="openModal('projectDetailModal')">
+          <div class="project-card-top">
+            <div class="project-client">
+              <div class="project-avatar" style="background:var(--yellow)">EP</div>
+              <div><div class="project-client-name">EduPath Online</div><div class="project-client-loc">Lahore</div></div>
+            </div>
+            <span class="tag tag-red">Behind</span>
+          </div>
+          <div class="project-name">EdTech Brand Identity</div>
+          <div class="project-desc">Logo, colors, typography, social media kit, e-learning UI color system</div>
+          <div class="project-progress-label"><span>Progress</span><span style="color:var(--red)">30%</span></div>
+          <div class="progress"><div class="progress-fill" style="width:30%;background:var(--red)"></div></div>
+          <div class="project-footer">
+            <div class="project-due">Due <strong>Apr 20</strong></div>
+            <div class="project-deliverables">2/7 deliverables</div>
+            <span class="tag tag-yellow">Identity</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Section: Deliverables + Competitor Tracker -->
+      <div class="g21">
+
+        <!-- Pending Deliverables -->
+        <div class="card">
+          <div class="section-title">
+            Pending Deliverables
+            <span class="section-link" onclick="toast('Full deliverables view coming soon','info')">View all</span>
+          </div>
+          <div class="checklist">
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">Brand guide PDF — final version</div>
+              <div class="check-client">Dr. Usman</div>
+              <span class="check-due urgent">Today</span>
+            </div>
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">UAE retail competitor report (final 1 profile)</div>
+              <div class="check-client">DXB Retail</div>
+              <span class="check-due urgent">Apr 19</span>
+            </div>
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">EduPath logo suite (3 variants)</div>
+              <div class="check-client">EduPath</div>
+              <span class="check-due urgent">Apr 20</span>
+            </div>
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">UAE GTM launch calendar</div>
+              <div class="check-client">DXB Retail</div>
+              <span class="check-due soon">Apr 22</span>
+            </div>
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">TechPak market research — TAM/SAM section</div>
+              <div class="check-client">TechPak</div>
+              <span class="check-due soon">Apr 25</span>
+            </div>
+            <div class="check-item">
+              <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
+              <div class="check-label">Gulf competitor audit — 4 remaining profiles</div>
+              <div class="check-client">Dr. Usman</div>
+              <span class="check-due ok">Apr 28</span>
+            </div>
+            <div class="check-item done">
+              <div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
+              <div class="check-label">Authority positioning strategy document</div>
+              <div class="check-client">Dr. Usman</div>
+              <span class="check-due ok">Done</span>
+            </div>
+            <div class="check-item done">
+              <div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
+              <div class="check-label">SaaS brand identity full kit</div>
+              <div class="check-client">TechPak</div>
+              <span class="check-due ok">Done</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Competitor Tracker -->
+        <div class="card">
+          <div class="section-title">Competitor Tracker</div>
+          <div class="tbl-wrap" style="border-radius:var(--rs)">
+            <table class="tbl">
+              <thead><tr><th>Competitor</th><th>Client</th><th>Category</th><th>Social</th><th>Threat</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><div class="tbl-name">Dr. Khalid Clinic</div><div class="tbl-sub">Saudi Arabia</div></td>
+                  <td><span class="tag tag-orange" style="font-size:10px">DU</span></td>
+                  <td>Medical Authority</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:75%;background:var(--orange)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">75%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-red">High</span></td>
+                </tr>
+                <tr>
+                  <td><div class="tbl-name">Gulf Med Today</div><div class="tbl-sub">UAE</div></td>
+                  <td><span class="tag tag-orange" style="font-size:10px">DU</span></td>
+                  <td>Medical Media</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:90%;background:var(--red)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">90%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-red">High</span></td>
+                </tr>
+                <tr>
+                  <td><div class="tbl-name">Noon.com</div><div class="tbl-sub">UAE</div></td>
+                  <td><span class="tag tag-purple" style="font-size:10px">DG</span></td>
+                  <td>E-commerce</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:95%;background:var(--red)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">95%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-red">High</span></td>
+                </tr>
+                <tr>
+                  <td><div class="tbl-name">Namshi</div><div class="tbl-sub">Dubai</div></td>
+                  <td><span class="tag tag-purple" style="font-size:10px">DG</span></td>
+                  <td>Fashion Retail</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:80%;background:var(--orange)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">80%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-yellow">Medium</span></td>
+                </tr>
+                <tr>
+                  <td><div class="tbl-name">Arbisoft</div><div class="tbl-sub">Lahore</div></td>
+                  <td><span class="tag tag-blue" style="font-size:10px">TP</span></td>
+                  <td>B2B SaaS / Dev</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:65%;background:var(--yellow)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">65%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-yellow">Medium</span></td>
+                </tr>
+                <tr>
+                  <td><div class="tbl-name">Systems Ltd</div><div class="tbl-sub">Karachi</div></td>
+                  <td><span class="tag tag-blue" style="font-size:10px">TP</span></td>
+                  <td>Enterprise SaaS</td>
+                  <td>
+                    <div class="comp-strength">
+                      <div class="comp-bar"><div class="comp-bar-fill" style="width:50%;background:var(--green)"></div></div>
+                      <span style="font-size:10px;color:var(--text2)">50%</span>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-green">Low</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="page" id="page-social">
