@@ -3400,6 +3400,88 @@ body{
   </div>
 </div>
 
+<!-- ── ADD PLATFORM MODAL ── -->
+<div class="modal-overlay" id="addPlatformModal" onclick="if(event.target===this)closeModal('addPlatformModal')">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <div class="modal-title" id="addPlat-title">Add Platform</div>
+      <button class="modal-close" onclick="closeModal('addPlatformModal')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Platform</label>
+      <select class="form-select" id="addPlat-platform" onchange="updatePlatformIcon(this.value)">
+        <option value="Instagram">📸 Instagram</option>
+        <option value="TikTok">🎵 TikTok</option>
+        <option value="LinkedIn">💼 LinkedIn</option>
+        <option value="Facebook">📘 Facebook</option>
+        <option value="YouTube">▶️ YouTube</option>
+        <option value="X (Twitter)">✖ X (Twitter)</option>
+        <option value="Snapchat">👻 Snapchat</option>
+        <option value="Pinterest">📌 Pinterest</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Handle / Page Name</label>
+      <input class="form-input" id="addPlat-handle" placeholder="e.g. @brandname">
+    </div>
+    <div class="g2">
+      <div class="form-group">
+        <label class="form-label">Followers</label>
+        <input class="form-input" id="addPlat-followers" placeholder="e.g. 12K">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Engagement Rate</label>
+        <input class="form-input" id="addPlat-eng" placeholder="e.g. 4.2%">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addPlatformModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="savePlatform()">Add Platform</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── EDIT PLATFORM MODAL ── -->
+<div class="modal-overlay" id="editPlatformModal" onclick="if(event.target===this)closeModal('editPlatformModal')">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <div class="modal-title" id="editPlat-title">Edit Platform</div>
+      <button class="modal-close" onclick="closeModal('editPlatformModal')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Handle / Page Name</label>
+      <input class="form-input" id="editPlat-handle" placeholder="@handle">
+    </div>
+    <div class="g2">
+      <div class="form-group">
+        <label class="form-label">Followers</label>
+        <input class="form-input" id="editPlat-followers" placeholder="e.g. 12K">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Engagement Rate</label>
+        <input class="form-input" id="editPlat-eng" placeholder="e.g. 4.2%">
+      </div>
+    </div>
+    <div class="g2">
+      <div class="form-group">
+        <label class="form-label">Growth This Month</label>
+        <input class="form-input" id="editPlat-growth" placeholder="e.g. +2.4%">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Trend</label>
+        <select class="form-select" id="editPlat-trend">
+          <option value="true">Up</option>
+          <option value="false">Down</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editPlatformModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditPlatform()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── NEW BRAND PROJECT MODAL ── -->
 <div class="modal-overlay" id="newBrandProjectModal" onclick="if(event.target===this)closeModal('newBrandProjectModal')">
   <div class="modal" style="max-width:560px">
@@ -4453,8 +4535,12 @@ function switchSocialClient(key) {
 
   const platCols = Math.min(d.platforms.length, 4);
 
-  const platCards = d.platforms.map(p => `
-    <div class="platform-card">
+  const platCards = d.platforms.map((p, i) => `
+    <div class="platform-card" style="position:relative">
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <button onclick="openEditPlatform('${key}',${i})" title="Edit" style="width:22px;height:22px;border-radius:5px;border:1px solid var(--border2);background:var(--bg);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--text2)">✏️</button>
+        <button onclick="removePlatform('${key}',${i})" title="Remove" style="width:22px;height:22px;border-radius:5px;border:1px solid var(--border2);background:var(--bg);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:var(--red)">✕</button>
+      </div>
       <div class="platform-icon" style="background:${p.bg}">${p.icon}</div>
       <div class="platform-name">${p.name}</div>
       <div class="platform-stat">${p.handle}</div>
@@ -4500,8 +4586,9 @@ function switchSocialClient(key) {
         <div class="brand-social-sub">${d.platforms.length} platforms \u00b7 ${d.kpis.posts} posts this month \u00b7 ${d.kpis.reach} total reach</div>
         <div class="brand-plat-pills">${pills}</div>
       </div>
-      <div style="display:flex;gap:8px;flex-shrink:0">
+      <div style="display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end">
         <button class="btn btn-ghost btn-sm" onclick="injectPrompt('Write 5 caption ideas for ${d.name}: ')">&#10022; AI Captions</button>
+        <button class="btn btn-secondary btn-sm" onclick="openAddPlatform('${key}')">+ Add Platform</button>
         <button class="btn btn-primary btn-sm" onclick="openModal('newPostModal')">+ Schedule Post</button>
       </div>
     </div>
@@ -4530,6 +4617,80 @@ function switchSocialClient(key) {
         </div>
       </div>
     </div>`;
+}
+
+// ═══════════════════════════════════════
+// SOCIAL — PLATFORM CRUD
+// ═══════════════════════════════════════
+const platformMeta = {
+  'Instagram':  { icon:'📸', bg:'rgba(219,39,119,.12)' },
+  'TikTok':     { icon:'🎵', bg:'rgba(0,0,0,.05)' },
+  'LinkedIn':   { icon:'💼', bg:'rgba(37,99,235,.08)' },
+  'Facebook':   { icon:'📘', bg:'rgba(37,99,235,.06)' },
+  'YouTube':    { icon:'▶️', bg:'rgba(220,38,38,.08)' },
+  'X (Twitter)':{ icon:'✖',  bg:'rgba(0,0,0,.05)' },
+  'Snapchat':   { icon:'👻', bg:'rgba(255,252,0,.12)' },
+  'Pinterest':  { icon:'📌', bg:'rgba(230,0,35,.08)' },
+};
+
+let _editKey = null, _editIdx = null;
+
+function openAddPlatform(key) {
+  _editKey = key;
+  document.getElementById('addPlat-title').textContent = 'Add Platform — ' + socialData[key].name;
+  document.getElementById('addPlat-handle').value = '';
+  document.getElementById('addPlat-followers').value = '';
+  document.getElementById('addPlat-eng').value = '';
+  openModal('addPlatformModal');
+}
+
+function savePlatform() {
+  const key = _editKey;
+  const platName = document.getElementById('addPlat-platform').value;
+  const handle   = document.getElementById('addPlat-handle').value.trim();
+  const followers= document.getElementById('addPlat-followers').value.trim() || '0';
+  const eng      = document.getElementById('addPlat-eng').value.trim() || '0%';
+  if (!handle) { toast('Enter a handle or page name', 'error'); return; }
+  const meta = platformMeta[platName] || { icon:'🔗', bg:'rgba(0,0,0,.05)' };
+  socialData[key].platforms.push({
+    icon: meta.icon, name: platName, handle, followers, eng,
+    growth: '+0%', up: true, bg: meta.bg
+  });
+  closeModal('addPlatformModal');
+  switchSocialClient(key);
+  toast(platName + ' added to ' + socialData[key].name, 'success');
+}
+
+function openEditPlatform(key, idx) {
+  _editKey = key; _editIdx = idx;
+  const p = socialData[key].platforms[idx];
+  document.getElementById('editPlat-title').textContent = 'Edit ' + p.name + ' — ' + socialData[key].name;
+  document.getElementById('editPlat-handle').value   = p.handle;
+  document.getElementById('editPlat-followers').value= p.followers;
+  document.getElementById('editPlat-eng').value      = p.eng;
+  document.getElementById('editPlat-growth').value   = p.growth;
+  document.getElementById('editPlat-trend').value    = String(p.up);
+  openModal('editPlatformModal');
+}
+
+function saveEditPlatform() {
+  const p = socialData[_editKey].platforms[_editIdx];
+  p.handle    = document.getElementById('editPlat-handle').value.trim() || p.handle;
+  p.followers = document.getElementById('editPlat-followers').value.trim() || p.followers;
+  p.eng       = document.getElementById('editPlat-eng').value.trim() || p.eng;
+  p.growth    = document.getElementById('editPlat-growth').value.trim() || p.growth;
+  p.up        = document.getElementById('editPlat-trend').value === 'true';
+  closeModal('editPlatformModal');
+  switchSocialClient(_editKey);
+  toast('Platform updated', 'success');
+}
+
+function removePlatform(key, idx) {
+  const p = socialData[key].platforms[idx];
+  if (!confirm('Remove ' + p.name + ' from ' + socialData[key].name + '?')) return;
+  socialData[key].platforms.splice(idx, 1);
+  switchSocialClient(key);
+  toast(p.name + ' removed', 'info');
 }
 
 // ═══════════════════════════════════════
