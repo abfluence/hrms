@@ -2026,6 +2026,23 @@ body{
           <tbody id="clients-tbody"></tbody>
         </table>
       </div>
+
+      <!-- Client History -->
+      <div id="client-history-wrap" style="margin-top:24px;display:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer" onclick="toggleClientHistory()">
+          <div style="font-size:13px;font-weight:600;color:var(--text2)">Client History</div>
+          <span id="client-history-count" style="background:var(--surface2);color:var(--text2);font-size:11px;padding:2px 8px;border-radius:20px">0</span>
+          <svg id="client-history-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:var(--text2);transition:.2s"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div id="client-history-table" style="display:none">
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Client</th><th>Industry</th><th>Package</th><th>MRR</th><th>Location</th><th>Removed</th></tr></thead>
+              <tbody id="client-history-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ══════════ DEALS & PROPOSALS ══════════ -->
@@ -3282,6 +3299,26 @@ const clientData = {
   gulfstyle:   { name:'GulfStyle Fashion', sub:'Fashion · Dubai · Growth Accelerator', initials:'GS', color:'var(--red)', mrr:'$350', health:'55%', contact:'Rania Al-Hassan', industry:'Fashion / E-commerce', location:'Dubai, UAE', since:'January 2025', pkg:'Growth Accelerator' },
 };
 
+// ═══════════════════════════════════════════════════════════════
+// ACTIVE CLIENT RULE — used by ALL sections, present and future
+// ─────────────────────────────────────────────────────────────
+// When building any new section that shows per-client data:
+//   • Filter arrays/objects with: activeClientNames().has(item.client)
+//   • Filter keys with:           isActiveClientKey(key)
+//   • Deleted clients live in clientHistory — shown only in Clients › History
+// ═══════════════════════════════════════════════════════════════
+const clientHistory = {};  // { [key]: { ...clientData fields, removedAt: ISO string } }
+
+function activeClientNames() {
+  return new Set(Object.values(clientData).map(c => c.name));
+}
+function isActiveClientKey(key) {
+  return key in clientData;
+}
+function isActiveClient(name) {
+  return activeClientNames().has(name);
+}
+
 function openClientProfile(key) {
   const d = clientData[key];
   if (!d) return;
@@ -4179,7 +4216,7 @@ function filterProjects(type, el) {
 // ═══════════════════════════════════════
 const LS_KEY = 'abfluence_hrms_v1';
 function saveAll() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({ clientData, leadData, socialData, projectData })); } catch(e) {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ clientData, leadData, socialData, projectData, clientHistory })); } catch(e) {}
 }
 function savePage(pageId) {
   try { localStorage.setItem(LS_KEY + '_page', pageId); } catch(e) {}
@@ -4205,6 +4242,10 @@ function loadAll() {
     if (saved.projectData && Array.isArray(saved.projectData)) {
       projectData.length = 0;
       saved.projectData.forEach(p => projectData.push(p));
+    }
+    if (saved.clientHistory) {
+      Object.keys(clientHistory).forEach(k => delete clientHistory[k]);
+      Object.assign(clientHistory, saved.clientHistory);
     }
   } catch(e) {}
 }
@@ -4239,9 +4280,12 @@ function renderBrandProjects(filterType) {
   if (filterType !== undefined) _activeBrandFilter = filterType;
   const grid = document.getElementById('brandProjectGrid');
   if (!grid) return;
+  // ACTIVE CLIENT RULE: only show projects for active clients
+  const activeNames = activeClientNames();
+  const activeProjects = projectData.filter(p => activeNames.has(p.client));
   const list = (_activeBrandFilter && _activeBrandFilter !== 'all')
-    ? projectData.filter(p => p.type === _activeBrandFilter)
-    : projectData;
+    ? activeProjects.filter(p => p.type === _activeBrandFilter)
+    : activeProjects;
   grid.innerHTML = list.map(p => {
     const st = statusMap[p.status] || statusMap.progress;
     const bc = p.pct >= 80 ? 'var(--green)' : p.pct >= 50 ? 'var(--orange)' : 'var(--red)';
@@ -4458,26 +4502,73 @@ function saveNewClient() {
 function removeClient(key) {
   const c = clientData[key];
   if (!c) return;
-  if (!confirm('Remove ' + c.name + ' from CRM? This cannot be undone.')) return;
+  if (!confirm('Archive ' + c.name + '? They will be removed from all active sections and stored in Client History.')) return;
+
+  // ── Archive to clientHistory ──────────────────────────────
+  clientHistory[key] = { ...c, removedAt: new Date().toISOString() };
   delete clientData[key];
-  // Also remove from socialData if present
+
+  // ── Remove from socialData ────────────────────────────────
   if (socialData[key]) {
     delete socialData[key];
-    // If this was the active social tab, switch to first remaining
     if (activeSocialClient === key) {
-      const firstKey = Object.keys(socialData).find(k => clientData[k]);
+      const firstKey = Object.keys(socialData).find(k => isActiveClientKey(k));
       activeSocialClient = firstKey || '';
     }
     renderSocialTabs();
     if (activeSocialClient) switchSocialClient(activeSocialClient);
   }
+
+  // ── Remove their projects from projectData ────────────────
+  for (let i = projectData.length - 1; i >= 0; i--) {
+    if (projectData[i].client === c.name) projectData.splice(i, 1);
+  }
+
   saveAll();
   renderClientTable();
+  renderClientHistory();
+  renderBrandProjects();
   refreshCommandKPIs();
-  toast(c.name + ' removed', 'info');
+  toast(c.name + ' archived', 'info');
 }
 
 // ═══════════════════════════════════════
+// CLIENT HISTORY
+// ═══════════════════════════════════════
+function renderClientHistory() {
+  const wrap  = document.getElementById('client-history-wrap');
+  const tbody = document.getElementById('client-history-tbody');
+  const count = document.getElementById('client-history-count');
+  if (!wrap || !tbody) return;
+  const keys = Object.keys(clientHistory);
+  if (keys.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  if (count) count.textContent = keys.length;
+  tbody.innerHTML = keys.map(key => {
+    const c = clientHistory[key];
+    const removed = c.removedAt ? new Date(c.removedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    return `<tr style="opacity:.65">
+      <td><div style="display:flex;align-items:center;gap:10px">
+        <div class="avatar" style="background:${c.color};width:30px;height:30px;font-size:11px;filter:grayscale(1)">${c.initials}</div>
+        <div><div class="tbl-name">${c.name}</div><div class="tbl-sub" style="color:var(--red);font-size:10px">Archived</div></div>
+      </div></td>
+      <td style="color:var(--text2)">${c.industry||'—'}</td>
+      <td><span class="tag tag-grey">${c.pkg||'—'}</span></td>
+      <td style="color:var(--text2)">${c.mrr||'—'}</td>
+      <td style="color:var(--text2)">${c.location||'—'}</td>
+      <td style="color:var(--text2);font-size:12px">${removed}</td>
+    </tr>`;
+  }).join('');
+}
+
+function toggleClientHistory() {
+  const table    = document.getElementById('client-history-table');
+  const chevron  = document.getElementById('client-history-chevron');
+  const open = table.style.display === 'none';
+  table.style.display   = open ? 'block' : 'none';
+  if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
+}
+
 // DYNAMIC SOCIAL TABS
 // ═══════════════════════════════════════
 function renderSocialTabs() {
@@ -4595,6 +4686,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sub) sub.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()} — Good ${d.getHours() < 12 ? 'morning' : d.getHours() < 17 ? 'afternoon' : 'evening'}, HR.`;
   renderKanban();
   renderClientTable();
+  renderClientHistory();
   renderBrandProjects('all');
   refreshCommandKPIs();
   renderSocialTabs();
