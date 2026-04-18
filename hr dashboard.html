@@ -1264,6 +1264,26 @@ body{
 .account-stats strong{color:var(--text);font-weight:700}
 
 /* ═══════════════════════════════════════
+   SOCIAL CLIENT SWITCHER
+═══════════════════════════════════════ */
+.social-client-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.social-client-tab{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 10px;border-radius:var(--rx);border:2px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .15s;font-size:13px;font-weight:600;color:var(--text2)}
+.social-client-tab:hover{border-color:currentColor;background:var(--bg)}
+.social-client-tab.active{color:#fff;border-color:transparent}
+.social-client-tab .sct-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.social-client-tab.active .sct-av{background:rgba(255,255,255,.25)}
+.sct-name{white-space:nowrap}
+.sct-count{font-size:10px;opacity:.7;font-weight:500}
+
+.brand-social-header{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.brand-social-av{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.brand-social-info{flex:1}
+.brand-social-name{font-size:18px;font-weight:800;margin-bottom:3px}
+.brand-social-sub{font-size:12px;color:var(--text2)}
+.brand-plat-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.brand-plat-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:var(--rx);border:1px solid var(--border2);background:var(--bg);display:flex;align-items:center;gap:4px}
+
+/* ═══════════════════════════════════════
    VOICE BUTTON
 ═══════════════════════════════════════ */
 .voice-btn{width:38px;height:38px;border-radius:var(--rs);background:var(--bg);border:1px solid var(--border2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
@@ -2821,266 +2841,50 @@ body{
 
     <div class="page" id="page-social">
       <div class="ph">
-        <div class="ph-left"><div class="ph-title">Social Media</div><div class="ph-sub">6 clients · Instagram, TikTok, LinkedIn, Facebook, X, YouTube</div></div>
+        <div class="ph-left"><div class="ph-title">Social Media</div><div class="ph-sub" id="social-sub">Select a brand to manage</div></div>
         <div class="ph-right">
           <button class="btn btn-secondary btn-sm" onclick="toast('Export coming soon','info')">Export Report</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('newPostModal')">+ Schedule Post</button>
         </div>
       </div>
 
-      <!-- Platform KPI Strip -->
-      <div class="platform-strip">
-        <div class="platform-card active-platform" style="border-color:var(--pink)">
-          <div class="platform-icon" style="background:rgba(219,39,119,.1)">📸</div>
-          <div class="platform-name">Instagram</div>
-          <div class="platform-stat">6 accounts · 142K followers</div>
-          <div class="platform-growth up">↑ 3.2% this month</div>
+      <!-- Brand Switcher Tabs -->
+      <div class="social-client-tabs" id="social-client-tabs">
+        <div class="social-client-tab active" id="sct-usman" onclick="switchSocialClient('usman')" style="background:#e8521a;color:#fff;border-color:#e8521a">
+          <div class="sct-av" style="background:rgba(255,255,255,.25)">DU</div>
+          <span class="sct-name">Dr. Usman</span>
+          <span class="sct-count">IG · LI · YT · FB</span>
         </div>
-        <div class="platform-card">
-          <div class="platform-icon" style="background:rgba(0,0,0,.05)">🎵</div>
-          <div class="platform-name">TikTok</div>
-          <div class="platform-stat">3 accounts · 38K followers</div>
-          <div class="platform-growth up">↑ 8.7% this month</div>
+        <div class="social-client-tab" id="sct-techpak" onclick="switchSocialClient('techpak')" style="color:#2563eb">
+          <div class="sct-av" style="background:var(--blue)">TP</div>
+          <span class="sct-name">TechPak</span>
+          <span class="sct-count">LI · YT · X</span>
         </div>
-        <div class="platform-card">
-          <div class="platform-icon" style="background:var(--blue-bg)">💼</div>
-          <div class="platform-name">LinkedIn</div>
-          <div class="platform-stat">4 accounts · 22K followers</div>
-          <div class="platform-growth up">↑ 1.9% this month</div>
+        <div class="social-client-tab" id="sct-dxb" onclick="switchSocialClient('dxb')" style="color:#7c3aed">
+          <div class="sct-av" style="background:var(--purple)">DG</div>
+          <span class="sct-name">DXB Retail</span>
+          <span class="sct-count">IG · FB · TK</span>
         </div>
-        <div class="platform-card">
-          <div class="platform-icon" style="background:rgba(24,119,242,.08)">📘</div>
-          <div class="platform-name">Facebook</div>
-          <div class="platform-stat">4 accounts · 67K followers</div>
-          <div class="platform-growth down">↓ 0.4% this month</div>
+        <div class="social-client-tab" id="sct-ke" onclick="switchSocialClient('ke')" style="color:#db2777">
+          <div class="sct-av" style="background:var(--pink)">KE</div>
+          <span class="sct-name">Karachi Eats</span>
+          <span class="sct-count">IG · FB · TK</span>
         </div>
-        <div class="platform-card">
-          <div class="platform-icon" style="background:rgba(220,38,38,.08)">▶️</div>
-          <div class="platform-name">YouTube</div>
-          <div class="platform-stat">2 accounts · 8.4K subs</div>
-          <div class="platform-growth up">↑ 5.1% this month</div>
+        <div class="social-client-tab" id="sct-edupath" onclick="switchSocialClient('edupath')" style="color:#d97706">
+          <div class="sct-av" style="background:var(--yellow)">EP</div>
+          <span class="sct-name">EduPath</span>
+          <span class="sct-count">IG · LI · YT</span>
+        </div>
+        <div class="social-client-tab" id="sct-gulfstyle" onclick="switchSocialClient('gulfstyle')" style="color:#dc2626">
+          <div class="sct-av" style="background:var(--red)">GS</div>
+          <span class="sct-name">GulfStyle</span>
+          <span class="sct-count">IG · TK · FB</span>
         </div>
       </div>
 
-      <!-- Stats Row -->
-      <div class="g4" style="margin-bottom:20px">
-        <div class="kpi-card"><div class="kpi-label">Posts This Month</div><div class="kpi-value">87</div><div class="kpi-delta positive">+12 vs last month</div></div>
-        <div class="kpi-card"><div class="kpi-label">Avg Engagement Rate</div><div class="kpi-value">4.8%</div><div class="kpi-delta positive">↑ 0.6% vs last month</div></div>
-        <div class="kpi-card"><div class="kpi-label">Total Reach</div><div class="kpi-value">312K</div><div class="kpi-delta positive">↑ 18% vs last month</div></div>
-        <div class="kpi-card"><div class="kpi-label">Scheduled Queue</div><div class="kpi-value">23</div><div class="kpi-delta neutral">Next: Today 6PM</div></div>
-      </div>
+      <!-- Dynamic Brand View -->
+      <div id="social-brand-view"></div>
 
-      <div class="social-layout">
-
-        <!-- LEFT: Content Calendar + Queue -->
-        <div>
-          <!-- Content Calendar -->
-          <div class="content-cal" style="margin-bottom:16px">
-            <div class="cal-header">
-              <div style="font-size:13px;font-weight:700">Content Calendar — April 2026</div>
-              <div style="display:flex;gap:6px">
-                <span class="tag tag-pink" style="font-size:10px">IG</span>
-                <span class="tag" style="background:var(--blue-bg);color:var(--blue);font-size:10px">LI</span>
-                <span class="tag" style="background:rgba(220,38,38,.08);color:var(--red);font-size:10px">YT</span>
-                <span class="tag tag-grey" style="font-size:10px">FB</span>
-                <button class="btn btn-secondary btn-sm" onclick="openModal('newPostModal')">+ Add</button>
-              </div>
-            </div>
-            <div class="cal-grid">
-              <div class="cal-day-header">Mon</div><div class="cal-day-header">Tue</div><div class="cal-day-header">Wed</div><div class="cal-day-header">Thu</div><div class="cal-day-header">Fri</div><div class="cal-day-header">Sat</div><div class="cal-day-header">Sun</div>
-              <!-- Week 1 (Apr 14-20) -->
-              <div class="cal-cell"><div class="cal-date">14</div><div class="cal-post ig">IG · Dr. Usman reel</div><div class="cal-post li">LI · TechPak post</div></div>
-              <div class="cal-cell"><div class="cal-date">15</div><div class="cal-post fb">FB · KE promotion</div></div>
-              <div class="cal-cell"><div class="cal-date">16</div><div class="cal-post ig">IG · DXB product</div><div class="cal-post tk">TK · GulfStyle</div></div>
-              <div class="cal-cell"><div class="cal-date">17</div><div class="cal-post li">LI · NovaMed tip</div></div>
-              <div class="cal-cell"><div class="cal-date today">18</div><div class="cal-post ig">IG · Dr. Usman quote</div><div class="cal-post yt">YT · TechPak demo</div></div>
-              <div class="cal-cell"><div class="cal-date">19</div><div class="cal-post ig">IG · EduPath reel</div></div>
-              <div class="cal-cell"><div class="cal-date">20</div><div class="cal-post fb">FB · DXB weekend sale</div></div>
-              <!-- Week 2 (Apr 21-27) -->
-              <div class="cal-cell"><div class="cal-date">21</div><div class="cal-post ig">IG · Karachi Eats</div><div class="cal-post li">LI · TechPak case</div></div>
-              <div class="cal-cell"><div class="cal-date">22</div><div class="cal-post tk">TK · GulfStyle haul</div></div>
-              <div class="cal-cell"><div class="cal-date">23</div><div class="cal-post ig">IG · Dr. Usman tip</div><div class="cal-post yt">YT · EduPath tutorial</div></div>
-              <div class="cal-cell"><div class="cal-date">24</div><div class="cal-post li">LI · NovaMed article</div><div class="cal-post fb">FB · KE new menu</div></div>
-              <div class="cal-cell"><div class="cal-date">25</div><div class="cal-post ig">IG · DXB new drop</div></div>
-              <div class="cal-cell"><div class="cal-date">26</div><div class="cal-post ig">IG · UGC repost</div><div class="cal-post tk">TK · Dr. Usman</div></div>
-              <div class="cal-cell"><div class="cal-date">27</div><div class="cal-post fb">FB · GulfStyle ad</div></div>
-              <!-- Week 3 (Apr 28-30) -->
-              <div class="cal-cell"><div class="cal-date">28</div><div class="cal-post ig">IG · TechPak team</div><div class="cal-post li">LI · DXB B2B</div></div>
-              <div class="cal-cell"><div class="cal-date">29</div><div class="cal-post yt">YT · Dr. Usman vlog</div></div>
-              <div class="cal-cell"><div class="cal-date">30</div><div class="cal-post ig">IG · Month wrap</div><div class="cal-post tk">TK · Karachi Eats</div></div>
-              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
-            </div>
-          </div>
-
-          <!-- Upcoming Queue -->
-          <div class="card">
-            <div class="section-title">Scheduled Queue <span class="section-link" onclick="openModal('newPostModal')">+ Add post</span></div>
-            <div class="post-queue">
-              <div class="queue-item">
-                <div class="queue-platform" style="background:rgba(219,39,119,.1)">📸</div>
-                <div class="queue-body">
-                  <div class="queue-caption">Authority in medicine isn't just about credentials — it's about showing up daily… [Dr. Usman quote reel]</div>
-                  <div class="queue-meta"><span>Dr. Usman</span><span>Today · 6:00 PM</span><span>Instagram</span></div>
-                </div>
-                <span class="queue-status qs-scheduled">Scheduled</span>
-              </div>
-              <div class="queue-item">
-                <div class="queue-platform" style="background:rgba(220,38,38,.08)">▶️</div>
-                <div class="queue-body">
-                  <div class="queue-caption">How TechPak built a SaaS product used by 200+ companies — full demo walkthrough</div>
-                  <div class="queue-meta"><span>TechPak</span><span>Today · 8:00 PM</span><span>YouTube</span></div>
-                </div>
-                <span class="queue-status qs-scheduled">Scheduled</span>
-              </div>
-              <div class="queue-item">
-                <div class="queue-platform" style="background:rgba(219,39,119,.1)">📸</div>
-                <div class="queue-body">
-                  <div class="queue-caption">New collection just dropped ✨ Dubai's hottest fashion finds this spring [DXB Retail]</div>
-                  <div class="queue-meta"><span>DXB Retail</span><span>Apr 19 · 12:00 PM</span><span>Instagram + Facebook</span></div>
-                </div>
-                <span class="queue-status qs-review">In Review</span>
-              </div>
-              <div class="queue-item">
-                <div class="queue-platform" style="background:rgba(0,0,0,.05)">🎵</div>
-                <div class="queue-body">
-                  <div class="queue-caption">POV: You hired an agency and your reach went 10x in 30 days [GulfStyle haul]</div>
-                  <div class="queue-meta"><span>GulfStyle</span><span>Apr 22 · 7:00 PM</span><span>TikTok</span></div>
-                </div>
-                <span class="queue-status qs-draft">Draft</span>
-              </div>
-              <div class="queue-item">
-                <div class="queue-platform" style="background:var(--blue-bg)">💼</div>
-                <div class="queue-body">
-                  <div class="queue-caption">Case study: How we grew a healthcare brand's LinkedIn from 800 to 12,000 followers in 6 months</div>
-                  <div class="queue-meta"><span>NovaMed</span><span>Apr 24 · 9:00 AM</span><span>LinkedIn</span></div>
-                </div>
-                <span class="queue-status qs-draft">Draft</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT SIDEBAR -->
-        <div>
-          <!-- Client Accounts -->
-          <div class="card" style="margin-bottom:14px">
-            <div class="section-title">Client Accounts</div>
-            <div class="account-row">
-              <div class="account-plat" style="background:rgba(219,39,119,.1)">📸</div>
-              <div class="account-info">
-                <div class="account-name">Dr. Usman</div>
-                <div class="account-handle">@drusmanliaqat · IG + LI + YT + FB</div>
-                <div class="account-stats"><span>Followers: <strong>48K</strong></span><span>Eng: <strong>6.2%</strong></span></div>
-              </div>
-              <span class="badge badge-green">Active</span>
-            </div>
-            <div class="account-row">
-              <div class="account-plat" style="background:var(--blue-bg)">💼</div>
-              <div class="account-info">
-                <div class="account-name">TechPak Solutions</div>
-                <div class="account-handle">@techpakpk · LI + YT + X</div>
-                <div class="account-stats"><span>Followers: <strong>12K</strong></span><span>Eng: <strong>3.8%</strong></span></div>
-              </div>
-              <span class="badge badge-green">Active</span>
-            </div>
-            <div class="account-row">
-              <div class="account-plat" style="background:rgba(219,39,119,.1)">📸</div>
-              <div class="account-info">
-                <div class="account-name">DXB Retail Group</div>
-                <div class="account-handle">@dxbretail · IG + FB + TK</div>
-                <div class="account-stats"><span>Followers: <strong>31K</strong></span><span>Eng: <strong>4.1%</strong></span></div>
-              </div>
-              <span class="badge badge-green">Active</span>
-            </div>
-            <div class="account-row">
-              <div class="account-plat" style="background:rgba(219,39,119,.1)">📸</div>
-              <div class="account-info">
-                <div class="account-name">Karachi Eats</div>
-                <div class="account-handle">@karachieats · IG + FB + TK</div>
-                <div class="account-stats"><span>Followers: <strong>22K</strong></span><span>Eng: <strong>5.9%</strong></span></div>
-              </div>
-              <span class="badge badge-green">Active</span>
-            </div>
-            <div class="account-row">
-              <div class="account-plat" style="background:var(--yellow-bg)">🎓</div>
-              <div class="account-info">
-                <div class="account-name">EduPath Online</div>
-                <div class="account-handle">@edupathpk · IG + LI + YT</div>
-                <div class="account-stats"><span>Followers: <strong>9K</strong></span><span>Eng: <strong>3.2%</strong></span></div>
-              </div>
-              <span class="badge" style="background:var(--yellow-bg);color:var(--yellow)">Review</span>
-            </div>
-            <div class="account-row">
-              <div class="account-plat" style="background:var(--red-bg)">👗</div>
-              <div class="account-info">
-                <div class="account-name">GulfStyle Fashion</div>
-                <div class="account-handle">@gulfstylee · IG + TK + FB</div>
-                <div class="account-stats"><span>Followers: <strong>20K</strong></span><span>Eng: <strong>2.8%</strong></span></div>
-              </div>
-              <span class="badge badge-yellow">At Risk</span>
-            </div>
-          </div>
-
-          <!-- Top Performers -->
-          <div class="card" style="margin-bottom:14px">
-            <div class="section-title">Top Posts This Month</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;gap:10px;align-items:center">
-                <div style="width:36px;height:36px;border-radius:8px;background:rgba(219,39,119,.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📸</div>
-                <div style="flex:1;min-width:0">
-                  <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Dr. Usman clinic tour reel</div>
-                  <div style="font-size:10px;color:var(--text2)">Instagram · 142K reach · 8.4% eng</div>
-                </div>
-                <span class="tag tag-green" style="font-size:9px">🔥 Top</span>
-              </div>
-              <div style="display:flex;gap:10px;align-items:center">
-                <div style="width:36px;height:36px;border-radius:8px;background:rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🎵</div>
-                <div style="flex:1;min-width:0">
-                  <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Karachi Eats food challenge</div>
-                  <div style="font-size:10px;color:var(--text2)">TikTok · 88K views · 9.1% eng</div>
-                </div>
-                <span class="tag tag-green" style="font-size:9px">🔥 Top</span>
-              </div>
-              <div style="display:flex;gap:10px;align-items:center">
-                <div style="width:36px;height:36px;border-radius:8px;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">💼</div>
-                <div style="flex:1;min-width:0">
-                  <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">TechPak SaaS growth story</div>
-                  <div style="font-size:10px;color:var(--text2)">LinkedIn · 24K impressions · 4.2%</div>
-                </div>
-                <span class="tag" style="background:var(--blue-bg);color:var(--blue);font-size:9px">Strong</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Pending Actions -->
-          <div class="card">
-            <div class="section-title">Needs Attention</div>
-            <div class="checklist">
-              <div class="check-item">
-                <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
-                <div class="check-label">DXB Retail — Apr 19 post needs client approval</div>
-                <span class="check-due urgent">Today</span>
-              </div>
-              <div class="check-item">
-                <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
-                <div class="check-label">GulfStyle — 3 TikTok drafts waiting for review</div>
-                <span class="check-due urgent">Apr 20</span>
-              </div>
-              <div class="check-item">
-                <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
-                <div class="check-label">EduPath — Monthly content calendar not approved</div>
-                <span class="check-due soon">Apr 21</span>
-              </div>
-              <div class="check-item">
-                <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
-                <div class="check-label">Dr. Usman — Ramadan campaign debrief report due</div>
-                <span class="check-due ok">Apr 28</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /social-layout -->
     </div>
 
     <div class="page" id="page-paid">
@@ -4481,6 +4285,254 @@ function syncFluenceDot(online) {
 }
 
 // ═══════════════════════════════════════
+// SOCIAL MEDIA — CLIENT SWITCHER
+// ═══════════════════════════════════════
+const socialData = {
+  usman: {
+    name:'Dr. Usman', initials:'DU', color:'#e8521a', tabId:'sct-usman',
+    platforms:[
+      {icon:'📸',name:'Instagram',handle:'@drusmanliaqat',followers:'32K',eng:'6.8%',growth:'+2.4%',up:true,bg:'rgba(219,39,119,.12)'},
+      {icon:'💼',name:'LinkedIn',handle:'@drusmanliaqat',followers:'12K',eng:'4.2%',growth:'+1.8%',up:true,bg:'rgba(37,99,235,.08)'},
+      {icon:'▶️',name:'YouTube',handle:'@drusmanofficial',followers:'3.2K',eng:'5.1%',growth:'+8.3%',up:true,bg:'rgba(220,38,38,.08)'},
+      {icon:'📘',name:'Facebook',handle:'Dr. Usman Liaqat',followers:'8K',eng:'2.1%',growth:'-0.3%',up:false,bg:'rgba(37,99,235,.06)'},
+    ],
+    kpis:{posts:'18',eng:'6.2%',reach:'142K',scheduled:'6'},
+    queue:[
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:"Authority in medicine isn't just credentials — it's showing up daily…",meta:'Instagram · Today 6:00 PM',status:'qs-scheduled',label:'Scheduled'},
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'Behind the scenes: a full day at my Riyadh clinic',meta:'YouTube · Apr 19 · 8:00 PM',status:'qs-review',label:'In Review'},
+      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'3 signs your healthcare brand needs a rebrand in 2026',meta:'LinkedIn · Apr 21 · 9:00 AM',status:'qs-draft',label:'Draft'},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Patient success story — from chronic pain to full recovery',meta:'Instagram · Apr 23 · 7:00 PM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Clinic tour reel — Riyadh',sub:'Instagram · 142K reach · 8.4% eng',tag:'Top',tc:'tag-green'},
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'Morning routine of a surgeon',sub:'YouTube · 28K views · 6.1% eng',tag:'Strong',tc:''},
+    ],
+    checks:[
+      {label:'Brand guide PDF — final version',due:'Today',urgent:true},
+      {label:'Gulf competitor audit — 4 remaining profiles',due:'Apr 28',urgent:false},
+    ]
+  },
+  techpak: {
+    name:'TechPak Solutions', initials:'TP', color:'#2563eb', tabId:'sct-techpak',
+    platforms:[
+      {icon:'💼',name:'LinkedIn',handle:'@techpakpk',followers:'9K',eng:'3.8%',growth:'+2.1%',up:true,bg:'rgba(37,99,235,.08)'},
+      {icon:'▶️',name:'YouTube',handle:'@techpakofficial',followers:'2.1K',eng:'4.4%',growth:'+6.2%',up:true,bg:'rgba(220,38,38,.08)'},
+      {icon:'✖',name:'X (Twitter)',handle:'@techpakpk',followers:'1K',eng:'1.2%',growth:'+0.4%',up:true,bg:'rgba(0,0,0,.05)'},
+    ],
+    kpis:{posts:'12',eng:'3.8%',reach:'38K',scheduled:'4'},
+    queue:[
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'How TechPak built a SaaS used by 200+ companies — full demo',meta:'YouTube · Today 8:00 PM',status:'qs-scheduled',label:'Scheduled'},
+      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'Case study: 0 to 200 B2B clients in 18 months',meta:'LinkedIn · Apr 21 · 9:00 AM',status:'qs-review',label:'In Review'},
+      {icon:'✖',bg:'rgba(0,0,0,.05)',caption:'Hot take: most Pakistani SaaS founders build for the wrong market',meta:'X · Apr 22 · 2:00 PM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'💼',bg:'rgba(37,99,235,.08)',title:'SaaS growth story post',sub:'LinkedIn · 24K impressions · 4.2% eng',tag:'Strong',tc:''},
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'Product demo walkthrough',sub:'YouTube · 12K views · 5.8% eng',tag:'Top',tc:'tag-green'},
+    ],
+    checks:[
+      {label:'LinkedIn case study — needs final approval',due:'Apr 21',urgent:false},
+      {label:'YouTube thumbnail set — 3 videos backlog',due:'Apr 25',urgent:false},
+    ]
+  },
+  dxb: {
+    name:'DXB Retail Group', initials:'DG', color:'#7c3aed', tabId:'sct-dxb',
+    platforms:[
+      {icon:'📸',name:'Instagram',handle:'@dxbretail',followers:'18K',eng:'4.1%',growth:'+3.3%',up:true,bg:'rgba(219,39,119,.12)'},
+      {icon:'📘',name:'Facebook',handle:'DXB Retail Group',followers:'11K',eng:'2.8%',growth:'-0.2%',up:false,bg:'rgba(37,99,235,.06)'},
+      {icon:'🎵',name:'TikTok',handle:'@dxbretail',followers:'2K',eng:'7.2%',growth:'+12%',up:true,bg:'rgba(0,0,0,.05)'},
+    ],
+    kpis:{posts:'22',eng:'4.1%',reach:'74K',scheduled:'5'},
+    queue:[
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:"New collection just dropped — Dubai's hottest fashion finds this spring",meta:'Instagram + Facebook · Apr 19 · 12:00 PM',status:'qs-review',label:'In Review'},
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:'POV: Shopping at DXB Retail — 5 items under AED 200',meta:'TikTok · Apr 22 · 6:00 PM',status:'qs-draft',label:'Draft'},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Weekend flash sale — 30% off sitewide. Link in bio.',meta:'Instagram · Apr 26 · 10:00 AM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Summer collection launch reel',sub:'Instagram · 62K reach · 5.8% eng',tag:'Top',tc:'tag-green'},
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Product unboxing haul',sub:'TikTok · 34K views · 7.2% eng',tag:'Strong',tc:''},
+    ],
+    checks:[
+      {label:'Apr 19 Instagram post needs client approval',due:'Today',urgent:true},
+      {label:'UAE GTM launch calendar — final review',due:'Apr 22',urgent:false},
+    ]
+  },
+  ke: {
+    name:'Karachi Eats', initials:'KE', color:'#db2777', tabId:'sct-ke',
+    platforms:[
+      {icon:'📸',name:'Instagram',handle:'@karachieats',followers:'14K',eng:'5.9%',growth:'+4.1%',up:true,bg:'rgba(219,39,119,.12)'},
+      {icon:'📘',name:'Facebook',handle:'Karachi Eats',followers:'6K',eng:'3.2%',growth:'+0.8%',up:true,bg:'rgba(37,99,235,.06)'},
+      {icon:'🎵',name:'TikTok',handle:'@karachieats',followers:'2K',eng:'9.1%',growth:'+18%',up:true,bg:'rgba(0,0,0,.05)'},
+    ],
+    kpis:{posts:'20',eng:'5.9%',reach:'54K',scheduled:'4'},
+    queue:[
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'New menu alert — Try our signature Nihari now available for delivery',meta:'Instagram · Apr 20 · 1:00 PM',status:'qs-scheduled',label:'Scheduled'},
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:"ASMR: Making Karachi's best biryani from scratch",meta:'TikTok · Apr 22 · 7:00 PM',status:'qs-draft',label:'Draft'},
+      {icon:'📘',bg:'rgba(37,99,235,.06)',caption:'Weekend special: Family deal for 4 starting at Rs. 2,999',meta:'Facebook · Apr 26 · 11:00 AM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Food challenge — biryani eating contest',sub:'TikTok · 88K views · 9.1% eng',tag:'Top',tc:'tag-green'},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'New menu launch reel',sub:'Instagram · 32K reach · 6.4% eng',tag:'Strong',tc:''},
+    ],
+    checks:[
+      {label:'Monthly content calendar — needs sign-off',due:'Apr 20',urgent:false},
+      {label:'Ramadan wrap video — edit pending',due:'Apr 28',urgent:false},
+    ]
+  },
+  edupath: {
+    name:'EduPath Online', initials:'EP', color:'#d97706', tabId:'sct-edupath',
+    platforms:[
+      {icon:'📸',name:'Instagram',handle:'@edupathpk',followers:'5K',eng:'3.2%',growth:'+1.1%',up:true,bg:'rgba(219,39,119,.12)'},
+      {icon:'💼',name:'LinkedIn',handle:'@edupathpk',followers:'3K',eng:'2.8%',growth:'+1.4%',up:true,bg:'rgba(37,99,235,.08)'},
+      {icon:'▶️',name:'YouTube',handle:'@edupathonline',followers:'1K',eng:'3.6%',growth:'+5.0%',up:true,bg:'rgba(220,38,38,.08)'},
+    ],
+    kpis:{posts:'10',eng:'3.2%',reach:'18K',scheduled:'3'},
+    queue:[
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'Full tutorial: How to apply for a UK student visa in 2026',meta:'YouTube · Apr 23 · 4:00 PM',status:'qs-scheduled',label:'Scheduled'},
+      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'5 scholarships Pakistani students are missing in 2026',meta:'LinkedIn · Apr 25 · 9:00 AM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'UK visa guide tutorial',sub:'YouTube · 8K views · 4.8% eng',tag:'Strong',tc:''},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Student success story reel',sub:'Instagram · 9K reach · 3.9% eng',tag:'Good',tc:''},
+    ],
+    checks:[
+      {label:'Monthly content calendar — not approved',due:'Apr 21',urgent:false},
+      {label:'EduPath logo suite (3 variants) — deliver to client',due:'Apr 20',urgent:true},
+    ]
+  },
+  gulfstyle: {
+    name:'GulfStyle Fashion', initials:'GS', color:'#dc2626', tabId:'sct-gulfstyle',
+    platforms:[
+      {icon:'📸',name:'Instagram',handle:'@gulfstylee',followers:'12K',eng:'2.8%',growth:'-0.6%',up:false,bg:'rgba(219,39,119,.12)'},
+      {icon:'🎵',name:'TikTok',handle:'@gulfstylee',followers:'6K',eng:'5.4%',growth:'+7.2%',up:true,bg:'rgba(0,0,0,.05)'},
+      {icon:'📘',name:'Facebook',handle:'GulfStyle Fashion',followers:'2K',eng:'1.4%',growth:'-1.1%',up:false,bg:'rgba(37,99,235,.06)'},
+    ],
+    kpis:{posts:'15',eng:'2.8%',reach:'24K',scheduled:'2'},
+    queue:[
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:'POV: You hired an agency and your reach went 10x in 30 days',meta:'TikTok · Apr 22 · 7:00 PM',status:'qs-draft',label:'Draft'},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Spring edit: 5 looks you need in your wardrobe right now',meta:'Instagram · Apr 25 · 6:00 PM',status:'qs-draft',label:'Draft'},
+    ],
+    topPosts:[
+      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Fashion haul TikTok',sub:'TikTok · 44K views · 6.8% eng',tag:'Strong',tc:''},
+      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'New collection carousel',sub:'Instagram · 11K reach · 3.2% eng',tag:'OK',tc:''},
+    ],
+    checks:[
+      {label:'3 TikTok drafts waiting for review',due:'Apr 20',urgent:true},
+      {label:'Instagram engagement rate declining — strategy review needed',due:'Apr 22',urgent:false},
+    ]
+  }
+};
+
+let activeSocialClient = 'usman';
+
+function switchSocialClient(key) {
+  activeSocialClient = key;
+  const d = socialData[key];
+  // Reset all tabs
+  Object.values(socialData).forEach(c => {
+    const t = document.getElementById(c.tabId);
+    if (!t) return;
+    t.classList.remove('active');
+    t.style.background = '';
+    t.style.color = c.color;
+    t.style.borderColor = 'var(--border2)';
+    const av = t.querySelector('.sct-av');
+    if (av) { av.style.background = c.color; av.style.color = '#fff'; }
+  });
+  // Activate selected
+  const at = document.getElementById(d.tabId);
+  if (at) {
+    at.classList.add('active');
+    at.style.background = d.color;
+    at.style.color = '#fff';
+    at.style.borderColor = d.color;
+    const av = at.querySelector('.sct-av');
+    if (av) { av.style.background = 'rgba(255,255,255,.25)'; }
+  }
+  const sub = document.getElementById('social-sub');
+  if (sub) sub.textContent = d.name + ' \u00b7 ' + d.platforms.map(p => p.name).join(', ');
+
+  const platCols = Math.min(d.platforms.length, 4);
+
+  const platCards = d.platforms.map(p => `
+    <div class="platform-card">
+      <div class="platform-icon" style="background:${p.bg}">${p.icon}</div>
+      <div class="platform-name">${p.name}</div>
+      <div class="platform-stat">${p.handle}</div>
+      <div class="platform-stat" style="margin-top:2px"><strong style="color:var(--text)">${p.followers}</strong> followers</div>
+      <div class="platform-stat"><strong style="color:var(--text)">${p.eng}</strong> engagement</div>
+      <div class="platform-growth ${p.up ? 'up' : 'down'}">${p.growth} this month</div>
+    </div>`).join('');
+
+  const queueHTML = d.queue.map(q => `
+    <div class="queue-item">
+      <div class="queue-platform" style="background:${q.bg}">${q.icon}</div>
+      <div class="queue-body">
+        <div class="queue-caption">${q.caption}</div>
+        <div class="queue-meta"><span>${q.meta}</span></div>
+      </div>
+      <span class="queue-status ${q.status}">${q.label}</span>
+    </div>`).join('');
+
+  const topHTML = d.topPosts.map(p => `
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="width:36px;height:36px;border-radius:8px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${p.icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.title}</div>
+        <div style="font-size:10px;color:var(--text2)">${p.sub}</div>
+      </div>
+      <span class="tag ${p.tc}" style="font-size:9px">${p.tag}</span>
+    </div>`).join('');
+
+  const checksHTML = d.checks.map(c => `
+    <div class="check-item">
+      <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'&#10003;'"></div>
+      <div class="check-label">${c.label}</div>
+      <span class="check-due ${c.urgent ? 'urgent' : 'soon'}">${c.due}</span>
+    </div>`).join('');
+
+  const pills = d.platforms.map(p => `<span class="brand-plat-pill">${p.icon} ${p.name} \u00b7 ${p.followers}</span>`).join('');
+
+  document.getElementById('social-brand-view').innerHTML = `
+    <div class="brand-social-header" style="border-left:4px solid ${d.color}">
+      <div class="brand-social-av" style="background:${d.color}">${d.initials}</div>
+      <div class="brand-social-info">
+        <div class="brand-social-name">${d.name}</div>
+        <div class="brand-social-sub">${d.platforms.length} platforms \u00b7 ${d.kpis.posts} posts this month \u00b7 ${d.kpis.reach} total reach</div>
+        <div class="brand-plat-pills">${pills}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-shrink:0">
+        <button class="btn btn-ghost btn-sm" onclick="injectPrompt('Write 5 caption ideas for ${d.name}: ')">&#10022; AI Captions</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('newPostModal')">+ Schedule Post</button>
+      </div>
+    </div>
+    <div class="g4" style="margin-bottom:20px">
+      <div class="kpi-card"><div class="kpi-label">Posts This Month</div><div class="kpi-value">${d.kpis.posts}</div><div class="kpi-delta neutral">April 2026</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg Engagement</div><div class="kpi-value">${d.kpis.eng}</div><div class="kpi-delta positive">All platforms</div></div>
+      <div class="kpi-card"><div class="kpi-label">Total Reach</div><div class="kpi-value">${d.kpis.reach}</div><div class="kpi-delta positive">This month</div></div>
+      <div class="kpi-card"><div class="kpi-label">In Queue</div><div class="kpi-value">${d.kpis.scheduled}</div><div class="kpi-delta neutral">Scheduled / Draft</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(${platCols},1fr);gap:12px;margin-bottom:20px">${platCards}</div>
+    <div class="social-layout">
+      <div>
+        <div class="card">
+          <div class="section-title">Content Queue <span class="section-link" onclick="openModal('newPostModal')">+ Add post</span></div>
+          <div class="post-queue">${queueHTML}</div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="section-title">Top Posts This Month</div>
+          <div style="display:flex;flex-direction:column;gap:12px">${topHTML}</div>
+        </div>
+        <div class="card">
+          <div class="section-title">Pending Actions</div>
+          <div class="checklist">${checksHTML}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════
 // BRAND PROJECTS FILTER
 // ═══════════════════════════════════════
 function filterProjects(type, el) {
@@ -4505,6 +4557,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sub) sub.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()} — Good ${d.getHours() < 12 ? 'morning' : d.getHours() < 17 ? 'afternoon' : 'evening'}, HR.`;
   // Auto-check Ollama on load
   checkOllama();
+  // Load default social client
+  switchSocialClient('usman');
   // Ctrl+K to focus chat
   document.addEventListener('keydown', e => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
