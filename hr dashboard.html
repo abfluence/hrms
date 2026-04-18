@@ -1210,6 +1210,72 @@ body{
 .ai-tool-desc{font-size:10px;color:var(--text2);margin-top:2px;line-height:1.3}
 
 /* ═══════════════════════════════════════
+   VOICE BUTTON
+═══════════════════════════════════════ */
+.voice-btn{width:38px;height:38px;border-radius:var(--rs);background:var(--bg);border:1px solid var(--border2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.voice-btn:hover{background:var(--purple-bg);border-color:var(--purple);color:var(--purple)}
+.voice-btn.recording{background:var(--red);border-color:var(--red);color:#fff;animation:voicePulse 1s ease infinite}
+.voice-btn.recording svg{animation:none}
+@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.4)}50%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
+.voice-interim{font-size:11px;color:var(--text3);margin-top:4px;min-height:16px;font-style:italic}
+
+/* ═══════════════════════════════════════
+   FLUENCE FLOATING BUTTON + PANEL
+═══════════════════════════════════════ */
+.fluence-fab{
+  position:fixed;bottom:28px;right:28px;z-index:900;
+  display:flex;align-items:center;gap:8px;
+  padding:11px 20px 11px 14px;
+  background:linear-gradient(135deg,#e8521a 0%,#7c3aed 100%);
+  color:#fff;border:none;border-radius:30px;
+  font-family:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;box-shadow:0 4px 24px rgba(124,58,237,.35);
+  transition:all .2s;
+  letter-spacing:-.01em;
+}
+.fluence-fab:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,58,237,.45)}
+.fluence-fab.active{background:linear-gradient(135deg,#7c3aed 0%,#e8521a 100%)}
+.fluence-fab-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .3s}
+.fluence-fab-dot.live{background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25);animation:fabPing 2s ease infinite}
+@keyframes fabPing{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}50%{box-shadow:0 0 0 6px rgba(255,255,255,0)}}
+
+.fluence-panel{
+  position:fixed;bottom:90px;right:28px;z-index:899;
+  width:380px;max-height:560px;
+  background:#fff;border-radius:16px;
+  box-shadow:0 12px 60px rgba(0,0,0,.18),0 2px 8px rgba(0,0,0,.08);
+  display:flex;flex-direction:column;
+  transform:scale(.92) translateY(12px);
+  opacity:0;pointer-events:none;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  overflow:hidden;
+}
+.fluence-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.fluence-panel-header{
+  padding:14px 16px 12px;
+  background:linear-gradient(135deg,#e8521a 0%,#7c3aed 100%);
+  color:#fff;flex-shrink:0;
+}
+.fluence-panel-title{font-size:14px;font-weight:800;letter-spacing:-.02em;margin-bottom:2px}
+.fluence-panel-ctx{font-size:10px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fluence-panel-actions{display:flex;align-items:center;gap:6px;margin-top:0}
+.fluence-panel-close{margin-left:auto;background:rgba(255,255,255,.2);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.fluence-panel-close:hover{background:rgba(255,255,255,.35)}
+.fluence-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:160px;max-height:360px;scroll-behavior:smooth}
+.fluence-msgs::-webkit-scrollbar{width:3px}
+.fluence-msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.fluence-input-area{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:#fafafa}
+.fluence-input-row{display:flex;gap:6px;align-items:flex-end}
+.fluence-textarea{flex:1;border:1px solid var(--border2);border-radius:10px;padding:8px 10px;font-size:12px;font-family:inherit;resize:none;outline:none;max-height:80px;line-height:1.5;color:var(--text);background:#fff}
+.fluence-textarea:focus{border-color:var(--purple)}
+.fluence-send-btn{width:32px;height:32px;border-radius:8px;background:var(--purple);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.fluence-send-btn:hover{opacity:.85}
+.fluence-send-btn:disabled{opacity:.4;cursor:not-allowed}
+.fluence-voice-btn{width:32px;height:32px;border-radius:8px;background:#f5f5f7;border:1px solid var(--border2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.fluence-voice-btn:hover{background:var(--purple-bg);border-color:var(--purple);color:var(--purple)}
+.fluence-voice-btn.recording{background:var(--red);border-color:var(--red);color:#fff;animation:voicePulse 1s ease infinite}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -2793,12 +2859,16 @@ body{
           </div>
           <div class="chat-input-area">
             <div class="chat-input-row">
+              <button class="voice-btn" id="hub-voice-btn" onclick="toggleVoice('hub')" title="Voice input">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg>
+              </button>
               <textarea class="chat-textarea" id="chat-input" rows="1" placeholder="Ask anything… (Shift+Enter for new line, Enter to send)" onkeydown="chatKeydown(event)" oninput="autoResize(this)"></textarea>
               <button class="chat-send-btn" id="chat-send-btn" onclick="sendChat()" title="Send">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
             </div>
-            <div class="chat-hint">Powered by Ollama · Running locally · Ctrl+K to focus</div>
+            <div id="hub-interim" class="voice-interim"></div>
+            <div class="chat-hint">Powered by Ollama · Running locally · Ctrl+K to focus · 🎤 Voice enabled</div>
           </div>
         </div>
 
@@ -3325,6 +3395,8 @@ function go(pageId, navEl) {
   currentPage = pageId;
   // Init charts
   initCharts(pageId);
+  // Update Fluence context label
+  if (fluencePanelOpen) updateFluenceContext();
   // Close notif panel
   document.getElementById('notifPanel').classList.remove('open');
 }
@@ -3608,6 +3680,7 @@ async function checkOllama() {
     dot.className = 'ai-status-dot online';
     label.textContent = 'Ollama connected';
     badge.textContent = models.length + ' model' + (models.length !== 1 ? 's' : '') + ' available';
+    syncFluenceDot(true);
     // populate select with installed models
     const sel = document.getElementById('ai-model-select');
     const existing = Array.from(sel.options).map(o => o.value);
@@ -3622,6 +3695,7 @@ async function checkOllama() {
     dot.className = 'ai-status-dot offline';
     label.textContent = 'Ollama offline — start with: ollama serve';
     badge.textContent = '';
+    syncFluenceDot(false);
   }
 }
 
@@ -3794,6 +3868,260 @@ function injectPrompt(text) {
 }
 
 // ═══════════════════════════════════════
+// VOICE ENGINE (Web Speech API)
+// ═══════════════════════════════════════
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let voiceTarget = null; // 'hub' or 'fluence'
+let isListening = false;
+
+function initVoice() {
+  if (!SpeechRec) return false;
+  recognition = new SpeechRec();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onresult = (e) => {
+    let interim = '', final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      e.results[i].isFinal ? (final += t) : (interim += t);
+    }
+    const interimEl = document.getElementById(voiceTarget === 'hub' ? 'hub-interim' : 'fluence-interim');
+    if (interimEl) interimEl.textContent = interim;
+    if (final) {
+      const inputEl = document.getElementById(voiceTarget === 'hub' ? 'chat-input' : 'fluence-input');
+      if (inputEl) {
+        inputEl.value = (inputEl.value + ' ' + final).trim();
+        autoResize(inputEl);
+      }
+      if (interimEl) interimEl.textContent = '';
+    }
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    setVoiceBtnState(voiceTarget, false);
+    // Auto-send if something was typed via voice
+    const inputEl = document.getElementById(voiceTarget === 'hub' ? 'chat-input' : 'fluence-input');
+    if (inputEl && inputEl.value.trim()) {
+      setTimeout(() => voiceTarget === 'hub' ? sendChat() : sendFluence(), 300);
+    }
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    setVoiceBtnState(voiceTarget, false);
+    if (e.error !== 'no-speech') toast('Voice error: ' + e.error, 'error');
+  };
+
+  return true;
+}
+
+function toggleVoice(target) {
+  if (!SpeechRec) { toast('Voice not supported in this browser. Use Chrome or Edge.', 'error'); return; }
+  if (!recognition) initVoice();
+  if (isListening) {
+    recognition.stop();
+    return;
+  }
+  voiceTarget = target;
+  isListening = true;
+  setVoiceBtnState(target, true);
+  document.getElementById(target === 'hub' ? 'hub-interim' : 'fluence-interim').textContent = '';
+  recognition.start();
+}
+
+function setVoiceBtnState(target, recording) {
+  const btn = document.getElementById(target === 'hub' ? 'hub-voice-btn' : 'fluence-voice-btn');
+  if (!btn) return;
+  btn.classList.toggle('recording', recording);
+  btn.title = recording ? 'Stop recording' : 'Voice input';
+}
+
+// ═══════════════════════════════════════
+// FLUENCE PANEL — HRMS CONTEXT BUILDER
+// ═══════════════════════════════════════
+let fluenceHistory = [];
+let fluenceStreaming = false;
+let fluencePanelOpen = false;
+
+function buildHRMSContext() {
+  // Full HRMS data dump for Fluence system prompt
+  const clients = Object.entries(clientData).map(([k, c]) =>
+    `• ${c.name} | ${c.location} | MRR: ${c.mrr} | Health: ${c.health} | Package: ${c.pkg} | Contact: ${c.contact} | Industry: ${c.industry} | Since: ${c.since}`
+  ).join('\n');
+
+  const totalMRR = Object.values(clientData).reduce((sum, c) => sum + parseInt(c.mrr.replace(/\D/g,'')), 0);
+
+  const leads = Object.entries(leadData).map(([name, l]) =>
+    `• ${name} | ${l.stage} | ${l.val} | ${l.loc} | Source: ${l.source} | Interest: ${l.interest}`
+  ).join('\n');
+
+  const wonLeads = Object.values(leadData).filter(l => l.stage === 'Won').length;
+  const proposalLeads = Object.values(leadData).filter(l => l.stage === 'Proposal Sent').length;
+  const newLeads = Object.values(leadData).filter(l => l.stage === 'New').length;
+
+  const packages = `
+- Starter Brand: $450/mo (brand basics)
+- Growth Accelerator: $950/mo (social + content + SEO)
+- Market Leader: $1,600/mo (full-service)
+- AI-First: $2,200/mo (full-service + AI tools)
+- Individual services also available`.trim();
+
+  const services = `Brand & Strategy, Social Media Management, Paid Media (Meta/Google), SEO/AEO/GEO, Content Marketing, Web & Funnels, Lead Generation, PR & Authority, E-commerce Growth, AI Hub, Automations`;
+
+  const page = pageNames[currentPage] || currentPage;
+
+  return `You are Fluence — the AI brain embedded inside AB Fluence agency OS. You have complete access to all HRMS data below. Answer questions accurately from this data. Be concise and direct.
+
+AGENCY: AB Fluence — Performance Marketing Agency (Pakistan + UAE + Saudi Arabia)
+TODAY: ${new Date().toDateString()}
+CURRENT PAGE: ${page}
+TOTAL MRR: $${totalMRR.toLocaleString()}/mo
+
+=== ACTIVE CLIENTS (${Object.keys(clientData).length}) ===
+${clients}
+
+=== LEADS PIPELINE (${Object.keys(leadData).length} leads) ===
+Pipeline breakdown: ${newLeads} New · ${Object.values(leadData).filter(l=>l.stage==='Contacted').length} Contacted · ${proposalLeads} Proposal Sent · ${wonLeads} Won · ${Object.values(leadData).filter(l=>l.stage==='Lost').length} Lost
+${leads}
+
+=== PACKAGES ===
+${packages}
+
+=== SERVICES OFFERED ===
+${services}
+
+=== BRAND PROJECTS (Active) ===
+11 active brand projects across Dr. Usman (3), TechPak (3), DXB Retail (3), NovaMed (1), EduPath (1)
+
+Answer questions about this data directly. If asked to calculate totals, percentages, or comparisons — do it. If asked about clients not in the list, say they're not in the system.`;
+}
+
+function updateFluenceContext() {
+  const label = document.getElementById('fluence-ctx-label');
+  if (label) label.textContent = (pageNames[currentPage] || currentPage) + ' · ' + Object.keys(clientData).length + ' clients · Full HRMS loaded';
+}
+
+function toggleFluencePanel() {
+  const panel = document.getElementById('fluence-panel');
+  const fab = document.getElementById('fluence-fab');
+  fluencePanelOpen = !fluencePanelOpen;
+  panel.classList.toggle('open', fluencePanelOpen);
+  fab.classList.toggle('active', fluencePanelOpen);
+  if (fluencePanelOpen) {
+    updateFluenceContext();
+    setTimeout(() => document.getElementById('fluence-input')?.focus(), 250);
+  }
+}
+
+function fluenceKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendFluence(); }
+}
+
+function appendFluenceMsg(role, content, id) {
+  const wrap = document.getElementById('fluence-msgs');
+  const div = document.createElement('div');
+  div.className = 'msg msg-' + (role === 'thinking' ? 'ai msg-thinking' : role);
+  if (id) div.id = id;
+  const av = document.createElement('div');
+  av.className = 'msg-avatar';
+  av.style.cssText = role === 'user'
+    ? 'background:var(--orange-bg2);color:var(--orange);font-size:10px;font-weight:800'
+    : 'background:linear-gradient(135deg,rgba(232,82,26,.12),rgba(124,58,237,.12));color:var(--purple);font-size:10px;font-weight:800';
+  av.textContent = role === 'user' ? 'HR' : '✦';
+  const bub = document.createElement('div');
+  bub.className = 'msg-bubble';
+  bub.style.fontSize = '12px';
+  bub.innerHTML = role === 'thinking'
+    ? '<span class="dot-blink">●</span><span class="dot-blink">●</span><span class="dot-blink">●</span>'
+    : escapeHtml(content);
+  div.appendChild(av); div.appendChild(bub);
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+  return div;
+}
+
+async function sendFluence() {
+  if (fluenceStreaming) return;
+  const input = document.getElementById('fluence-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = ''; autoResize(input);
+
+  appendFluenceMsg('user', text);
+  fluenceHistory.push({ role: 'user', content: text });
+
+  const thinkId = 'fl-think-' + Date.now();
+  const thinkEl = appendFluenceMsg('thinking', '', thinkId);
+  fluenceStreaming = true;
+  document.getElementById('fluence-send-btn').disabled = true;
+
+  try {
+    const dot = document.getElementById('ollama-dot');
+    if (!dot || !dot.classList.contains('online')) {
+      await checkOllama();
+      if (!document.getElementById('ollama-dot').classList.contains('online')) {
+        thinkEl.remove();
+        appendFluenceMsg('ai', '⚠️ Ollama offline. Run: ollama serve');
+        fluenceStreaming = false;
+        document.getElementById('fluence-send-btn').disabled = false;
+        return;
+      }
+    }
+
+    const res = await fetch(OLLAMA_BASE + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: currentAIModel,
+        messages: [
+          { role: 'system', content: buildHRMSContext() },
+          ...fluenceHistory.slice(-16)
+        ],
+        stream: true
+      })
+    });
+
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let full = '', aiEl = null;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const lines = decoder.decode(value).split('\n').filter(l => l.trim());
+      for (const line of lines) {
+        try {
+          const data = JSON.parse(line);
+          if (data.message?.content) {
+            full += data.message.content;
+            if (!aiEl) { thinkEl.remove(); aiEl = appendFluenceMsg('ai', full); }
+            else { aiEl.querySelector('.msg-bubble').textContent = full; document.getElementById('fluence-msgs').scrollTop = 99999; }
+          }
+        } catch(e) {}
+      }
+    }
+    if (full) fluenceHistory.push({ role: 'assistant', content: full });
+
+  } catch(e) {
+    thinkEl.remove();
+    appendFluenceMsg('ai', '⚠️ ' + (e.message || 'Could not reach Ollama.'));
+  }
+  fluenceStreaming = false;
+  document.getElementById('fluence-send-btn').disabled = false;
+}
+
+// Update Fluence dot when Ollama status changes
+function syncFluenceDot(online) {
+  const dot = document.getElementById('fluence-fab-dot');
+  if (dot) dot.classList.toggle('live', online);
+}
+
+// ═══════════════════════════════════════
 // BRAND PROJECTS FILTER
 // ═══════════════════════════════════════
 function filterProjects(type, el) {
@@ -3828,5 +4156,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<!-- ═══════════════════════════════════════
+     FLUENCE FLOATING BUTTON + PANEL
+═══════════════════════════════════════ -->
+<button class="fluence-fab" id="fluence-fab" onclick="toggleFluencePanel()">
+  <div class="fluence-fab-dot" id="fluence-fab-dot"></div>
+  ✦ Fluence
+</button>
+
+<div class="fluence-panel" id="fluence-panel">
+  <div class="fluence-panel-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div class="fluence-panel-title">✦ Fluence</div>
+        <div class="fluence-panel-ctx" id="fluence-ctx-label">Loading context…</div>
+      </div>
+      <button class="fluence-panel-close" onclick="toggleFluencePanel()">✕</button>
+    </div>
+  </div>
+  <div class="fluence-msgs" id="fluence-msgs">
+    <div class="msg msg-ai">
+      <div class="msg-avatar" style="background:linear-gradient(135deg,rgba(232,82,26,.12),rgba(124,58,237,.12));color:var(--purple);font-size:10px;font-weight:800">✦</div>
+      <div class="msg-bubble" style="font-size:12px">Hey HR. I'm Fluence — fully wired into your HRMS. Ask me anything about your clients, leads, projects, revenue, or any page you're on right now.</div>
+    </div>
+  </div>
+  <div class="fluence-input-area">
+    <div class="fluence-input-row">
+      <button class="fluence-voice-btn" id="fluence-voice-btn" onclick="toggleVoice('fluence')" title="Voice input">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg>
+      </button>
+      <textarea class="fluence-textarea" id="fluence-input" rows="1" placeholder="Ask about any client, lead, or data…" onkeydown="fluenceKeydown(event)" oninput="autoResize(this)"></textarea>
+      <button class="fluence-send-btn" id="fluence-send-btn" onclick="sendFluence()" title="Send">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+    <div id="fluence-interim" class="voice-interim" style="font-size:10px"></div>
+  </div>
+</div>
+
 </body>
 </html>
