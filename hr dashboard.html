@@ -796,6 +796,285 @@ body{
 .priority-time{font-size:11px;color:var(--text3);white-space:nowrap}
 
 /* ═══════════════════════════════════════
+   MODAL
+═══════════════════════════════════════ */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:600;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:#fff;
+  border-radius:var(--r);
+  padding:28px 28px 20px;
+  width:540px;max-width:92vw;
+  max-height:88vh;overflow-y:auto;
+  box-shadow:0 8px 48px rgba(0,0,0,0.20);
+  position:relative;
+  animation:modalIn .2s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-lg{width:680px}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;
+}
+.modal-title{font-size:16px;font-weight:700;letter-spacing:-0.01em}
+.modal-close{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text2);font-size:16px;
+  background:var(--bg);border:none;
+  transition:background .12s;
+}
+.modal-close:hover{background:var(--bg2)}
+.modal-footer{
+  display:flex;gap:8px;justify-content:flex-end;
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════
+   DRAWER (slide-in client profile)
+═══════════════════════════════════════ */
+.drawer{
+  position:fixed;
+  right:-620px;top:0;bottom:0;
+  width:600px;max-width:92vw;
+  background:#fff;
+  border-left:1px solid var(--border);
+  box-shadow:-8px 0 48px rgba(0,0,0,0.12);
+  z-index:500;
+  transition:right .25s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;display:flex;flex-direction:column;
+}
+.drawer.open{right:0}
+.drawer-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.2);
+  z-index:499;
+  display:none;
+  backdrop-filter:blur(2px);
+}
+.drawer-overlay.open{display:block}
+.drawer-header{
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;background:#fff;z-index:10;
+}
+.drawer-avatar{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;flex-shrink:0;
+}
+.drawer-client-name{font-size:16px;font-weight:700}
+.drawer-client-sub{font-size:12px;color:var(--text2);margin-top:2px}
+.drawer-close{
+  margin-left:auto;width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;background:var(--bg);border:none;
+  font-size:16px;color:var(--text2);transition:background .12s;flex-shrink:0;
+}
+.drawer-close:hover{background:var(--bg2)}
+.drawer-body{padding:20px 24px;flex:1}
+.drawer-tabs{
+  display:flex;gap:2px;
+  background:var(--bg);
+  border-radius:var(--rs);
+  padding:3px;margin-bottom:20px;
+}
+.drawer-tab{
+  flex:1;padding:7px;text-align:center;
+  font-size:12px;font-weight:600;
+  border-radius:7px;cursor:pointer;
+  color:var(--text2);transition:all .15s;border:none;background:none;
+}
+.drawer-tab.active{background:#fff;color:var(--text);box-shadow:var(--sh)}
+.drawer-tab-content{display:none}
+.drawer-tab-content.active{display:block}
+
+/* ═══════════════════════════════════════
+   FORMS
+═══════════════════════════════════════ */
+.form-group{margin-bottom:14px}
+.form-label{
+  font-size:12px;font-weight:600;
+  color:var(--text2);margin-bottom:5px;display:block;
+  letter-spacing:0.02em;
+}
+.form-input,.form-select,.form-textarea{
+  width:100%;padding:9px 11px;
+  border:1px solid var(--border2);
+  border-radius:var(--rs);
+  font-size:13px;color:var(--text);
+  background:#fff;outline:none;
+  transition:border .15s, box-shadow .15s;
+  font-family:inherit;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--orange);
+  box-shadow:0 0 0 3px var(--orange-bg);
+}
+.form-textarea{min-height:80px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.form-hint{font-size:11px;color:var(--text3);margin-top:4px}
+
+/* ═══════════════════════════════════════
+   LEAD CARD (enhanced)
+═══════════════════════════════════════ */
+.lead-card{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--rs);
+  padding:12px;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition:all .15s;
+  box-shadow:var(--sh);
+}
+.lead-card:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.lead-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.lead-card-name{font-size:13px;font-weight:700;line-height:1.3}
+.lead-card-val{font-size:11px;font-weight:700;color:var(--orange);white-space:nowrap}
+.lead-card-meta{font-size:11px;color:var(--text2);margin-bottom:6px}
+.lead-card-contact{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.lead-card-footer{display:flex;align-items:center;justify-content:space-between}
+.lead-card-days{font-size:10px;color:var(--text3)}
+.lead-card-source{font-size:10px;font-weight:600;color:var(--text3)}
+
+/* ═══════════════════════════════════════
+   KANBAN (enhanced)
+═══════════════════════════════════════ */
+.kanban{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+.kanban-col{background:var(--bg);border-radius:var(--r);padding:12px;min-height:200px}
+.kanban-header{
+  font-size:11px;font-weight:700;letter-spacing:0.04em;
+  text-transform:uppercase;color:var(--text2);
+  margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.kanban-count{
+  font-size:10px;font-weight:700;
+  background:var(--bg2);color:var(--text2);
+  padding:1px 6px;border-radius:10px;
+}
+.kanban-value{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px}
+.kanban-add{
+  width:100%;padding:7px;
+  border:1px dashed var(--border2);
+  border-radius:var(--rs);
+  font-size:12px;color:var(--text3);
+  background:none;cursor:pointer;
+  text-align:center;transition:all .15s;margin-top:4px;
+}
+.kanban-add:hover{background:var(--surface2);color:var(--text2);border-color:var(--orange)}
+
+/* ═══════════════════════════════════════
+   CLIENT STATS STRIP
+═══════════════════════════════════════ */
+.stat-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:12px;margin-bottom:20px;
+}
+.stat-strip-item{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--rs);padding:14px 16px;
+  box-shadow:var(--sh);
+}
+.stat-strip-label{font-size:10px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text2);margin-bottom:4px}
+.stat-strip-val{font-size:20px;font-weight:800;letter-spacing:-0.03em}
+.stat-strip-sub{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* ═══════════════════════════════════════
+   SERVICE BADGE LIST
+═══════════════════════════════════════ */
+.svc-list{display:flex;flex-wrap:wrap;gap:5px}
+
+/* ═══════════════════════════════════════
+   DEAL CARD
+═══════════════════════════════════════ */
+.deal-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--rs);padding:14px;
+  margin-bottom:8px;cursor:pointer;
+  box-shadow:var(--sh);transition:all .15s;
+}
+.deal-card:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.deal-card-name{font-size:13px;font-weight:700;margin-bottom:3px}
+.deal-card-pkg{font-size:11px;margin-bottom:8px}
+.deal-card-value{font-size:15px;font-weight:800;color:var(--orange);margin-bottom:4px}
+.deal-card-meta{font-size:11px;color:var(--text2)}
+.deal-card-expires{font-size:10px;font-weight:600;margin-top:6px}
+
+/* ═══════════════════════════════════════
+   PROPOSAL BUILDER
+═══════════════════════════════════════ */
+.prop-step{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+.prop-step:last-child{border-bottom:none}
+.prop-step-num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--orange);color:#fff;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.prop-pkg-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+  margin-top:12px;
+}
+.prop-pkg-card{
+  border:2px solid var(--border);border-radius:var(--rs);
+  padding:14px;cursor:pointer;transition:all .15s;
+}
+.prop-pkg-card:hover,.prop-pkg-card.selected{
+  border-color:var(--orange);background:var(--orange-bg);
+}
+.prop-pkg-name{font-size:13px;font-weight:700;margin-bottom:4px}
+.prop-pkg-price{font-size:16px;font-weight:800;color:var(--orange)}
+.prop-pkg-desc{font-size:11px;color:var(--text2);margin-top:4px}
+.prop-svc-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:6px;
+  margin-top:12px;
+}
+.prop-svc-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 10px;border:1px solid var(--border);
+  border-radius:var(--rs);cursor:pointer;
+  font-size:12px;font-weight:500;transition:all .15s;
+}
+.prop-svc-item:hover{border-color:var(--orange);background:var(--orange-bg)}
+.prop-svc-item.selected{border-color:var(--orange);background:var(--orange-bg);font-weight:700}
+.prop-svc-check{
+  width:16px;height:16px;border-radius:4px;
+  border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .15s;
+}
+.prop-svc-item.selected .prop-svc-check{
+  background:var(--orange);border-color:var(--orange);
+}
+.prop-svc-item.selected .prop-svc-check::after{
+  content:'✓';color:#fff;font-size:9px;font-weight:700;
+}
+.prop-total{
+  background:var(--orange-bg2);border-radius:var(--rs);
+  padding:14px;margin-top:14px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.prop-total-label{font-size:13px;font-weight:600}
+.prop-total-val{font-size:20px;font-weight:800;color:var(--orange)}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -1362,37 +1641,186 @@ body{
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Leads Pipeline</div>
-          <div class="ph-sub">38 total leads — 6 new this week</div>
+          <div class="ph-sub">38 total leads · $66,400 pipeline value · 36.8% conversion</div>
         </div>
         <div class="ph-actions">
-          <button class="btn btn-secondary btn-sm">Filter</button>
-          <button class="btn btn-primary btn-sm" onclick="toast('Add lead form coming in Phase 3','info')">+ Add Lead</button>
+          <select class="form-select" style="width:auto;font-size:12px;padding:6px 10px" onchange="toast('Filter applied','info')">
+            <option>All Sources</option>
+            <option>Inbound</option>
+            <option>Referral</option>
+            <option>LinkedIn</option>
+            <option>Cold Email</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="toast('Export coming soon','info')">Export</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('addLeadModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Lead
+          </button>
         </div>
       </div>
+
+      <!-- Pipeline Stats -->
+      <div class="g4" style="margin-bottom:16px">
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">New Leads</div>
+          <div style="font-size:24px;font-weight:800;color:var(--purple);margin:4px 0">6</div>
+          <div style="font-size:11px;color:var(--text2)">$9,600 value</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Contacted</div>
+          <div style="font-size:24px;font-weight:800;color:var(--blue);margin:4px 0">8</div>
+          <div style="font-size:11px;color:var(--text2)">$16,800 value</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Proposal Sent</div>
+          <div style="font-size:24px;font-weight:800;color:var(--yellow);margin:4px 0">6</div>
+          <div style="font-size:11px;color:var(--text2)">$18,000 value</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Avg Deal Size</div>
+          <div style="font-size:24px;font-weight:800;color:var(--orange);margin:4px 0">$1,750</div>
+          <div style="font-size:11px;color:var(--text2)">per month</div>
+        </div>
+      </div>
+
+      <!-- Kanban -->
       <div class="kanban">
+
+        <!-- New -->
         <div class="kanban-col">
           <div class="kanban-header">New <span class="kanban-count">6</span></div>
-          <div class="kanban-card"><div class="kanban-name">GulfStyle E-commerce</div><div class="kanban-meta">Dubai · E-commerce</div><div class="mt8"><span class="tag tag-blue">Meta Ads</span></div></div>
-          <div class="kanban-card"><div class="kanban-name">Lahore Organics</div><div class="kanban-meta">Lahore · FMCG</div><div class="mt8"><span class="tag tag-green">Social Media</span></div></div>
-          <div class="kanban-card"><div class="kanban-name">PixelCraft Studio</div><div class="kanban-meta">Islamabad · SaaS</div><div class="mt8"><span class="tag tag-purple">SEO</span></div></div>
+          <div class="kanban-value" style="color:var(--purple)">$9,600 value</div>
+
+          <div class="lead-card" onclick="openLeadDetail('GulfStyle E-commerce')">
+            <div class="lead-card-top"><div class="lead-card-name">GulfStyle E-commerce</div><div class="lead-card-val">$2,200/mo</div></div>
+            <div class="lead-card-meta">🇦🇪 Dubai · E-commerce / Fashion</div>
+            <div class="lead-card-contact">👤 Rania Al-Hassan · CEO</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-blue">Meta Ads</span><span class="tag tag-pink">Social</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Inbound</span><span class="lead-card-days">Today</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('Lahore Organics')">
+            <div class="lead-card-top"><div class="lead-card-name">Lahore Organics</div><div class="lead-card-val">$950/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Lahore · FMCG / Health</div>
+            <div class="lead-card-contact">👤 Sana Mirza · Marketing Head</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-green">Social Media</span><span class="tag tag-teal">SEO</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Referral</span><span class="lead-card-days">2 days ago</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('PixelCraft Studio')">
+            <div class="lead-card-top"><div class="lead-card-name">PixelCraft Studio</div><div class="lead-card-val">$1,400/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Islamabad · SaaS / Design</div>
+            <div class="lead-card-contact">👤 Bilal Akhtar · Co-founder</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-purple">SEO/AEO</span><span class="tag tag-blue">Lead Gen</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">LinkedIn</span><span class="lead-card-days">3 days ago</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('MedHub Arabia')">
+            <div class="lead-card-top"><div class="lead-card-name">MedHub Arabia</div><div class="lead-card-val">$1,800/mo</div></div>
+            <div class="lead-card-meta">🇸🇦 Riyadh · Healthcare / SaaS</div>
+            <div class="lead-card-contact">👤 Dr. Khalid Rashed · CMO</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-orange">AI-First Pkg</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Referral</span><span class="lead-card-days">4 days ago</span></div>
+          </div>
+
+          <button class="kanban-add" onclick="openModal('addLeadModal')">+ Add Lead</button>
         </div>
+
+        <!-- Contacted -->
         <div class="kanban-col">
           <div class="kanban-header">Contacted <span class="kanban-count">8</span></div>
-          <div class="kanban-card"><div class="kanban-name">NovaMed Clinic</div><div class="kanban-meta">Riyadh · Healthcare</div><div class="mt8"><span class="tag tag-teal">Brand & SEO</span></div></div>
-          <div class="kanban-card"><div class="kanban-name">FoodBox PK</div><div class="kanban-meta">Karachi · F&B</div><div class="mt8"><span class="tag tag-orange">Growth Package</span></div></div>
+          <div class="kanban-value" style="color:var(--blue)">$16,800 value</div>
+
+          <div class="lead-card" onclick="openLeadDetail('FoodBox PK')">
+            <div class="lead-card-top"><div class="lead-card-name">FoodBox PK</div><div class="lead-card-val">$1,200/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Karachi · F&B / Delivery</div>
+            <div class="lead-card-contact">👤 Omar Farooq · CEO</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-orange">Growth Pkg</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Cold Email</span><span class="lead-card-days">5 days in</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('ZenFit UAE')">
+            <div class="lead-card-top"><div class="lead-card-name">ZenFit UAE</div><div class="lead-card-val">$1,600/mo</div></div>
+            <div class="lead-card-meta">🇦🇪 Dubai · Fitness / Wellness</div>
+            <div class="lead-card-contact">👤 Sara Al-Mansoori · Founder</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-blue">Social</span><span class="tag tag-green">Influencer</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Instagram</span><span class="lead-card-days">3 days in</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('Islamabad Realty')">
+            <div class="lead-card-top"><div class="lead-card-name">Islamabad Realty</div><div class="lead-card-val">$2,400/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Islamabad · Real Estate</div>
+            <div class="lead-card-contact">👤 Ahmed Butt · Director</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-orange">Market Leader</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Referral</span><span class="lead-card-days">7 days in</span></div>
+          </div>
+
+          <button class="kanban-add" onclick="openModal('addLeadModal')">+ Add Lead</button>
         </div>
+
+        <!-- Proposal Sent -->
         <div class="kanban-col">
           <div class="kanban-header">Proposal Sent <span class="kanban-count">6</span></div>
-          <div class="kanban-card"><div class="kanban-name">DXB Retail Group</div><div class="kanban-meta">Dubai · Retail</div><div class="mt8"><span class="tag tag-orange">Market Leader Pkg</span></div></div>
-          <div class="kanban-card"><div class="kanban-name">EduPath Online</div><div class="kanban-meta">Lahore · EdTech</div><div class="mt8"><span class="tag tag-blue">AI-First Pkg</span></div></div>
+          <div class="kanban-value" style="color:var(--yellow)">$18,000 value</div>
+
+          <div class="lead-card" onclick="openLeadDetail('DXB Retail Group')">
+            <div class="lead-card-top"><div class="lead-card-name">DXB Retail Group</div><div class="lead-card-val">$3,200/mo</div></div>
+            <div class="lead-card-meta">🇦🇪 Dubai · Retail / Multi-brand</div>
+            <div class="lead-card-contact">👤 Faisal Al-Rashid · CMO</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-orange">Market Leader</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Referral</span><span class="lead-card-days" style="color:var(--yellow)">⚠ Expires today</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('EduPath Online')">
+            <div class="lead-card-top"><div class="lead-card-name">EduPath Online</div><div class="lead-card-val">$1,800/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Lahore · EdTech</div>
+            <div class="lead-card-contact">👤 Rabia Noor · Founder</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-purple">AI-First Pkg</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">LinkedIn</span><span class="lead-card-days">12 days in</span></div>
+          </div>
+
+          <button class="kanban-add" onclick="openModal('proposalModal')">+ New Proposal</button>
         </div>
+
+        <!-- Won -->
         <div class="kanban-col">
           <div class="kanban-header">Won <span class="kanban-count">14</span></div>
-          <div class="kanban-card"><div class="kanban-name">TechPak Solutions</div><div class="kanban-meta">Karachi · Tech</div><div class="mt8"><span class="tag tag-green">Closed this month</span></div></div>
+          <div class="kanban-value" style="color:var(--green)">This month</div>
+
+          <div class="lead-card" onclick="openLeadDetail('TechPak Solutions')">
+            <div class="lead-card-top"><div class="lead-card-name">TechPak Solutions</div><div class="lead-card-val">$2,200/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Karachi · B2B SaaS</div>
+            <div class="lead-card-contact">👤 Hassan Siddiqui · CEO</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-purple">AI-First Pkg</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Cold Email</span><span class="lead-card-days" style="color:var(--green)">✓ Closed Apr 15</span></div>
+          </div>
+
+          <div class="lead-card" onclick="openLeadDetail('Karachi Eats')">
+            <div class="lead-card-top"><div class="lead-card-name">Karachi Eats</div><div class="lead-card-val">$950/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Karachi · F&B</div>
+            <div class="lead-card-contact">👤 Ali Raza · Co-founder</div>
+            <div class="svc-list" style="margin-bottom:8px"><span class="tag tag-blue">Growth Accel.</span></div>
+            <div class="lead-card-footer"><span class="lead-card-source">Instagram</span><span class="lead-card-days" style="color:var(--green)">✓ Closed Apr 10</span></div>
+          </div>
         </div>
+
+        <!-- Lost -->
         <div class="kanban-col">
           <div class="kanban-header">Lost <span class="kanban-count">4</span></div>
-          <div class="kanban-card"><div class="kanban-name">CityMart</div><div class="kanban-meta">Rawalpindi · Retail</div><div class="mt8"><span class="tag tag-grey">Budget issue</span></div></div>
+          <div class="kanban-value" style="color:var(--red)">$8,200 lost</div>
+
+          <div class="lead-card" onclick="openLeadDetail('CityMart')">
+            <div class="lead-card-top"><div class="lead-card-name">CityMart</div><div class="lead-card-val">$1,400/mo</div></div>
+            <div class="lead-card-meta">🇵🇰 Rawalpindi · Retail</div>
+            <div class="lead-card-contact">👤 Usman Tariq · Owner</div>
+            <div class="lead-card-footer"><span class="lead-card-source">Inbound</span><span class="lead-card-days" style="color:var(--red)">Budget issue</span></div>
+          </div>
+
+          <div class="lead-card">
+            <div class="lead-card-top"><div class="lead-card-name">GlobalTech SA</div><div class="lead-card-val">$2,800/mo</div></div>
+            <div class="lead-card-meta">🇸🇦 Jeddah · Tech</div>
+            <div class="lead-card-footer"><span class="lead-card-source">LinkedIn</span><span class="lead-card-days" style="color:var(--red)">Chose competitor</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1402,34 +1830,331 @@ body{
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Clients</div>
-          <div class="ph-sub">7 active accounts</div>
+          <div class="ph-sub">7 active accounts · $8,450 MRR · 2 need attention</div>
         </div>
         <div class="ph-actions">
-          <button class="btn btn-primary btn-sm" onclick="toast('Client onboarding flow coming in Phase 3','info')">+ Onboard Client</button>
+          <button class="btn btn-secondary btn-sm" onclick="toast('Export client list','info')">Export</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('onboardModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Onboard Client
+          </button>
         </div>
       </div>
+
+      <!-- Stats Strip -->
+      <div class="stat-strip">
+        <div class="stat-strip-item">
+          <div class="stat-strip-label">Total MRR</div>
+          <div class="stat-strip-val" style="color:var(--orange)">$8,450</div>
+          <div class="stat-strip-sub">↑ 12% vs last month</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-label">Active Clients</div>
+          <div class="stat-strip-val" style="color:var(--blue)">7</div>
+          <div class="stat-strip-sub">1 onboarded this month</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-label">Avg Health Score</div>
+          <div class="stat-strip-val" style="color:var(--green)">78%</div>
+          <div class="stat-strip-sub">↑ from 71% last month</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-label">At Risk</div>
+          <div class="stat-strip-val" style="color:var(--red)">2</div>
+          <div class="stat-strip-sub">EduPath · GulfStyle</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-label">Avg Client MRR</div>
+          <div class="stat-strip-val">$1,207</div>
+          <div class="stat-strip-sub">Highest: TechPak $2,200</div>
+        </div>
+      </div>
+
+      <!-- Clients Table -->
       <div class="tbl-wrap">
         <table class="tbl">
-          <thead><tr><th>Client</th><th>Location</th><th>Package</th><th>Active Services</th><th>MRR</th><th>Health</th><th>Status</th><th></th></tr></thead>
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Location</th>
+              <th>Package</th>
+              <th>Active Services</th>
+              <th>MRR</th>
+              <th>Health</th>
+              <th>Since</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><div class="tbl-name">Dr. Usman</div><div class="tbl-sub">Healthcare / Authority</div></td><td>Saudi Arabia</td><td><span class="tag tag-orange">Market Leader</span></td><td>Brand, Social, SEO, Content, PR</td><td><strong>$1,800</strong></td><td><span class="health-dot health-green"></span> 94%</td><td><span class="tag tag-green">Active</span></td><td><button class="btn btn-ghost btn-sm" onclick="toast('Client dashboard in Phase 3','info')">View</button></td></tr>
-            <tr><td><div class="tbl-name">TechPak Solutions</div><div class="tbl-sub">B2B SaaS</div></td><td>Karachi</td><td><span class="tag tag-purple">AI-First</span></td><td>AI Hub, SEO/AEO, Lead Gen, Web</td><td><strong>$2,200</strong></td><td><span class="health-dot health-green"></span> 88%</td><td><span class="tag tag-green">Active</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-            <tr><td><div class="tbl-name">Karachi Eats</div><div class="tbl-sub">F&B / Delivery</div></td><td>Karachi</td><td><span class="tag tag-blue">Growth Accel.</span></td><td>Social, Meta Ads, Content, WA</td><td><strong>$950</strong></td><td><span class="health-dot health-green"></span> 82%</td><td><span class="tag tag-green">Active</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-            <tr><td><div class="tbl-name">NovaMed Clinic</div><div class="tbl-sub">Healthcare</div></td><td>Riyadh</td><td><span class="tag tag-blue">Growth Accel.</span></td><td>Social, SEO, Content, Google Ads</td><td><strong>$1,100</strong></td><td><span class="health-dot health-yellow"></span> 71%</td><td><span class="tag tag-green">Active</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-            <tr><td><div class="tbl-name">DXB Retail Group</div><div class="tbl-sub">Retail / E-com</div></td><td>Dubai</td><td><span class="tag tag-orange">Market Leader</span></td><td>Paid Media, E-com, Brand, Web</td><td><strong>$1,600</strong></td><td><span class="health-dot health-green"></span> 90%</td><td><span class="tag tag-green">Active</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-            <tr><td><div class="tbl-name">EduPath Online</div><div class="tbl-sub">EdTech</div></td><td>Lahore</td><td><span class="tag tag-teal">Starter Brand</span></td><td>Brand, Social, Email</td><td><strong>$450</strong></td><td><span class="health-dot health-yellow"></span> 68%</td><td><span class="tag tag-yellow">At Risk</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
-            <tr><td><div class="tbl-name">GulfStyle Fashion</div><div class="tbl-sub">Fashion / E-com</div></td><td>Dubai</td><td><span class="tag tag-blue">Growth Accel.</span></td><td>Social, Meta Ads, Influencer, UGC</td><td><strong>$350</strong></td><td><span class="health-dot health-red"></span> 55%</td><td><span class="tag tag-red">Needs Attention</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--orange);width:32px;height:32px;font-size:11px">DU</div>
+                  <div><div class="tbl-name">Dr. Usman</div><div class="tbl-sub">Healthcare / Authority</div></div>
+                </div>
+              </td>
+              <td>🇸🇦 Saudi Arabia</td>
+              <td><span class="tag tag-orange">Market Leader</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Brand</span><span class="tag tag-grey">Social</span><span class="tag tag-grey">SEO</span><span class="tag tag-grey">PR</span></div></td>
+              <td><strong>$1,800</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="health-dot health-green"></span>
+                  <span style="font-weight:600;font-size:13px">94%</span>
+                </div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:94%;background:var(--green)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Jan 2024</td>
+              <td><span class="tag tag-green">Active</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('usman')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--blue);width:32px;height:32px;font-size:11px">TP</div>
+                  <div><div class="tbl-name">TechPak Solutions</div><div class="tbl-sub">B2B SaaS</div></div>
+                </div>
+              </td>
+              <td>🇵🇰 Karachi</td>
+              <td><span class="tag tag-purple">AI-First</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">AI Hub</span><span class="tag tag-grey">SEO/AEO</span><span class="tag tag-grey">Lead Gen</span><span class="tag tag-grey">Web</span></div></td>
+              <td><strong>$2,200</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-green"></span><span style="font-weight:600;font-size:13px">88%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:88%;background:var(--green)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Apr 2025</td>
+              <td><span class="tag tag-green">Active</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('techpak')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--pink);width:32px;height:32px;font-size:11px">KE</div>
+                  <div><div class="tbl-name">Karachi Eats</div><div class="tbl-sub">F&B / Delivery</div></div>
+                </div>
+              </td>
+              <td>🇵🇰 Karachi</td>
+              <td><span class="tag tag-blue">Growth Accel.</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Social</span><span class="tag tag-grey">Meta Ads</span><span class="tag tag-grey">Content</span><span class="tag tag-grey">WhatsApp</span></div></td>
+              <td><strong>$950</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-green"></span><span style="font-weight:600;font-size:13px">82%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:82%;background:var(--green)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Mar 2025</td>
+              <td><span class="tag tag-green">Active</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('karachi-eats')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--teal);width:32px;height:32px;font-size:11px">NM</div>
+                  <div><div class="tbl-name">NovaMed Clinic</div><div class="tbl-sub">Healthcare</div></div>
+                </div>
+              </td>
+              <td>🇸🇦 Riyadh</td>
+              <td><span class="tag tag-blue">Growth Accel.</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Social</span><span class="tag tag-grey">SEO</span><span class="tag tag-grey">Content</span><span class="tag tag-grey">Google Ads</span></div></td>
+              <td><strong>$1,100</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-yellow"></span><span style="font-weight:600;font-size:13px">71%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:71%;background:var(--yellow)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Nov 2024</td>
+              <td><span class="tag tag-green">Active</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('novamed')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--purple);width:32px;height:32px;font-size:11px">DG</div>
+                  <div><div class="tbl-name">DXB Retail Group</div><div class="tbl-sub">Retail / E-com</div></div>
+                </div>
+              </td>
+              <td>🇦🇪 Dubai</td>
+              <td><span class="tag tag-orange">Market Leader</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Paid Media</span><span class="tag tag-grey">E-com</span><span class="tag tag-grey">Brand</span><span class="tag tag-grey">Web</span></div></td>
+              <td><strong>$1,600</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-green"></span><span style="font-weight:600;font-size:13px">90%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:90%;background:var(--green)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Feb 2025</td>
+              <td><span class="tag tag-green">Active</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('dxb')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--yellow);width:32px;height:32px;font-size:11px">EP</div>
+                  <div><div class="tbl-name">EduPath Online</div><div class="tbl-sub">EdTech</div></div>
+                </div>
+              </td>
+              <td>🇵🇰 Lahore</td>
+              <td><span class="tag tag-teal">Starter Brand</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Brand</span><span class="tag tag-grey">Social</span><span class="tag tag-grey">Email</span></div></td>
+              <td><strong>$450</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-yellow"></span><span style="font-weight:600;font-size:13px">68%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:68%;background:var(--yellow)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Dec 2024</td>
+              <td><span class="tag tag-yellow">At Risk</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('edupath')">View</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="avatar" style="background:var(--red);width:32px;height:32px;font-size:11px">GS</div>
+                  <div><div class="tbl-name">GulfStyle Fashion</div><div class="tbl-sub">Fashion / E-com</div></div>
+                </div>
+              </td>
+              <td>🇦🇪 Dubai</td>
+              <td><span class="tag tag-blue">Growth Accel.</span></td>
+              <td><div class="svc-list"><span class="tag tag-grey">Social</span><span class="tag tag-grey">Meta Ads</span><span class="tag tag-grey">Influencer</span><span class="tag tag-grey">UGC</span></div></td>
+              <td><strong>$350</strong></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px"><span class="health-dot health-red"></span><span style="font-weight:600;font-size:13px">55%</span></div>
+                <div class="progress mt8" style="width:70px"><div class="progress-fill" style="width:55%;background:var(--red)"></div></div>
+              </td>
+              <td style="color:var(--text2);font-size:12px">Jan 2025</td>
+              <td><span class="tag tag-red">Needs Attention</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="openClientProfile('gulfstyle')">View</button></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- ══════════ STUB PAGES ══════════ -->
-    <!-- Each stub follows: go() routes here, detailed build in later phases -->
-
+    <!-- ══════════ DEALS & PROPOSALS ══════════ -->
     <div class="page" id="page-deals">
-      <div class="ph"><div class="ph-left"><div class="ph-title">Deals & Proposals</div><div class="ph-sub">3 active proposals — 2 expiring soon</div></div><div class="ph-actions"><button class="btn btn-primary btn-sm" onclick="toast('Proposal builder in Phase 3','info')">+ New Proposal</button></div></div>
-      <div class="module-coming"><div class="module-coming-icon" style="background:var(--orange-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Deals & Proposals</h3><p>Full kanban deal tracker with proposal builder, e-sign, and follow-up automation. Building in Phase 3.</p></div>
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">Deals & Proposals</div>
+          <div class="ph-sub">6 active proposals · $24,600 total value · 2 expiring soon</div>
+        </div>
+        <div class="ph-actions">
+          <button class="btn btn-secondary btn-sm" onclick="toast('Export deals','info')">Export</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('proposalModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Proposal
+          </button>
+        </div>
+      </div>
+
+      <!-- Deal Stats -->
+      <div class="g4" style="margin-bottom:16px">
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Active Proposals</div>
+          <div style="font-size:24px;font-weight:800;color:var(--blue);margin:4px 0">6</div>
+          <div style="font-size:11px;color:var(--text2)">Awaiting decision</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Total Value</div>
+          <div style="font-size:24px;font-weight:800;color:var(--orange);margin:4px 0">$24,600</div>
+          <div style="font-size:11px;color:var(--text2)">Per month</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Expiring Soon</div>
+          <div style="font-size:24px;font-weight:800;color:var(--red);margin:4px 0">2</div>
+          <div style="font-size:11px;color:var(--text2)">Within 48hrs</div>
+        </div>
+        <div class="card-sm" style="text-align:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Close Rate</div>
+          <div style="font-size:24px;font-weight:800;color:var(--green);margin:4px 0">36.8%</div>
+          <div style="font-size:11px;color:var(--text2)">↑ from 28% last month</div>
+        </div>
+      </div>
+
+      <!-- Deals Kanban -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+
+        <!-- Sent -->
+        <div class="kanban-col">
+          <div class="kanban-header" style="color:var(--blue)">Proposal Sent <span class="kanban-count">3</span></div>
+
+          <div class="deal-card" onclick="openModal('proposalModal')">
+            <div class="deal-card-name">DXB Retail Group</div>
+            <div class="deal-card-pkg"><span class="tag tag-orange">Market Leader Package</span></div>
+            <div class="deal-card-value">$3,200/mo</div>
+            <div class="deal-card-meta">🇦🇪 Dubai · Faisal Al-Rashid</div>
+            <div class="deal-card-expires" style="color:var(--red)">⚠ Expires today</div>
+          </div>
+
+          <div class="deal-card" onclick="openModal('proposalModal')">
+            <div class="deal-card-name">EduPath Online</div>
+            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
+            <div class="deal-card-value">$1,800/mo</div>
+            <div class="deal-card-meta">🇵🇰 Lahore · Rabia Noor</div>
+            <div class="deal-card-expires" style="color:var(--yellow)">Expires in 3 days</div>
+          </div>
+
+          <div class="deal-card">
+            <div class="deal-card-name">ZenFit UAE</div>
+            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
+            <div class="deal-card-value">$1,600/mo</div>
+            <div class="deal-card-meta">🇦🇪 Dubai · Sara Al-Mansoori</div>
+            <div class="deal-card-expires" style="color:var(--text2)">Expires in 7 days</div>
+          </div>
+
+          <button class="kanban-add" onclick="openModal('proposalModal')">+ New Proposal</button>
+        </div>
+
+        <!-- In Review -->
+        <div class="kanban-col">
+          <div class="kanban-header" style="color:var(--yellow)">In Review <span class="kanban-count">2</span></div>
+
+          <div class="deal-card">
+            <div class="deal-card-name">Islamabad Realty</div>
+            <div class="deal-card-pkg"><span class="tag tag-orange">Market Leader Package</span></div>
+            <div class="deal-card-value">$2,400/mo</div>
+            <div class="deal-card-meta">🇵🇰 Islamabad · Ahmed Butt</div>
+            <div class="deal-card-expires" style="color:var(--blue)">Viewed 3 times</div>
+          </div>
+
+          <div class="deal-card">
+            <div class="deal-card-name">MedHub Arabia</div>
+            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
+            <div class="deal-card-value">$1,800/mo</div>
+            <div class="deal-card-meta">🇸🇦 Riyadh · Dr. Khalid</div>
+            <div class="deal-card-expires" style="color:var(--blue)">Viewed yesterday</div>
+          </div>
+        </div>
+
+        <!-- Negotiating -->
+        <div class="kanban-col">
+          <div class="kanban-header" style="color:var(--purple)">Negotiating <span class="kanban-count">1</span></div>
+
+          <div class="deal-card">
+            <div class="deal-card-name">FoodBox PK</div>
+            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
+            <div class="deal-card-value">$1,200/mo</div>
+            <div class="deal-card-meta">🇵🇰 Karachi · Omar Farooq</div>
+            <div class="deal-card-expires" style="color:var(--purple)">Requested discount</div>
+          </div>
+        </div>
+
+        <!-- Won / Lost -->
+        <div class="kanban-col">
+          <div class="kanban-header" style="color:var(--green)">Won This Month <span class="kanban-count">2</span></div>
+
+          <div class="deal-card" style="border-left:3px solid var(--green)">
+            <div class="deal-card-name">TechPak Solutions</div>
+            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
+            <div class="deal-card-value">$2,200/mo</div>
+            <div class="deal-card-meta">🇵🇰 Karachi · Closed Apr 15</div>
+          </div>
+
+          <div class="deal-card" style="border-left:3px solid var(--green)">
+            <div class="deal-card-name">Karachi Eats</div>
+            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
+            <div class="deal-card-value">$950/mo</div>
+            <div class="deal-card-meta">🇵🇰 Karachi · Closed Apr 10</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="page" id="page-brand">
@@ -1547,6 +2272,269 @@ body{
 
 <!-- Toast Container -->
 <div id="toastBox"></div>
+
+<!-- Drawer Overlay -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- ══════ CLIENT PROFILE DRAWER ══════ -->
+<div class="drawer" id="clientDrawer">
+  <div class="drawer-header">
+    <div class="drawer-avatar" id="drawerAvatar" style="background:var(--orange)">DU</div>
+    <div>
+      <div class="drawer-client-name" id="drawerName">Dr. Usman</div>
+      <div class="drawer-client-sub" id="drawerSub">Healthcare · Saudi Arabia · Market Leader</div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" onclick="switchTab(this,'dtab-overview')">Overview</button>
+      <button class="drawer-tab" onclick="switchTab(this,'dtab-services')">Services</button>
+      <button class="drawer-tab" onclick="switchTab(this,'dtab-activity')">Activity</button>
+      <button class="drawer-tab" onclick="switchTab(this,'dtab-notes')">Notes</button>
+    </div>
+
+    <!-- Overview Tab -->
+    <div class="drawer-tab-content active" id="dtab-overview">
+      <div class="g2" style="margin-bottom:16px">
+        <div class="card-sm">
+          <div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">MRR</div>
+          <div style="font-size:20px;font-weight:800;color:var(--orange)" id="d-mrr">$1,800</div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Health Score</div>
+          <div style="font-size:20px;font-weight:800;color:var(--green)" id="d-health">94%</div>
+        </div>
+      </div>
+      <div class="card-sm" style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">Client Details</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Contact</span><strong id="d-contact">Dr. Usman Liaqat</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Industry</span><strong id="d-industry">Healthcare / Authority</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Location</span><strong id="d-location">Saudi Arabia</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Client Since</span><strong id="d-since">January 2024</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Package</span><strong id="d-package">Market Leader</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Next Invoice</span><strong>May 1, 2025</strong></div>
+        </div>
+      </div>
+      <div class="card-sm">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">Health History</div>
+        <canvas id="healthChart" height="80"></canvas>
+      </div>
+    </div>
+
+    <!-- Services Tab -->
+    <div class="drawer-tab-content" id="dtab-services">
+      <div id="d-services-list">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:13px">Brand & Strategy</div><div style="font-size:11px;color:var(--text2)">Brand identity, positioning</div></div><span class="tag tag-green">Active</span></div>
+          <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:13px">Social Media</div><div style="font-size:11px;color:var(--text2)">Instagram, LinkedIn, X</div></div><span class="tag tag-green">Active</span></div>
+          <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:13px">SEO / AEO</div><div style="font-size:11px;color:var(--text2)">Rankings + AI search presence</div></div><span class="tag tag-green">Active</span></div>
+          <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:13px">Content Marketing</div><div style="font-size:11px;color:var(--text2)">Blogs, thought leadership</div></div><span class="tag tag-green">Active</span></div>
+          <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:13px">PR & Authority</div><div style="font-size:11px;color:var(--text2)">Media, press, reputation</div></div><span class="tag tag-green">Active</span></div>
+        </div>
+        <button class="btn btn-secondary btn-sm" style="margin-top:12px;width:100%" onclick="toast('Add service to client — coming soon','info')">+ Add Service</button>
+      </div>
+    </div>
+
+    <!-- Activity Tab -->
+    <div class="drawer-tab-content" id="dtab-activity">
+      <div class="feed-item"><div class="feed-dot" style="background:var(--green)"></div><div><div class="feed-text">Monthly report generated — April 2025</div><div class="feed-time">2 days ago</div></div></div>
+      <div class="feed-item"><div class="feed-dot" style="background:var(--purple)"></div><div><div class="feed-text">WhatsApp bot deployed and live</div><div class="feed-time">1 week ago</div></div></div>
+      <div class="feed-item"><div class="feed-dot" style="background:var(--blue)"></div><div><div class="feed-text">SEO audit completed — 47 fixes applied</div><div class="feed-time">2 weeks ago</div></div></div>
+      <div class="feed-item"><div class="feed-dot" style="background:var(--orange)"></div><div><div class="feed-text">Brand guidelines v2 delivered</div><div class="feed-time">3 weeks ago</div></div></div>
+      <div class="feed-item"><div class="feed-dot" style="background:var(--teal)"></div><div><div class="feed-text">Featured in Gulf Medical Today</div><div class="feed-time">1 month ago</div></div></div>
+    </div>
+
+    <!-- Notes Tab -->
+    <div class="drawer-tab-content" id="dtab-notes">
+      <textarea class="form-textarea" style="width:100%;min-height:120px;margin-bottom:10px" placeholder="Add notes about this client…">Client prefers communication via WhatsApp. Monthly call every 1st Tuesday. Interested in expanding to YouTube in Q3 2025. Very responsive — usually replies within 2 hours.</textarea>
+      <button class="btn btn-primary btn-sm" onclick="toast('Notes saved','success')">Save Notes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ADD LEAD MODAL ══════ -->
+<div class="modal-overlay" id="addLeadModal" onclick="if(event.target===this)closeModal('addLeadModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Lead</div>
+      <button class="modal-close" onclick="closeModal('addLeadModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Company Name *</label><input class="form-input" placeholder="e.g. TechPak Solutions"></div>
+      <div class="form-group"><label class="form-label">Industry</label><select class="form-select"><option>E-commerce</option><option>Healthcare</option><option>F&B</option><option>SaaS / Tech</option><option>Real Estate</option><option>Education</option><option>Fashion</option><option>Finance</option><option>Other</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Contact Name *</label><input class="form-input" placeholder="Full name"></div>
+      <div class="form-group"><label class="form-label">Role / Title</label><input class="form-input" placeholder="e.g. CEO, CMO, Founder"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" placeholder="City, Country"></div>
+      <div class="form-group"><label class="form-label">Market</label><select class="form-select"><option>Pakistan</option><option>UAE / Dubai</option><option>Saudi Arabia</option><option>Kuwait</option><option>Qatar</option><option>UK</option><option>USA</option><option>Other</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Interested In</label><select class="form-select"><option>Starter Brand Package</option><option>Growth Accelerator Package</option><option>Market Leader Package</option><option>AI-First Package</option><option>Individual Services</option></select></div>
+      <div class="form-group"><label class="form-label">Est. Monthly Value</label><input class="form-input" placeholder="$0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Lead Source</label><select class="form-select"><option>Inbound</option><option>Referral</option><option>LinkedIn Outreach</option><option>Cold Email</option><option>Instagram</option><option>WhatsApp</option><option>Website</option><option>Event</option></select></div>
+      <div class="form-group"><label class="form-label">Assign To</label><select class="form-select"><option>HR (CEO)</option><option>Bilal Ahmed</option><option>Amir</option><option>Usman Liaqat</option></select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" placeholder="Any initial context about this lead…"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addLeadModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('addLeadModal');toast('Lead added to pipeline','success')">Add to Pipeline</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ PROPOSAL BUILDER MODAL ══════ -->
+<div class="modal-overlay" id="proposalModal" onclick="if(event.target===this)closeModal('proposalModal')">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">New Proposal Builder</div>
+      <button class="modal-close" onclick="closeModal('proposalModal')">✕</button>
+    </div>
+
+    <!-- Step 1: Client -->
+    <div class="form-group">
+      <label class="form-label">Step 1 — Select Client / Lead</label>
+      <select class="form-select" id="propClient" onchange="updateProposalTotal()">
+        <option value="">-- Select --</option>
+        <option>GulfStyle E-commerce (Lead)</option>
+        <option>Lahore Organics (Lead)</option>
+        <option>ZenFit UAE (Lead)</option>
+        <option>EduPath Online (Lead)</option>
+        <option>DXB Retail Group (Client — upsell)</option>
+      </select>
+    </div>
+
+    <!-- Step 2: Package -->
+    <div class="form-group">
+      <label class="form-label">Step 2 — Select Package</label>
+      <div class="prop-pkg-grid">
+        <div class="prop-pkg-card" onclick="selectPkg(this,500)" data-price="500">
+          <div class="prop-pkg-name">Starter Brand</div>
+          <div class="prop-pkg-price">from $500/mo</div>
+          <div class="prop-pkg-desc">Brand identity + 2 platforms + basic SEO + monthly report</div>
+        </div>
+        <div class="prop-pkg-card" onclick="selectPkg(this,1200)" data-price="1200">
+          <div class="prop-pkg-name">Growth Accelerator</div>
+          <div class="prop-pkg-price">from $1,200/mo</div>
+          <div class="prop-pkg-desc">+ Meta/Google Ads + content calendar + email + lead gen</div>
+        </div>
+        <div class="prop-pkg-card" onclick="selectPkg(this,2200)" data-price="2200">
+          <div class="prop-pkg-name">Market Leader</div>
+          <div class="prop-pkg-price">from $2,200/mo</div>
+          <div class="prop-pkg-desc">+ All paid channels + PR + AI content + custom dashboard</div>
+        </div>
+        <div class="prop-pkg-card" onclick="selectPkg(this,2800)" data-price="2800">
+          <div class="prop-pkg-name">AI-First</div>
+          <div class="prop-pkg-price">from $2,800/mo</div>
+          <div class="prop-pkg-desc">AI content + chatbot + automations + AI video + predictive analytics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Add-ons -->
+    <div class="form-group">
+      <label class="form-label">Step 3 — Add Individual Services (optional)</label>
+      <div class="prop-svc-grid">
+        <div class="prop-svc-item" onclick="toggleSvc(this,200)"><div class="prop-svc-check"></div>WhatsApp Marketing (+$200)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,150)"><div class="prop-svc-check"></div>SMS Campaigns (+$150)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,300)"><div class="prop-svc-check"></div>Influencer Management (+$300)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,400)"><div class="prop-svc-check"></div>AI Video Creation (+$400)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,250)"><div class="prop-svc-check"></div>PR & Media Outreach (+$250)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,350)"><div class="prop-svc-check"></div>Podcast Production (+$350)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,500)"><div class="prop-svc-check"></div>Full Web Build (+$500 one-time)</div>
+        <div class="prop-svc-item" onclick="toggleSvc(this,200)"><div class="prop-svc-check"></div>Custom Dashboard (+$200)</div>
+      </div>
+    </div>
+
+    <!-- Total -->
+    <div class="prop-total">
+      <div>
+        <div class="prop-total-label">Proposal Total</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px">Per month · excludes one-time fees</div>
+      </div>
+      <div class="prop-total-val" id="propTotal">$0/mo</div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('proposalModal')">Cancel</button>
+      <button class="btn btn-ghost" onclick="toast('Preview coming soon','info')">Preview</button>
+      <button class="btn btn-primary" onclick="closeModal('proposalModal');toast('Proposal created & ready to send','success')">Create Proposal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ONBOARD CLIENT MODAL ══════ -->
+<div class="modal-overlay" id="onboardModal" onclick="if(event.target===this)closeModal('onboardModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Onboard New Client</div>
+      <button class="modal-close" onclick="closeModal('onboardModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Company Name *</label><input class="form-input" placeholder="Client company"></div>
+      <div class="form-group"><label class="form-label">Industry</label><select class="form-select"><option>E-commerce</option><option>Healthcare</option><option>F&B</option><option>SaaS / Tech</option><option>Real Estate</option><option>Education</option><option>Fashion</option><option>Other</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Primary Contact *</label><input class="form-input" placeholder="Name"></div>
+      <div class="form-group"><label class="form-label">Contact Email</label><input class="form-input" type="email" placeholder="email@company.com"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" placeholder="City, Country"></div>
+      <div class="form-group"><label class="form-label">Package</label><select class="form-select"><option>Starter Brand</option><option>Growth Accelerator</option><option>Market Leader</option><option>AI-First</option><option>Custom</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">MRR ($/mo)</label><input class="form-input" placeholder="Monthly value"></div>
+      <div class="form-group"><label class="form-label">Start Date</label><input class="form-input" type="date"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Onboarding Notes</label><textarea class="form-textarea" placeholder="Goals, requirements, special notes…"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('onboardModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('onboardModal');toast('Client onboarded successfully','success')">Onboard Client</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ LEAD DETAIL MODAL ══════ -->
+<div class="modal-overlay" id="leadDetailModal" onclick="if(event.target===this)closeModal('leadDetailModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="leadDetailTitle">Lead Details</div>
+      <button class="modal-close" onclick="closeModal('leadDetailModal')">✕</button>
+    </div>
+    <div id="leadDetailContent">
+      <div class="g2" style="margin-bottom:14px">
+        <div class="card-sm"><div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Est. Value</div><div style="font-size:20px;font-weight:800;color:var(--orange)" id="ld-val">$2,200/mo</div></div>
+        <div class="card-sm"><div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Stage</div><div style="font-size:14px;font-weight:700" id="ld-stage">New</div></div>
+      </div>
+      <div class="card-sm" style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">Lead Info</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Contact</span><strong id="ld-contact">—</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Location</span><strong id="ld-loc">—</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Source</span><strong id="ld-source">—</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Interest</span><strong id="ld-interest">—</strong></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Next Action</label><input class="form-input" placeholder="e.g. Send follow-up email tomorrow"></div>
+      <div class="form-group"><label class="form-label">Move to Stage</label>
+        <select class="form-select">
+          <option>New</option><option>Contacted</option><option>Proposal Sent</option><option>Won</option><option>Lost</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('leadDetailModal')">Close</button>
+      <button class="btn btn-ghost" onclick="closeModal('leadDetailModal');openModal('proposalModal')">Build Proposal</button>
+      <button class="btn btn-primary" onclick="closeModal('leadDetailModal');toast('Lead updated','success')">Save Changes</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ═══════════════════════════════════════
@@ -1709,6 +2697,151 @@ function toast(msg, type = 'info') {
   t.innerHTML = `<div class="toast-dot"></div><span>${msg}</span>`;
   box.appendChild(t);
   setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(8px)'; t.style.transition = '.2s'; setTimeout(() => t.remove(), 200); }, 3000);
+}
+
+// ═══════════════════════════════════════
+// MODAL SYSTEM
+// ═══════════════════════════════════════
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    closeDrawer();
+    document.body.style.overflow = '';
+  }
+});
+
+// ═══════════════════════════════════════
+// DRAWER SYSTEM
+// ═══════════════════════════════════════
+function openDrawer() {
+  document.getElementById('clientDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.getElementById('clientDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function switchTab(btn, tabId) {
+  btn.closest('.drawer-body').querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+  btn.closest('.drawer-body').querySelectorAll('.drawer-tab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// ═══════════════════════════════════════
+// CLIENT PROFILES
+// ═══════════════════════════════════════
+const clientData = {
+  usman:       { name:'Dr. Usman', sub:'Healthcare · Saudi Arabia · Market Leader', initials:'DU', color:'var(--orange)', mrr:'$1,800', health:'94%', contact:'Dr. Usman Liaqat', industry:'Healthcare / Authority', location:'Saudi Arabia', since:'January 2024', pkg:'Market Leader' },
+  techpak:     { name:'TechPak Solutions', sub:'B2B SaaS · Karachi · AI-First', initials:'TP', color:'var(--blue)', mrr:'$2,200', health:'88%', contact:'Hassan Siddiqui', industry:'B2B SaaS', location:'Karachi, Pakistan', since:'April 2025', pkg:'AI-First' },
+  'karachi-eats':{ name:'Karachi Eats', sub:'F&B · Karachi · Growth Accelerator', initials:'KE', color:'var(--pink)', mrr:'$950', health:'82%', contact:'Ali Raza', industry:'F&B / Food Delivery', location:'Karachi, Pakistan', since:'March 2025', pkg:'Growth Accelerator' },
+  novamed:     { name:'NovaMed Clinic', sub:'Healthcare · Riyadh · Growth Accelerator', initials:'NM', color:'var(--teal)', mrr:'$1,100', health:'71%', contact:'Dr. Khalid Naseem', industry:'Healthcare', location:'Riyadh, Saudi Arabia', since:'November 2024', pkg:'Growth Accelerator' },
+  dxb:         { name:'DXB Retail Group', sub:'Retail · Dubai · Market Leader', initials:'DG', color:'var(--purple)', mrr:'$1,600', health:'90%', contact:'Faisal Al-Rashid', industry:'Retail / E-commerce', location:'Dubai, UAE', since:'February 2025', pkg:'Market Leader' },
+  edupath:     { name:'EduPath Online', sub:'EdTech · Lahore · Starter Brand', initials:'EP', color:'var(--yellow)', mrr:'$450', health:'68%', contact:'Rabia Noor', industry:'EdTech / E-learning', location:'Lahore, Pakistan', since:'December 2024', pkg:'Starter Brand' },
+  gulfstyle:   { name:'GulfStyle Fashion', sub:'Fashion · Dubai · Growth Accelerator', initials:'GS', color:'var(--red)', mrr:'$350', health:'55%', contact:'Rania Al-Hassan', industry:'Fashion / E-commerce', location:'Dubai, UAE', since:'January 2025', pkg:'Growth Accelerator' },
+};
+
+function openClientProfile(key) {
+  const d = clientData[key];
+  if (!d) return;
+  document.getElementById('drawerAvatar').textContent = d.initials;
+  document.getElementById('drawerAvatar').style.background = d.color;
+  document.getElementById('drawerName').textContent = d.name;
+  document.getElementById('drawerSub').textContent = d.sub;
+  document.getElementById('d-mrr').textContent = d.mrr;
+  document.getElementById('d-health').textContent = d.health;
+  document.getElementById('d-contact').textContent = d.contact;
+  document.getElementById('d-industry').textContent = d.industry;
+  document.getElementById('d-location').textContent = d.location;
+  document.getElementById('d-since').textContent = d.since;
+  document.getElementById('d-package').textContent = d.pkg;
+  // Reset tabs
+  document.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.drawer-tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.drawer-tab').classList.add('active');
+  document.getElementById('dtab-overview').classList.add('active');
+  openDrawer();
+  // Health chart
+  setTimeout(() => {
+    const hctx = document.getElementById('healthChart');
+    if (hctx && !hctx.dataset.drawn) {
+      hctx.dataset.drawn = '1';
+      new Chart(hctx, {
+        type: 'line',
+        data: {
+          labels: ['Nov','Dec','Jan','Feb','Mar','Apr'],
+          datasets: [{ data: [72,78,82,88,91,parseInt(d.health)], borderColor: d.color.includes('red') ? '#dc2626' : d.color.includes('yellow') ? '#d97706' : '#16a34a', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.4 }]
+        },
+        options: { responsive:true, plugins:{legend:{display:false}}, scales:{ y:{min:40,max:100,ticks:{font:{size:10},color:'rgba(15,17,23,0.4)'}}, x:{grid:{display:false},ticks:{font:{size:10},color:'rgba(15,17,23,0.4)'}} } }
+      });
+    }
+  }, 100);
+}
+
+// ═══════════════════════════════════════
+// LEAD DETAILS
+// ═══════════════════════════════════════
+const leadData = {
+  'GulfStyle E-commerce': { val:'$2,200/mo', stage:'New', contact:'Rania Al-Hassan · CEO', loc:'Dubai, UAE', source:'Inbound', interest:'Market Leader Package' },
+  'Lahore Organics':      { val:'$950/mo',   stage:'New', contact:'Sana Mirza · Marketing Head', loc:'Lahore, Pakistan', source:'Referral', interest:'Growth Accelerator' },
+  'PixelCraft Studio':    { val:'$1,400/mo', stage:'New', contact:'Bilal Akhtar · Co-founder', loc:'Islamabad, Pakistan', source:'LinkedIn', interest:'SEO/AEO + Lead Gen' },
+  'MedHub Arabia':        { val:'$1,800/mo', stage:'New', contact:'Dr. Khalid Rashed · CMO', loc:'Riyadh, Saudi Arabia', source:'Referral', interest:'AI-First Package' },
+  'FoodBox PK':           { val:'$1,200/mo', stage:'Contacted', contact:'Omar Farooq · CEO', loc:'Karachi, Pakistan', source:'Cold Email', interest:'Growth Accelerator' },
+  'ZenFit UAE':           { val:'$1,600/mo', stage:'Contacted', contact:'Sara Al-Mansoori · Founder', loc:'Dubai, UAE', source:'Instagram', interest:'Social + Influencer' },
+  'Islamabad Realty':     { val:'$2,400/mo', stage:'Contacted', contact:'Ahmed Butt · Director', loc:'Islamabad, Pakistan', source:'Referral', interest:'Market Leader Package' },
+  'DXB Retail Group':     { val:'$3,200/mo', stage:'Proposal Sent', contact:'Faisal Al-Rashid · CMO', loc:'Dubai, UAE', source:'Referral', interest:'Market Leader Package' },
+  'EduPath Online':       { val:'$1,800/mo', stage:'Proposal Sent', contact:'Rabia Noor · Founder', loc:'Lahore, Pakistan', source:'LinkedIn', interest:'AI-First Package' },
+  'TechPak Solutions':    { val:'$2,200/mo', stage:'Won', contact:'Hassan Siddiqui · CEO', loc:'Karachi, Pakistan', source:'Cold Email', interest:'AI-First Package' },
+  'Karachi Eats':         { val:'$950/mo',   stage:'Won', contact:'Ali Raza · Co-founder', loc:'Karachi, Pakistan', source:'Instagram', interest:'Growth Accelerator' },
+  'CityMart':             { val:'$1,400/mo', stage:'Lost', contact:'Usman Tariq · Owner', loc:'Rawalpindi, Pakistan', source:'Inbound', interest:'Starter Brand' },
+};
+
+function openLeadDetail(name) {
+  const d = leadData[name] || {};
+  document.getElementById('leadDetailTitle').textContent = name;
+  document.getElementById('ld-val').textContent = d.val || '—';
+  document.getElementById('ld-stage').textContent = d.stage || '—';
+  document.getElementById('ld-contact').textContent = d.contact || '—';
+  document.getElementById('ld-loc').textContent = d.loc || '—';
+  document.getElementById('ld-source').textContent = d.source || '—';
+  document.getElementById('ld-interest').textContent = d.interest || '—';
+  openModal('leadDetailModal');
+}
+
+// ═══════════════════════════════════════
+// PROPOSAL BUILDER
+// ═══════════════════════════════════════
+let propBasePrice = 0;
+let propAddons = 0;
+
+function selectPkg(el, price) {
+  document.querySelectorAll('.prop-pkg-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  propBasePrice = price;
+  updateProposalTotal();
+}
+function toggleSvc(el, price) {
+  el.classList.toggle('selected');
+  propAddons = 0;
+  document.querySelectorAll('.prop-svc-item.selected').forEach(s => {
+    const m = s.textContent.match(/\+\$(\d+)/);
+    if (m) propAddons += parseInt(m[1]);
+  });
+  updateProposalTotal();
+}
+function updateProposalTotal() {
+  const total = propBasePrice + propAddons;
+  document.getElementById('propTotal').textContent = total > 0 ? '$' + total.toLocaleString() + '/mo' : '$0/mo';
 }
 
 // ═══════════════════════════════════════
