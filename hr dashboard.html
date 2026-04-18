@@ -2822,9 +2822,10 @@ body{
         <div class="ai-status-dot" id="ollama-dot"></div>
         <span class="ai-status-label" id="ollama-label">Checking Ollama…</span>
         <select class="ai-model-select" id="ai-model-select" onchange="onModelChange(this.value)">
-          <option value="gemma4" selected>gemma4</option>
-          <option value="gemma4:12b">gemma4:12b</option>
-          <option value="gemma4:27b">gemma4:27b</option>
+          <option value="gemma4:e4b" selected>gemma4:e4b</option>
+          <option value="gemma4:e2b">gemma4:e2b</option>
+          <option value="gemma4:26b">gemma4:26b</option>
+          <option value="gemma4:31b">gemma4:31b</option>
           <option value="gemma3:4b">gemma3:4b</option>
           <option value="gemma3:12b">gemma3:12b</option>
           <option value="gemma3:27b">gemma3:27b</option>
@@ -2846,7 +2847,7 @@ body{
             <div class="chat-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
               Agency Brain
-              <span style="font-size:10px;font-weight:500;color:var(--text2)" id="ai-model-label">gemma4</span>
+              <span style="font-size:10px;font-weight:500;color:var(--text2)" id="ai-model-label">gemma4:e4b</span>
             </div>
             <div style="font-size:11px;color:var(--text3)" id="chat-token-info"></div>
           </div>
@@ -2929,13 +2930,13 @@ body{
             <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
               <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Engine</span><strong>Ollama</strong></div>
               <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Endpoint</span><strong style="color:var(--text3);font-size:11px">localhost:11434</strong></div>
-              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Model</span><strong id="runtime-model">gemma4</strong></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Model</span><strong id="runtime-model">gemma4:e4b</strong></div>
               <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Privacy</span><strong style="color:var(--green)">100% local</strong></div>
               <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Messages</span><strong id="runtime-msgs">1</strong></div>
             </div>
             <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);line-height:1.5">
               No data leaves your machine. Pull Gemma 4 with:<br>
-              <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--purple)">ollama pull gemma4</code>
+              <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--purple)">ollama pull gemma4:e4b</code>
             </div>
           </div>
         </div>
@@ -3661,7 +3662,7 @@ function updateProposalTotal() {
 // ═══════════════════════════════════════
 // AI HUB — OLLAMA / GEMMA
 // ═══════════════════════════════════════
-let currentAIModel = 'gemma4';
+let currentAIModel = 'gemma4:e4b';
 let chatHistory = [];
 let isChatStreaming = false;
 const OLLAMA_BASE = 'http://localhost:11434';
