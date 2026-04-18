@@ -1600,14 +1600,14 @@ body{
         <div class="kpi">
           <div class="kpi-icon" style="background:var(--orange-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
           <div class="kpi-label">Monthly Recurring Revenue</div>
-          <div class="kpi-value">$8,450</div>
+          <div class="kpi-value" id="kpi-mrr-val">$8,450</div>
           <div class="kpi-trend up">↑ 12% vs last month</div>
           <div class="kpi-accent" style="background:var(--orange)"></div>
         </div>
         <div class="kpi">
           <div class="kpi-icon" style="background:var(--blue-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
           <div class="kpi-label">Active Clients</div>
-          <div class="kpi-value">7</div>
+          <div class="kpi-value" id="kpi-clients-val">7</div>
           <div class="kpi-trend up">↑ 1 new this month</div>
           <div class="kpi-accent" style="background:var(--blue)"></div>
         </div>
@@ -1633,7 +1633,7 @@ body{
           <div class="kpi-icon" style="background:var(--teal-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
           <div class="kpi-label">Active Packages</div>
           <div class="kpi-value">12</div>
-          <div class="kpi-trend flat">Across 7 clients</div>
+          <div class="kpi-trend flat" id="kpi-pkgs-trend">Across 7 clients</div>
           <div class="kpi-accent" style="background:var(--teal)"></div>
         </div>
         <div class="kpi">
@@ -1666,7 +1666,7 @@ body{
           <div class="target-bar-meta">13 days remaining this month</div>
         </div>
         <div class="target-bar-stats">
-          <div><div class="target-stat-label">Current MRR</div><div class="target-stat-val" style="color:var(--orange)">$8,450</div></div>
+          <div><div class="target-stat-label">Current MRR</div><div class="target-stat-val" style="color:var(--orange)" id="target-mrr-val">$8,450</div></div>
           <div><div class="target-stat-label">Monthly Target</div><div class="target-stat-val">$12,000</div></div>
           <div><div class="target-stat-label">Gap to Target</div><div class="target-stat-val" style="color:var(--red)">$3,550</div></div>
           <div><div class="target-stat-label">Projected (MoM)</div><div class="target-stat-val" style="color:var(--green)">$10,200</div></div>
@@ -1982,27 +1982,27 @@ body{
       <div class="stat-strip">
         <div class="stat-strip-item">
           <div class="stat-strip-label">Total MRR</div>
-          <div class="stat-strip-val" style="color:var(--orange)">$8,450</div>
+          <div class="stat-strip-val" style="color:var(--orange)" id="sstrip-mrr">$8,450</div>
           <div class="stat-strip-sub">↑ 12% vs last month</div>
         </div>
         <div class="stat-strip-item">
           <div class="stat-strip-label">Active Clients</div>
-          <div class="stat-strip-val" style="color:var(--blue)">7</div>
+          <div class="stat-strip-val" style="color:var(--blue)" id="sstrip-clients">7</div>
           <div class="stat-strip-sub">1 onboarded this month</div>
         </div>
         <div class="stat-strip-item">
           <div class="stat-strip-label">Avg Health Score</div>
-          <div class="stat-strip-val" style="color:var(--green)">78%</div>
+          <div class="stat-strip-val" style="color:var(--green)" id="sstrip-health">78%</div>
           <div class="stat-strip-sub">↑ from 71% last month</div>
         </div>
         <div class="stat-strip-item">
           <div class="stat-strip-label">At Risk</div>
-          <div class="stat-strip-val" style="color:var(--red)">2</div>
-          <div class="stat-strip-sub">EduPath · GulfStyle</div>
+          <div class="stat-strip-val" style="color:var(--red)" id="sstrip-risk">2</div>
+          <div class="stat-strip-sub" id="sstrip-risk-names">EduPath · GulfStyle</div>
         </div>
         <div class="stat-strip-item">
           <div class="stat-strip-label">Avg Client MRR</div>
-          <div class="stat-strip-val">$1,207</div>
+          <div class="stat-strip-val" id="sstrip-avg-mrr">$1,207</div>
           <div class="stat-strip-sub">Highest: TechPak $2,200</div>
         </div>
       </div>
@@ -2351,38 +2351,7 @@ body{
       </div>
 
       <!-- Brand Switcher Tabs -->
-      <div class="social-client-tabs" id="social-client-tabs">
-        <div class="social-client-tab active" id="sct-usman" onclick="switchSocialClient('usman')" style="background:#e8521a;color:#fff;border-color:#e8521a">
-          <div class="sct-av" style="background:rgba(255,255,255,.25)">DU</div>
-          <span class="sct-name">Dr. Usman</span>
-          <span class="sct-count">IG · LI · YT · FB</span>
-        </div>
-        <div class="social-client-tab" id="sct-techpak" onclick="switchSocialClient('techpak')" style="color:#2563eb">
-          <div class="sct-av" style="background:var(--blue)">TP</div>
-          <span class="sct-name">TechPak</span>
-          <span class="sct-count">LI · YT · X</span>
-        </div>
-        <div class="social-client-tab" id="sct-dxb" onclick="switchSocialClient('dxb')" style="color:#7c3aed">
-          <div class="sct-av" style="background:var(--purple)">DG</div>
-          <span class="sct-name">DXB Retail</span>
-          <span class="sct-count">IG · FB · TK</span>
-        </div>
-        <div class="social-client-tab" id="sct-ke" onclick="switchSocialClient('ke')" style="color:#db2777">
-          <div class="sct-av" style="background:var(--pink)">KE</div>
-          <span class="sct-name">Karachi Eats</span>
-          <span class="sct-count">IG · FB · TK</span>
-        </div>
-        <div class="social-client-tab" id="sct-edupath" onclick="switchSocialClient('edupath')" style="color:#d97706">
-          <div class="sct-av" style="background:var(--yellow)">EP</div>
-          <span class="sct-name">EduPath</span>
-          <span class="sct-count">IG · LI · YT</span>
-        </div>
-        <div class="social-client-tab" id="sct-gulfstyle" onclick="switchSocialClient('gulfstyle')" style="color:#dc2626">
-          <div class="sct-av" style="background:var(--red)">GS</div>
-          <span class="sct-name">GulfStyle</span>
-          <span class="sct-count">IG · TK · FB</span>
-        </div>
-      </div>
+      <div class="social-client-tabs" id="social-client-tabs"></div>
 
       <!-- Dynamic Brand View -->
       <div id="social-brand-view"></div>
@@ -3941,8 +3910,8 @@ const socialData = {
       {label:'UAE GTM launch calendar — final review',due:'Apr 22',urgent:false},
     ]
   },
-  ke: {
-    name:'Karachi Eats', initials:'KE', color:'#db2777', tabId:'sct-ke',
+  'karachi-eats': {
+    name:'Karachi Eats', initials:'KE', color:'#db2777', tabId:'sct-karachi-eats',
     platforms:[
       {icon:'📸',name:'Instagram',handle:'@karachieats',followers:'14K',eng:'5.9%',growth:'+4.1%',up:true,bg:'rgba(219,39,119,.12)'},
       {icon:'📘',name:'Facebook',handle:'Karachi Eats',followers:'6K',eng:'3.2%',growth:'+0.8%',up:true,bg:'rgba(37,99,235,.06)'},
@@ -4482,6 +4451,7 @@ function saveNewClient() {
   saveAll();
   closeModal('onboardModal');
   renderClientTable();
+  refreshCommandKPIs();
   toast(name + ' onboarded!', 'success');
 }
 
@@ -4490,9 +4460,81 @@ function removeClient(key) {
   if (!c) return;
   if (!confirm('Remove ' + c.name + ' from CRM? This cannot be undone.')) return;
   delete clientData[key];
+  // Also remove from socialData if present
+  if (socialData[key]) {
+    delete socialData[key];
+    // If this was the active social tab, switch to first remaining
+    if (activeSocialClient === key) {
+      const firstKey = Object.keys(socialData).find(k => clientData[k]);
+      activeSocialClient = firstKey || '';
+    }
+    renderSocialTabs();
+    if (activeSocialClient) switchSocialClient(activeSocialClient);
+  }
   saveAll();
   renderClientTable();
+  refreshCommandKPIs();
   toast(c.name + ' removed', 'info');
+}
+
+// ═══════════════════════════════════════
+// DYNAMIC SOCIAL TABS
+// ═══════════════════════════════════════
+function renderSocialTabs() {
+  const container = document.getElementById('social-client-tabs');
+  if (!container) return;
+  const abbr = n => {
+    if (n === 'Instagram') return 'IG';
+    if (n === 'LinkedIn')  return 'LI';
+    if (n === 'YouTube')   return 'YT';
+    if (n === 'Facebook')  return 'FB';
+    if (n === 'TikTok')    return 'TK';
+    if (n.includes('Twitter') || n === 'X (Twitter)') return 'X';
+    return n.substring(0,2).toUpperCase();
+  };
+  const keys = Object.keys(socialData).filter(k => clientData[k]);
+  container.innerHTML = keys.map(key => {
+    const d = socialData[key];
+    const isActive = key === activeSocialClient;
+    const platforms = (d.platforms||[]).map(p => abbr(p.name)).join(' · ');
+    const activeStyle = isActive
+      ? `background:${d.color};color:#fff;border-color:${d.color}`
+      : `color:${d.color}`;
+    const avStyle = isActive
+      ? `background:rgba(255,255,255,.25)`
+      : `background:${d.color}`;
+    return `<div class="social-client-tab${isActive?' active':''}" id="sct-${key}" onclick="switchSocialClient('${key}')" style="${activeStyle}">
+      <div class="sct-av" style="${avStyle}">${d.initials}</div>
+      <span class="sct-name">${d.name.split(' ')[0]}</span>
+      <span class="sct-count">${platforms}</span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// REFRESH COMMAND KPIs FROM clientData
+// ═══════════════════════════════════════
+function refreshCommandKPIs() {
+  const keys   = Object.keys(clientData);
+  const count  = keys.length;
+  const totalMrr = keys.reduce((s,k) => s + parseInt((clientData[k].mrr||'$0').replace(/[^0-9]/g,'')), 0);
+  const avgHealth = count ? Math.round(keys.reduce((s,k) => s + parseInt(clientData[k].health), 0) / count) : 0;
+  const atRiskKeys = keys.filter(k => parseInt(clientData[k].health) < 70);
+  const avgMrr = count ? Math.round(totalMrr / count) : 0;
+  const mrrStr = '$' + totalMrr.toLocaleString();
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('kpi-mrr-val',    mrrStr);
+  set('kpi-clients-val', count);
+  set('kpi-pkgs-trend', 'Across ' + count + ' client' + (count !== 1 ? 's' : ''));
+  set('target-mrr-val', mrrStr);
+  set('sstrip-mrr',     mrrStr);
+  set('sstrip-clients', count);
+  set('sstrip-health',  avgHealth + '%');
+  set('sstrip-risk',    atRiskKeys.length);
+  set('sstrip-avg-mrr', '$' + avgMrr.toLocaleString());
+  const riskNames = document.getElementById('sstrip-risk-names');
+  if (riskNames) riskNames.textContent = atRiskKeys.map(k => clientData[k].name.split(' ')[0]).join(' · ') || 'None';
 }
 
 // ═══════════════════════════════════════
@@ -4554,10 +4596,14 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKanban();
   renderClientTable();
   renderBrandProjects('all');
+  refreshCommandKPIs();
+  renderSocialTabs();
   // Auto-check Ollama on load
   checkOllama();
-  // Load default social client
-  switchSocialClient('usman');
+  // Load default social client — pick first available in case some were deleted
+  const _defaultSocial = Object.keys(socialData).find(k => clientData[k]) || 'usman';
+  activeSocialClient = _defaultSocial;
+  switchSocialClient(_defaultSocial);
   // Ctrl+K to focus chat
   document.addEventListener('keydown', e => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
