@@ -2982,6 +2982,82 @@ body{
 </div>
 
 <!-- ══════ LEAD DETAIL MODAL ══════ -->
+<!-- ── NEW BRAND PROJECT MODAL ── -->
+<div class="modal-overlay" id="newBrandProjectModal" onclick="if(event.target===this)closeModal('newBrandProjectModal')">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div class="modal-title">New Brand Project</div>
+      <button class="modal-close" onclick="closeModal('newBrandProjectModal')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Project Name</label><input class="form-input" id="nbp-name" placeholder="e.g. Dr. Usman — Brand Refresh 2026"></div>
+    <div class="g2">
+      <div class="form-group"><label class="form-label">Client</label>
+        <select class="form-select" id="nbp-client">
+          <option value="">Select client…</option>
+          <option>Dr. Usman</option><option>TechPak Solutions</option><option>DXB Retail Co</option>
+          <option>NovaMed Clinic</option><option>EduPath Academy</option><option>Gulf Foods Group</option><option>UrbanNest PK</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Project Type</label>
+        <select class="form-select" id="nbp-type">
+          <option value="identity">Brand Identity</option>
+          <option value="positioning">Positioning & Messaging</option>
+          <option value="competitor">Competitor Analysis</option>
+          <option value="research">Market Research</option>
+          <option value="gtm">GTM Strategy</option>
+        </select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="form-group"><label class="form-label">Start Date</label><input class="form-input" type="date" id="nbp-start"></div>
+      <div class="form-group"><label class="form-label">Due Date</label><input class="form-input" type="date" id="nbp-due"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Assigned To</label><input class="form-input" id="nbp-assign" placeholder="e.g. HR, Zara, Ali"></div>
+    <div class="form-group"><label class="form-label">Brief / Notes</label><textarea class="form-input" id="nbp-notes" rows="3" placeholder="Key deliverables, references, special instructions…" style="resize:vertical"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('newBrandProjectModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('newBrandProjectModal');toast('Brand project created','success')">Create Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECT DETAIL MODAL ── -->
+<div class="modal-overlay" id="projectDetailModal" onclick="if(event.target===this)closeModal('projectDetailModal')">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header">
+      <div class="modal-title" id="pd-title">Brand Identity — Dr. Usman</div>
+      <button class="modal-close" onclick="closeModal('projectDetailModal')">✕</button>
+    </div>
+    <div class="g3" style="margin-bottom:16px">
+      <div class="card-sm" style="text-align:center"><div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Status</div><span class="badge badge-yellow" id="pd-status">In Progress</span></div>
+      <div class="card-sm" style="text-align:center"><div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Due</div><div style="font-size:14px;font-weight:700" id="pd-due">Apr 22</div></div>
+      <div class="card-sm" style="text-align:center"><div style="font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Progress</div><div style="font-size:14px;font-weight:700;color:var(--orange)" id="pd-pct">68%</div></div>
+    </div>
+    <div class="card-sm" style="margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;margin-bottom:10px">Deliverables</div>
+      <div class="checklist" id="pd-tasks" style="gap:8px">
+        <div class="check-item done"><div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div><div class="check-label">Competitor audit (10 profiles)</div></div>
+        <div class="check-item done"><div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div><div class="check-label">Visual identity — colour + typography</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div><div class="check-label">Brand guide PDF (final)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div><div class="check-label">Social media kit (covers, highlights, reels)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div><div class="check-label">Client sign-off & final asset delivery</div></div>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Internal Notes</label><textarea class="form-input" rows="2" placeholder="Add note…" style="resize:vertical"></textarea></div>
+    <div class="form-group"><label class="form-label">Update Status</label>
+      <select class="form-select">
+        <option>In Progress</option><option>In Review</option><option>Needs Input</option><option>Completed</option><option>On Hold</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('projectDetailModal')">Close</button>
+      <button class="btn btn-ghost" onclick="toast('Project link copied','info')">Copy Link</button>
+      <button class="btn btn-primary" onclick="closeModal('projectDetailModal');toast('Project updated','success')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEAD DETAIL MODAL ── -->
 <div class="modal-overlay" id="leadDetailModal" onclick="if(event.target===this)closeModal('leadDetailModal')">
   <div class="modal">
     <div class="modal-header">
@@ -3323,6 +3399,18 @@ function toggleSvc(el, price) {
 function updateProposalTotal() {
   const total = propBasePrice + propAddons;
   document.getElementById('propTotal').textContent = total > 0 ? '$' + total.toLocaleString() + '/mo' : '$0/mo';
+}
+
+// ═══════════════════════════════════════
+// BRAND PROJECTS FILTER
+// ═══════════════════════════════════════
+function filterProjects(type, el) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card => {
+    const match = type === 'all' || card.dataset.type === type;
+    card.style.display = match ? '' : 'none';
+  });
 }
 
 // ═══════════════════════════════════════
