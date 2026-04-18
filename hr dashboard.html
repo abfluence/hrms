@@ -1154,6 +1154,62 @@ body{
 .comp-bar-fill{height:100%;border-radius:3px}
 
 /* ═══════════════════════════════════════
+   AI HUB
+═══════════════════════════════════════ */
+.ai-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.ai-status-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.ai-status-dot{width:8px;height:8px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s}
+.ai-status-dot.online{background:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.2)}
+.ai-status-dot.offline{background:var(--red)}
+.ai-status-label{font-size:12px;font-weight:600;color:var(--text2)}
+.ai-model-select{font-size:12px;font-weight:600;border:1px solid var(--border2);border-radius:var(--rs);padding:4px 10px;background:var(--surface2);color:var(--text);cursor:pointer;outline:none}
+.ai-model-select:focus{border-color:var(--purple)}
+.ai-model-input{font-size:12px;font-weight:600;border:1px solid var(--border2);border-radius:var(--rs);padding:4px 10px;background:var(--surface2);color:var(--text);outline:none;width:180px}
+.ai-model-input:focus{border-color:var(--purple)}
+
+/* Chat */
+.chat-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);display:flex;flex-direction:column;height:580px}
+.chat-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.chat-title{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-track{background:transparent}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.msg{display:flex;gap:10px;align-items:flex-start;max-width:100%}
+.msg-user{flex-direction:row-reverse}
+.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.msg-ai .msg-avatar{background:var(--purple-bg);color:var(--purple)}
+.msg-user .msg-avatar{background:var(--orange-bg2);color:var(--orange)}
+.msg-bubble{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;max-width:82%;word-break:break-word;white-space:pre-wrap}
+.msg-ai .msg-bubble{background:var(--bg);border-bottom-left-radius:4px;color:var(--text)}
+.msg-user .msg-bubble{background:var(--orange);color:#fff;border-bottom-right-radius:4px}
+.msg-thinking .msg-bubble{color:var(--text2);font-style:italic}
+.msg-thinking .dot-blink{display:inline-block;animation:dotBlink 1.2s infinite}
+.msg-thinking .dot-blink:nth-child(2){animation-delay:.2s}
+.msg-thinking .dot-blink:nth-child(3){animation-delay:.4s}
+@keyframes dotBlink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chat-input-area{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end}
+.chat-textarea{flex:1;border:1px solid var(--border2);border-radius:var(--rs);padding:9px 12px;font-size:13px;font-family:inherit;resize:none;outline:none;max-height:120px;line-height:1.5;color:var(--text);background:var(--bg)}
+.chat-textarea:focus{border-color:var(--purple)}
+.chat-send-btn{width:38px;height:38px;border-radius:var(--rs);background:var(--purple);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.chat-send-btn:hover{opacity:.85}
+.chat-send-btn:disabled{opacity:.4;cursor:not-allowed}
+.chat-hint{font-size:10px;color:var(--text3);margin-top:6px}
+
+/* AI Sidebar */
+.ai-sidebar-section{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.ai-sidebar-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:12px}
+.quick-prompt{padding:8px 12px;border-radius:var(--rs);border:1px solid var(--border2);font-size:12px;font-weight:500;cursor:pointer;background:var(--bg);color:var(--text);margin-bottom:6px;width:100%;text-align:left;transition:all .12s;line-height:1.4}
+.quick-prompt:hover{border-color:var(--purple);background:var(--purple-bg);color:var(--purple)}
+.ai-tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ai-tool-card{padding:12px;border-radius:var(--rs);border:1px solid var(--border2);cursor:pointer;background:var(--bg);transition:all .12s;text-align:center}
+.ai-tool-card:hover{border-color:var(--purple);background:var(--purple-bg)}
+.ai-tool-icon{font-size:20px;margin-bottom:4px}
+.ai-tool-name{font-size:11px;font-weight:600;color:var(--text)}
+.ai-tool-desc{font-size:10px;color:var(--text2);margin-top:2px;line-height:1.3}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -2684,8 +2740,134 @@ body{
     </div>
 
     <div class="page" id="page-aihub">
-      <div class="ph"><div class="ph-left"><div class="ph-title">AI Hub</div><div class="ph-sub">AI-powered services across all client accounts</div></div></div>
-      <div class="module-coming"><div class="module-coming-icon" style="background:var(--purple-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><h3>AI Hub</h3><p>AI content factory, chatbot deployments, AI video & voice, lead gen automation, predictive analytics. Building in Phase 5.</p></div>
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-title">AI Hub</div>
+          <div class="ph-sub">Gemma 4 brain — local, private, streaming</div>
+        </div>
+        <div class="ph-right">
+          <button class="btn btn-secondary btn-sm" onclick="checkOllama()">Check Connection</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearChat()">Clear Chat</button>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="ai-status-bar">
+        <div class="ai-status-dot" id="ollama-dot"></div>
+        <span class="ai-status-label" id="ollama-label">Checking Ollama…</span>
+        <select class="ai-model-select" id="ai-model-select" onchange="onModelChange(this.value)">
+          <option value="gemma3:4b">gemma3:4b</option>
+          <option value="gemma3:12b">gemma3:12b</option>
+          <option value="gemma3:27b">gemma3:27b</option>
+          <option value="gemma2:9b">gemma2:9b</option>
+          <option value="llama3.2:3b">llama3.2:3b</option>
+          <option value="llama3.1:8b">llama3.1:8b</option>
+          <option value="mistral:7b">mistral:7b</option>
+          <option value="custom">Custom model…</option>
+        </select>
+        <input class="ai-model-input" id="ai-model-custom" placeholder="model:tag" style="display:none" oninput="currentAIModel=this.value">
+        <span class="badge" id="ollama-models-badge" style="background:var(--purple-bg);color:var(--purple);font-size:10px"></span>
+      </div>
+
+      <div class="ai-layout">
+
+        <!-- ── CHAT ── -->
+        <div class="chat-wrap">
+          <div class="chat-header">
+            <div class="chat-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+              Agency Brain
+              <span style="font-size:10px;font-weight:500;color:var(--text2)" id="ai-model-label">gemma3:4b</span>
+            </div>
+            <div style="font-size:11px;color:var(--text3)" id="chat-token-info"></div>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <!-- Welcome message -->
+            <div class="msg msg-ai">
+              <div class="msg-avatar">G</div>
+              <div class="msg-bubble">Hey HR. I'm your agency brain running on <strong>Gemma 4</strong> locally via Ollama — fully private, no cloud.<br><br>Ask me anything: write copy, analyze a competitor, build a campaign brief, summarize a report, or brainstorm ideas for any client. What are we working on?</div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <div class="chat-input-row">
+              <textarea class="chat-textarea" id="chat-input" rows="1" placeholder="Ask anything… (Shift+Enter for new line, Enter to send)" onkeydown="chatKeydown(event)" oninput="autoResize(this)"></textarea>
+              <button class="chat-send-btn" id="chat-send-btn" onclick="sendChat()" title="Send">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <div class="chat-hint">Powered by Ollama · Running locally · Ctrl+K to focus</div>
+          </div>
+        </div>
+
+        <!-- ── SIDEBAR ── -->
+        <div>
+          <!-- Quick Prompts -->
+          <div class="ai-sidebar-section">
+            <div class="ai-sidebar-title">Quick Prompts</div>
+            <button class="quick-prompt" onclick="injectPrompt('Write a 3-post Instagram caption series for Dr. Usman launching his new clinic in Riyadh. Tone: authoritative, warm. Include CTAs.')">📸 Instagram series — Dr. Usman</button>
+            <button class="quick-prompt" onclick="injectPrompt('Generate 10 high-converting LinkedIn post ideas for a B2B SaaS company in Pakistan targeting CTO-level buyers in the UAE and Saudi Arabia.')">💼 LinkedIn ideas — TechPak B2B</button>
+            <button class="quick-prompt" onclick="injectPrompt('Write a cold outreach email sequence (3 emails) for a digital marketing agency in Pakistan reaching out to e-commerce brands in the UAE. Subject lines + body copy. Persuasive, not salesy.')">✉️ Cold email sequence — UAE e-com</button>
+            <button class="quick-prompt" onclick="injectPrompt('Create a full campaign brief for a paid media campaign on Meta Ads. Client: medical clinic in Saudi Arabia. Objective: patient bookings. Budget: $3,000/mo. Include audience targeting, ad formats, KPIs, and budget split.')">📋 Paid media brief — Meta Ads</button>
+            <button class="quick-prompt" onclick="injectPrompt('Analyze the competitive positioning of a digital marketing agency operating in Pakistan and UAE. What are the top 5 differentiators we should lead with? What gaps exist in the market we can exploit?')">🔍 Competitive gap analysis</button>
+            <button class="quick-prompt" onclick="injectPrompt('Write an end-of-month performance report summary for a social media management client. Include: key wins, missed KPIs, reasons, and next month recommendations. Tone: professional, client-facing.')">📊 Monthly report summary</button>
+            <button class="quick-prompt" onclick="injectPrompt('Give me 20 trending hashtag sets for a medical authority brand in Saudi Arabia — Instagram and LinkedIn. Cluster them by: reach size (mega/macro/niche). Output as a table.')">🏷️ Hashtag research — Medical</button>
+          </div>
+
+          <!-- AI Tools -->
+          <div class="ai-sidebar-section">
+            <div class="ai-sidebar-title">AI Tools</div>
+            <div class="ai-tool-grid">
+              <div class="ai-tool-card" onclick="injectPrompt('Write a full brand messaging framework including: tagline, value proposition, brand voice guidelines, key messages for 3 audiences, and elevator pitch. Client: ')">
+                <div class="ai-tool-icon">✍️</div>
+                <div class="ai-tool-name">Brand Brief</div>
+                <div class="ai-tool-desc">Full messaging framework</div>
+              </div>
+              <div class="ai-tool-card" onclick="injectPrompt('Generate a 30-day social media content calendar. Platform: Instagram + LinkedIn. Client industry: ')">
+                <div class="ai-tool-icon">📅</div>
+                <div class="ai-tool-name">Content Calendar</div>
+                <div class="ai-tool-desc">30-day multi-platform</div>
+              </div>
+              <div class="ai-tool-card" onclick="injectPrompt('Write 5 Facebook/Instagram ad copy variations (hook + body + CTA) for A/B testing. Product/service: ')">
+                <div class="ai-tool-icon">📣</div>
+                <div class="ai-tool-name">Ad Copy</div>
+                <div class="ai-tool-desc">5 A/B test variations</div>
+              </div>
+              <div class="ai-tool-card" onclick="injectPrompt('Write an SEO-optimized blog post outline + full introduction (300 words). Topic: ')">
+                <div class="ai-tool-icon">📝</div>
+                <div class="ai-tool-name">SEO Blog</div>
+                <div class="ai-tool-desc">Outline + introduction</div>
+              </div>
+              <div class="ai-tool-card" onclick="injectPrompt('Build a complete sales funnel strategy including: awareness content, lead magnet idea, nurture email sequence (5 emails), and closing message. Business: ')">
+                <div class="ai-tool-icon">🔄</div>
+                <div class="ai-tool-name">Sales Funnel</div>
+                <div class="ai-tool-desc">Full funnel strategy</div>
+              </div>
+              <div class="ai-tool-card" onclick="injectPrompt('Write a client-facing monthly performance report for digital marketing services. Include executive summary, metrics overview, wins, areas to improve, and next month plan. Client: ')">
+                <div class="ai-tool-icon">📈</div>
+                <div class="ai-tool-name">Client Report</div>
+                <div class="ai-tool-desc">Monthly performance</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model Info -->
+          <div class="ai-sidebar-section" style="padding:12px 14px">
+            <div class="ai-sidebar-title">Runtime</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Engine</span><strong>Ollama</strong></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Endpoint</span><strong style="color:var(--text3);font-size:11px">localhost:11434</strong></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Model</span><strong id="runtime-model">gemma3:4b</strong></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Privacy</span><strong style="color:var(--green)">100% local</strong></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Messages</span><strong id="runtime-msgs">1</strong></div>
+            </div>
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);line-height:1.5">
+              No data leaves your machine. Pull Gemma 4 with:<br>
+              <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--purple)">ollama pull gemma3:4b</code>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /ai-layout -->
     </div>
 
     <div class="page" id="page-automations">
@@ -3402,6 +3584,213 @@ function updateProposalTotal() {
 }
 
 // ═══════════════════════════════════════
+// AI HUB — OLLAMA / GEMMA
+// ═══════════════════════════════════════
+let currentAIModel = 'gemma3:4b';
+let chatHistory = [];
+let isChatStreaming = false;
+const OLLAMA_BASE = 'http://localhost:11434';
+
+async function checkOllama() {
+  const dot = document.getElementById('ollama-dot');
+  const label = document.getElementById('ollama-label');
+  const badge = document.getElementById('ollama-models-badge');
+  dot.className = 'ai-status-dot';
+  label.textContent = 'Connecting…';
+  try {
+    const r = await fetch(OLLAMA_BASE + '/api/tags', { signal: AbortSignal.timeout(3000) });
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    const models = (data.models || []).map(m => m.name);
+    dot.className = 'ai-status-dot online';
+    label.textContent = 'Ollama connected';
+    badge.textContent = models.length + ' model' + (models.length !== 1 ? 's' : '') + ' available';
+    // populate select with installed models
+    const sel = document.getElementById('ai-model-select');
+    const existing = Array.from(sel.options).map(o => o.value);
+    models.forEach(m => {
+      if (!existing.includes(m)) {
+        const opt = document.createElement('option');
+        opt.value = m; opt.textContent = m;
+        sel.insertBefore(opt, sel.querySelector('option[value="custom"]'));
+      }
+    });
+  } catch(e) {
+    dot.className = 'ai-status-dot offline';
+    label.textContent = 'Ollama offline — start with: ollama serve';
+    badge.textContent = '';
+  }
+}
+
+function onModelChange(val) {
+  const customInput = document.getElementById('ai-model-custom');
+  if (val === 'custom') {
+    customInput.style.display = '';
+    customInput.focus();
+  } else {
+    customInput.style.display = 'none';
+    currentAIModel = val;
+    document.getElementById('ai-model-label').textContent = val;
+    document.getElementById('runtime-model').textContent = val;
+  }
+}
+
+function appendMsg(role, content, id) {
+  const wrap = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-' + role + (role === 'thinking' ? ' msg-thinking' : '');
+  if (id) div.id = id;
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'user' ? 'HR' : 'G';
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML = role === 'thinking'
+    ? '<span class="dot-blink">●</span><span class="dot-blink">●</span><span class="dot-blink">●</span>'
+    : escapeHtml(content);
+  div.appendChild(avatar);
+  div.appendChild(bubble);
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+  updateMsgCount();
+  return div;
+}
+
+function updateMsgBubble(id, content) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.querySelector('.msg-bubble').textContent = content;
+  document.getElementById('chat-messages').scrollTop = 99999;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function updateMsgCount() {
+  const el = document.getElementById('runtime-msgs');
+  if (el) el.textContent = document.querySelectorAll('#chat-messages .msg').length;
+}
+
+async function sendChat() {
+  if (isChatStreaming) return;
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  autoResize(input);
+
+  // add user message to UI + history
+  appendMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+
+  // thinking indicator
+  const thinkId = 'msg-thinking-' + Date.now();
+  const thinkEl = appendMsg('thinking', '', thinkId);
+
+  isChatStreaming = true;
+  document.getElementById('chat-send-btn').disabled = true;
+
+  try {
+    const dot = document.getElementById('ollama-dot');
+    if (!dot.classList.contains('online')) {
+      // try to connect first
+      await checkOllama();
+      if (!dot.classList.contains('online')) {
+        thinkEl.remove();
+        appendMsg('ai', '⚠️ Ollama is not running. Start it with: ollama serve\n\nThen pull the model: ollama pull ' + currentAIModel);
+        isChatStreaming = false;
+        document.getElementById('chat-send-btn').disabled = false;
+        return;
+      }
+    }
+
+    const res = await fetch(OLLAMA_BASE + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: currentAIModel,
+        messages: [
+          { role: 'system', content: 'You are the AI brain for AB Fluence, a performance marketing agency based in Pakistan serving clients in Pakistan, UAE, and Saudi Arabia. You help with marketing strategy, content creation, campaign briefs, competitor analysis, SEO, ad copy, and agency operations. Be direct, practical, and concise. Format responses clearly with structure when helpful.' },
+          ...chatHistory.slice(-20)
+        ],
+        stream: true
+      })
+    });
+
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let fullContent = '';
+    let aiMsgEl = null;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const lines = decoder.decode(value).split('\n').filter(l => l.trim());
+      for (const line of lines) {
+        try {
+          const data = JSON.parse(line);
+          if (data.message?.content) {
+            fullContent += data.message.content;
+            if (!aiMsgEl) {
+              thinkEl.remove();
+              aiMsgEl = appendMsg('ai', fullContent);
+            } else {
+              aiMsgEl.querySelector('.msg-bubble').textContent = fullContent;
+              document.getElementById('chat-messages').scrollTop = 99999;
+            }
+          }
+          if (data.done) {
+            const info = document.getElementById('chat-token-info');
+            if (info && data.eval_count) info.textContent = data.eval_count + ' tokens';
+          }
+        } catch(e) {}
+      }
+    }
+
+    if (fullContent) chatHistory.push({ role: 'assistant', content: fullContent });
+
+  } catch(e) {
+    thinkEl.remove();
+    appendMsg('ai', '⚠️ Error: ' + (e.message || 'Could not reach Ollama. Make sure it is running.'));
+  }
+
+  isChatStreaming = false;
+  document.getElementById('chat-send-btn').disabled = false;
+}
+
+function chatKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChat();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function clearChat() {
+  chatHistory = [];
+  const wrap = document.getElementById('chat-messages');
+  wrap.innerHTML = '';
+  appendMsg('ai', 'Chat cleared. Fresh start — what are we working on?');
+}
+
+function injectPrompt(text) {
+  go('aihub', document.querySelector('.nav[onclick*="aihub"]'));
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  input.value = text;
+  autoResize(input);
+  input.focus();
+  input.setSelectionRange(text.length, text.length);
+}
+
+// ═══════════════════════════════════════
 // BRAND PROJECTS FILTER
 // ═══════════════════════════════════════
 function filterProjects(type, el) {
@@ -3424,6 +3813,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const sub = document.getElementById('cc-greeting');
   if (sub) sub.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()} — Good ${d.getHours() < 12 ? 'morning' : d.getHours() < 17 ? 'afternoon' : 'evening'}, HR.`;
+  // Auto-check Ollama on load
+  checkOllama();
+  // Ctrl+K to focus chat
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      const inp = document.getElementById('chat-input');
+      if (inp) { inp.focus(); go('aihub', document.querySelector('.nav[onclick*="aihub"]')); }
+    }
+  });
 });
 </script>
 </body>
