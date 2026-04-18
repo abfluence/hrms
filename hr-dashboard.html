@@ -3140,6 +3140,7 @@ function go(pageId, navEl) {
   // Update topbar title
   document.getElementById('tb-title').textContent = pageNames[pageId] || pageId;
   currentPage = pageId;
+  savePage(pageId);
   // Init charts
   initCharts(pageId);
   // Update Fluence context label
@@ -4211,14 +4212,27 @@ const LS_KEY = 'abfluence_hrms_v1';
 function saveAll() {
   try { localStorage.setItem(LS_KEY, JSON.stringify({ clientData, leadData, socialData, projectData })); } catch(e) {}
 }
+function savePage(pageId) {
+  try { localStorage.setItem(LS_KEY + '_page', pageId); } catch(e) {}
+}
 function loadAll() {
   try {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return;
     const saved = JSON.parse(raw);
-    if (saved.clientData)  Object.assign(clientData,  saved.clientData);
-    if (saved.leadData)    Object.assign(leadData,    saved.leadData);
-    if (saved.socialData)  Object.assign(socialData,  saved.socialData);
+    // REPLACE not merge — so deletions persist across refresh
+    if (saved.clientData) {
+      Object.keys(clientData).forEach(k => delete clientData[k]);
+      Object.assign(clientData, saved.clientData);
+    }
+    if (saved.leadData) {
+      Object.keys(leadData).forEach(k => delete leadData[k]);
+      Object.assign(leadData, saved.leadData);
+    }
+    if (saved.socialData) {
+      Object.keys(socialData).forEach(k => delete socialData[k]);
+      Object.assign(socialData, saved.socialData);
+    }
     if (saved.projectData && Array.isArray(saved.projectData)) {
       projectData.length = 0;
       saved.projectData.forEach(p => projectData.push(p));
@@ -4526,7 +4540,11 @@ function saveScheduledPost() {
 // ═══════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   loadAll();
-  initCharts('command');
+  // Restore last active page
+  const lastPage = localStorage.getItem(LS_KEY + '_page') || 'command';
+  const lastNav  = document.querySelector(`.nav[onclick*="'${lastPage}'"]`);
+  go(lastPage, lastNav);
+  initCharts(lastPage);
   // Set today's date in greeting
   const d = new Date();
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
