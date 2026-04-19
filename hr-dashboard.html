@@ -46,12 +46,12 @@
 
   /* Sidebar */
   --sb-w:       240px;
-  --sb-bg:      #ffffff;
-  --sb-text:    rgba(15,17,23,0.60);
-  --sb-text2:   rgba(15,17,23,0.35);
-  --sb-active:  rgba(232,82,26,0.10);
-  --sb-hover:   rgba(15,17,23,0.05);
-  --sb-border:  rgba(15,17,23,0.08);
+  --sb-bg:      #0f1117;
+  --sb-text:    rgba(255,255,255,0.65);
+  --sb-text2:   rgba(255,255,255,0.35);
+  --sb-active:  rgba(232,82,26,0.18);
+  --sb-hover:   rgba(255,255,255,0.06);
+  --sb-border:  rgba(255,255,255,0.07);
 
   /* Top bar */
   --tb-h:       56px;
@@ -102,10 +102,7 @@ body{
 .sidebar{
   width:var(--sb-w);
   min-height:100vh;
-  background:
-    radial-gradient(ellipse 180% 110px at 50% 0%, rgba(232,82,26,0.14) 0%, transparent 70%),
-    radial-gradient(ellipse 120% 60px at 20% 55%, rgba(232,82,26,0.05) 0%, transparent 70%),
-    var(--sb-bg);
+  background:var(--sb-bg);
   border-right:1px solid var(--sb-border);
   position:fixed;
   top:0;left:0;bottom:0;
@@ -144,12 +141,12 @@ body{
   font-family:'Syne',sans-serif;
   font-size:14px;
   font-weight:700;
-  color:var(--text);
+  color:#0f1117;
   letter-spacing:-0.01em;
 }
 .sb-logo-tag{
   font-size:10px;
-  color:var(--sb-text2);
+  color:rgba(15,17,23,0.40);
   letter-spacing:0.03em;
   text-transform:uppercase;
 }
@@ -178,19 +175,19 @@ body{
   position:relative;
   user-select:none;
 }
-.nav:hover{background:var(--sb-hover);color:var(--text)}
+.nav:hover{background:var(--sb-hover);color:rgba(255,255,255,0.88)}
 .nav.active{
   background:var(--sb-active);
-  color:var(--orange);
+  color:#fff;
 }
-.nav.active svg{stroke:var(--orange)}
+.nav.active svg{stroke:var(--orange2)}
 .nav svg{
   width:15px;height:15px;
   flex-shrink:0;
   stroke:var(--sb-text);
   transition:stroke .15s;
 }
-.nav:hover svg{stroke:var(--text)}
+.nav:hover svg{stroke:rgba(255,255,255,0.88)}
 .nav span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .nav-badge{
@@ -231,7 +228,7 @@ body{
   font-size:12px;font-weight:700;color:#fff;
   flex-shrink:0;
 }
-.sb-uname{font-size:12px;font-weight:600;color:var(--text)}
+.sb-uname{font-size:12px;font-weight:600;color:#fff}
 .sb-urole{font-size:10px;color:var(--sb-text2)}
 
 /* ═══════════════════════════════════════
