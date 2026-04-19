@@ -102,7 +102,10 @@ body{
 .sidebar{
   width:var(--sb-w);
   min-height:100vh;
-  background:var(--sb-bg);
+  background:
+    radial-gradient(ellipse 180% 120px at 50% 0%, rgba(232,82,26,0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 120% 80px at 20% 60%, rgba(232,82,26,0.07) 0%, transparent 70%),
+    var(--sb-bg);
   position:fixed;
   top:0;left:0;bottom:0;
   z-index:200;
@@ -124,9 +127,11 @@ body{
   position:sticky;
   top:0;
   z-index:10;
-  background:rgba(15,17,23,0.65);
-  backdrop-filter:blur(16px) saturate(1.4);
-  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  background:rgba(15,17,23,0.45);
+  backdrop-filter:blur(20px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter:blur(20px) saturate(1.8) brightness(1.1);
+  border-bottom:1px solid rgba(232,82,26,0.18);
+  box-shadow:0 1px 0 rgba(232,82,26,0.08), 0 4px 24px rgba(0,0,0,0.4);
 }
 .sb-logo img{
   width:32px;height:32px;
