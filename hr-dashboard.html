@@ -363,6 +363,8 @@ body{
 .btn-primary:hover{background:#d44814;box-shadow:0 4px 12px rgba(232,82,26,0.30)}
 .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
 .btn-secondary:hover{background:#fff;box-shadow:var(--sh)}
+.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid rgba(220,38,38,0.18)}
+.btn-danger:hover{background:var(--red);color:#fff;border-color:var(--red)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
 .btn-ghost:hover{background:var(--surface2);color:var(--text)}
 .btn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0}
@@ -1548,6 +1550,7 @@ body{
           <div class="ph-sub" id="cc-greeting">Friday, April 17 — Good evening, HR.</div>
         </div>
         <div class="ph-actions">
+          <button class="btn btn-danger btn-sm" onclick="resetSection('all')">Reset All Data</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Refresh data','info')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
             Refresh
@@ -1869,6 +1872,7 @@ body{
             <option>LinkedIn</option>
             <option>Cold Email</option>
           </select>
+          <button class="btn btn-danger btn-sm" onclick="resetSection('leads')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export coming soon','info')">Export</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('addLeadModal')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -1913,6 +1917,7 @@ body{
           <div class="ph-sub">7 active accounts · $8,450 MRR · 2 need attention</div>
         </div>
         <div class="ph-actions">
+          <button class="btn btn-danger btn-sm" onclick="resetSection('clients')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export client list','info')">Export</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('onboardModal')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -1996,6 +2001,7 @@ body{
           <div class="ph-sub" id="deals-ph-sub">0 proposals</div>
         </div>
         <div class="ph-actions">
+          <button class="btn btn-danger btn-sm" onclick="resetSection('deals')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export deals','info')">Export</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('proposalModal')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2125,6 +2131,7 @@ body{
           <div class="ph-sub" id="brand-ph-sub">0 projects</div>
         </div>
         <div class="ph-actions">
+          <button class="btn btn-danger btn-sm" onclick="resetSection('projects')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export projects','info')">Export</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('newBrandProjectModal')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2305,6 +2312,7 @@ body{
       <div class="ph">
         <div class="ph-left"><div class="ph-title">Social Media</div><div class="ph-sub" id="social-sub">Select a brand to manage</div></div>
         <div class="ph-right">
+          <button class="btn btn-danger btn-sm" onclick="resetSection('social')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export coming soon','info')">Export Report</button>
           <button class="btn btn-primary btn-sm" onclick="openModal('newPostModal')">+ Schedule Post</button>
         </div>
@@ -4003,6 +4011,59 @@ function filterProjects(type, el) {
 
 // ═══════════════════════════════════════
 // LOCALSTORAGE — PERSIST ALL DATA
+// ═══════════════════════════════════════
+// SECTION RESET
+// ═══════════════════════════════════════
+function resetSection(type) {
+  const labels = {
+    clients:  'Reset Clients? This will archive all client records and clear related social & project data.',
+    leads:    'Reset Leads? All leads in the pipeline will be permanently deleted.',
+    social:   'Reset Social? All social media data for every client will be deleted.',
+    projects: 'Reset Projects? All brand & strategy projects will be permanently deleted.',
+    deals:    'Reset Deals? All deal cards will be hidden from view.',
+    all:      'Reset ALL data? Every client, lead, project, and social record will be wiped. This cannot be undone.'
+  };
+  if (!confirm(labels[type] || 'Reset this section?')) return;
+
+  if (type === 'clients' || type === 'all') {
+    Object.keys(clientData).forEach(k => delete clientData[k]);
+    Object.keys(clientHistory).forEach(k => delete clientHistory[k]);
+  }
+  if (type === 'leads' || type === 'all') {
+    Object.keys(leadData).forEach(k => delete leadData[k]);
+  }
+  if (type === 'social' || type === 'clients' || type === 'all') {
+    Object.keys(socialData).forEach(k => delete socialData[k]);
+    activeSocialClient = '';
+  }
+  if (type === 'projects' || type === 'clients' || type === 'all') {
+    projectData.splice(0, projectData.length);
+  }
+  if (type === 'deals') {
+    document.querySelectorAll('.deal-card').forEach(el => el.style.display = 'none');
+    const setEl = (id,v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+    setEl('badge-deals', '');
+    setEl('deals-ph-sub', '0 proposals');
+    toast('Deals reset', 'info');
+    return;
+  }
+
+  saveAll();
+
+  // Re-render all affected sections
+  renderClientTable();
+  renderClientHistory();
+  renderClientHealthGrid();
+  renderKanban();
+  renderBrandProjects('all');
+  renderSocialTabs();
+  refreshCommandKPIs();
+  filterByActiveClients();
+
+  const names = { clients:'Clients', leads:'Leads', social:'Social Media', projects:'Projects', all:'All Data' };
+  toast((names[type] || 'Section') + ' reset', 'info');
+}
+
 // ═══════════════════════════════════════
 const LS_KEY = 'abfluence_hrms_v1';
 function saveAll() {
