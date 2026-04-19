@@ -1690,64 +1690,7 @@ body{
           Client Health Snapshot
           <span class="section-link" onclick="go('clients', document.querySelectorAll('.nav')[2])">View all clients</span>
         </div>
-        <div class="client-health-grid">
-          <div class="ch-card" onclick="toast('Dr. Usman — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--orange)">DU</div>
-            <div class="ch-name">Dr. Usman</div>
-            <div class="ch-loc">Saudi Arabia</div>
-            <div class="ch-score green">94%</div>
-            <div class="ch-mrr">$1,800/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:94%;background:var(--green)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('TechPak — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--blue)">TP</div>
-            <div class="ch-name">TechPak Solutions</div>
-            <div class="ch-loc">Karachi</div>
-            <div class="ch-score green">88%</div>
-            <div class="ch-mrr">$2,200/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:88%;background:var(--green)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('Karachi Eats — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--pink)">KE</div>
-            <div class="ch-name">Karachi Eats</div>
-            <div class="ch-loc">Karachi</div>
-            <div class="ch-score green">82%</div>
-            <div class="ch-mrr">$950/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:82%;background:var(--green)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('NovaMed — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--teal)">NM</div>
-            <div class="ch-name">NovaMed Clinic</div>
-            <div class="ch-loc">Riyadh</div>
-            <div class="ch-score yellow">71%</div>
-            <div class="ch-mrr">$1,100/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:71%;background:var(--yellow)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('DXB Retail — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--purple)">DG</div>
-            <div class="ch-name">DXB Retail Group</div>
-            <div class="ch-loc">Dubai</div>
-            <div class="ch-score green">90%</div>
-            <div class="ch-mrr">$1,600/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:90%;background:var(--green)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('EduPath — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--yellow)">EP</div>
-            <div class="ch-name">EduPath Online</div>
-            <div class="ch-loc">Lahore</div>
-            <div class="ch-score yellow">68%</div>
-            <div class="ch-mrr">$450/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:68%;background:var(--yellow)"></div></div>
-          </div>
-          <div class="ch-card" onclick="toast('GulfStyle — Full client view in Phase 3','info')">
-            <div class="ch-avatar" style="background:var(--red)">GS</div>
-            <div class="ch-name">GulfStyle Fashion</div>
-            <div class="ch-loc">Dubai</div>
-            <div class="ch-score red">55%</div>
-            <div class="ch-mrr">$350/mo</div>
-            <div class="ch-bar"><div class="ch-bar-fill" style="width:55%;background:var(--red)"></div></div>
-          </div>
-        </div>
+        <div class="client-health-grid" id="client-health-grid"></div>
       </div>
 
       <!-- Charts + Pipeline Row -->
@@ -1813,7 +1756,7 @@ body{
         <!-- Upcoming Deadlines -->
         <div class="card">
           <div class="section-title">Upcoming Deadlines</div>
-          <div class="deadline-item">
+          <div class="deadline-item" data-client="GulfStyle Fashion">
             <div class="deadline-icon" style="background:var(--red-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
             <div class="deadline-info"><div class="deadline-title">GulfStyle Proposal</div><div class="deadline-sub">Send revised proposal</div></div>
             <div class="deadline-due urgent">Today</div>
@@ -1823,17 +1766,17 @@ body{
             <div class="deadline-info"><div class="deadline-title">April Content Calendar</div><div class="deadline-sub">3 clients pending approval</div></div>
             <div class="deadline-due urgent">Tomorrow</div>
           </div>
-          <div class="deadline-item">
+          <div class="deadline-item" data-client="NovaMed Clinic">
             <div class="deadline-icon" style="background:var(--yellow-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
             <div class="deadline-info"><div class="deadline-title">NovaMed Monthly Report</div><div class="deadline-sub">April performance report</div></div>
             <div class="deadline-due soon">Apr 20</div>
           </div>
-          <div class="deadline-item">
+          <div class="deadline-item" data-client="TechPak Solutions">
             <div class="deadline-icon" style="background:var(--blue-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div>
             <div class="deadline-info"><div class="deadline-title">TechPak Meta Ads</div><div class="deadline-sub">Campaign creative due</div></div>
             <div class="deadline-due soon">Apr 22</div>
           </div>
-          <div class="deadline-item">
+          <div class="deadline-item" data-client="EduPath Online">
             <div class="deadline-icon" style="background:var(--green-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div>
             <div class="deadline-info"><div class="deadline-title">EduPath Strategy Call</div><div class="deadline-sub">Monthly review + upsell</div></div>
             <div class="deadline-due ok">Apr 25</div>
@@ -1866,7 +1809,7 @@ body{
           <span style="font-size:12px;color:var(--text2);font-weight:400">Friday, April 17</span>
         </div>
         <div class="priority-list">
-          <div class="priority-item">
+          <div class="priority-item" data-client="GulfStyle Fashion">
             <span class="priority-badge pb-urgent">Urgent</span>
             <div class="priority-text">
               <div class="priority-title">Send revised proposal — GulfStyle E-commerce</div>
@@ -1882,7 +1825,7 @@ body{
             </div>
             <span class="priority-time">Today</span>
           </div>
-          <div class="priority-item">
+          <div class="priority-item" data-client="TechPak Solutions">
             <span class="priority-badge pb-high">High</span>
             <div class="priority-text">
               <div class="priority-title">TechPak onboarding call</div>
@@ -2092,7 +2035,7 @@ body{
         <div class="kanban-col">
           <div class="kanban-header" style="color:var(--blue)">Proposal Sent <span class="kanban-count">3</span></div>
 
-          <div class="deal-card" onclick="openModal('proposalModal')">
+          <div class="deal-card" data-client="DXB Retail Group" onclick="openModal('proposalModal')">
             <div class="deal-card-name">DXB Retail Group</div>
             <div class="deal-card-pkg"><span class="tag tag-orange">Market Leader Package</span></div>
             <div class="deal-card-value">$3,200/mo</div>
@@ -2100,7 +2043,7 @@ body{
             <div class="deal-card-expires" style="color:var(--red)">⚠ Expires today</div>
           </div>
 
-          <div class="deal-card" onclick="openModal('proposalModal')">
+          <div class="deal-card" data-client="EduPath Online" onclick="openModal('proposalModal')">
             <div class="deal-card-name">EduPath Online</div>
             <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
             <div class="deal-card-value">$1,800/mo</div>
@@ -2157,14 +2100,14 @@ body{
         <div class="kanban-col">
           <div class="kanban-header" style="color:var(--green)">Won This Month <span class="kanban-count">2</span></div>
 
-          <div class="deal-card" style="border-left:3px solid var(--green)">
+          <div class="deal-card" data-client="TechPak Solutions" style="border-left:3px solid var(--green)">
             <div class="deal-card-name">TechPak Solutions</div>
             <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
             <div class="deal-card-value">$2,200/mo</div>
             <div class="deal-card-meta">🇵🇰 Karachi · Closed Apr 15</div>
           </div>
 
-          <div class="deal-card" style="border-left:3px solid var(--green)">
+          <div class="deal-card" data-client="Karachi Eats" style="border-left:3px solid var(--green)">
             <div class="deal-card-name">Karachi Eats</div>
             <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
             <div class="deal-card-value">$950/mo</div>
@@ -2221,49 +2164,49 @@ body{
             <span class="section-link" onclick="toast('Full deliverables view coming soon','info')">View all</span>
           </div>
           <div class="checklist">
-            <div class="check-item">
+            <div class="check-item" data-client="Dr. Usman">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">Brand guide PDF — final version</div>
               <div class="check-client">Dr. Usman</div>
               <span class="check-due urgent">Today</span>
             </div>
-            <div class="check-item">
+            <div class="check-item" data-client="DXB Retail Group">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">UAE retail competitor report (final 1 profile)</div>
               <div class="check-client">DXB Retail</div>
               <span class="check-due urgent">Apr 19</span>
             </div>
-            <div class="check-item">
+            <div class="check-item" data-client="EduPath Online">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">EduPath logo suite (3 variants)</div>
               <div class="check-client">EduPath</div>
               <span class="check-due urgent">Apr 20</span>
             </div>
-            <div class="check-item">
+            <div class="check-item" data-client="DXB Retail Group">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">UAE GTM launch calendar</div>
               <div class="check-client">DXB Retail</div>
               <span class="check-due soon">Apr 22</span>
             </div>
-            <div class="check-item">
+            <div class="check-item" data-client="TechPak Solutions">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">TechPak market research — TAM/SAM section</div>
               <div class="check-client">TechPak</div>
               <span class="check-due soon">Apr 25</span>
             </div>
-            <div class="check-item">
+            <div class="check-item" data-client="Dr. Usman">
               <div class="check-box" onclick="this.parentElement.classList.toggle('done');this.textContent=this.textContent?'':'✓'"></div>
               <div class="check-label">Gulf competitor audit — 4 remaining profiles</div>
               <div class="check-client">Dr. Usman</div>
               <span class="check-due ok">Apr 28</span>
             </div>
-            <div class="check-item done">
+            <div class="check-item done" data-client="Dr. Usman">
               <div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
               <div class="check-label">Authority positioning strategy document</div>
               <div class="check-client">Dr. Usman</div>
               <span class="check-due ok">Done</span>
             </div>
-            <div class="check-item done">
+            <div class="check-item done" data-client="TechPak Solutions">
               <div class="check-box" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
               <div class="check-label">SaaS brand identity full kit</div>
               <div class="check-client">TechPak</div>
@@ -4527,12 +4470,52 @@ function removeClient(key) {
   saveAll();
   renderClientTable();
   renderClientHistory();
+  renderClientHealthGrid();
   renderBrandProjects();
   refreshCommandKPIs();
+  filterByActiveClients();
   toast(c.name + ' archived', 'info');
 }
 
 // ═══════════════════════════════════════
+// RENDER CLIENT HEALTH GRID (Command Center)
+// ═══════════════════════════════════════
+function renderClientHealthGrid() {
+  const grid = document.getElementById('client-health-grid');
+  if (!grid) return;
+  const keys = Object.keys(clientData);
+  if (!keys.length) { grid.innerHTML = '<div style="color:var(--text2);font-size:13px;padding:8px">No active clients.</div>'; return; }
+  grid.innerHTML = keys.map(key => {
+    const c = clientData[key];
+    const hp  = parseInt(c.health);
+    const sc  = hp >= 85 ? 'green' : hp >= 70 ? 'yellow' : 'red';
+    const bc  = hp >= 85 ? 'var(--green)' : hp >= 70 ? 'var(--yellow)' : 'var(--red)';
+    const loc = (c.location||'').split(',')[0];
+    const mrrNum = parseInt((c.mrr||'$0').replace(/[^0-9]/g,''));
+    return `<div class="ch-card" onclick="openClientProfile('${key}')">
+      <div class="ch-avatar" style="background:${c.color}">${c.initials}</div>
+      <div class="ch-name">${c.name}</div>
+      <div class="ch-loc">${loc}</div>
+      <div class="ch-score ${sc}">${c.health}</div>
+      <div class="ch-mrr">$${mrrNum.toLocaleString()}/mo</div>
+      <div class="ch-bar"><div class="ch-bar-fill" style="width:${c.health};background:${bc}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UNIVERSAL CLIENT FILTER — covers ALL sections, present & future
+// ─────────────────────────────────────────────────────────────
+// Any element tagged data-client="ClientName" is auto-hidden
+// when that client is archived. Add this attribute to any new
+// section that shows per-client rows/cards.
+// ═══════════════════════════════════════════════════════════════
+function filterByActiveClients() {
+  document.querySelectorAll('[data-client]').forEach(el => {
+    el.style.display = isActiveClient(el.dataset.client) ? '' : 'none';
+  });
+}
+
 // CLIENT HISTORY
 // ═══════════════════════════════════════
 function renderClientHistory() {
@@ -4596,7 +4579,7 @@ function renderSocialTabs() {
       : `background:${d.color}`;
     return `<div class="social-client-tab${isActive?' active':''}" id="sct-${key}" onclick="switchSocialClient('${key}')" style="${activeStyle}">
       <div class="sct-av" style="${avStyle}">${d.initials}</div>
-      <span class="sct-name">${d.name.split(' ')[0]}</span>
+      <span class="sct-name">${(w => w[0].length <= 3 ? w[0]+' '+(w[1]||'') : w[0])(d.name.split(' '))}</span>
       <span class="sct-count">${platforms}</span>
     </div>`;
   }).join('');
@@ -4687,9 +4670,11 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKanban();
   renderClientTable();
   renderClientHistory();
+  renderClientHealthGrid();
   renderBrandProjects('all');
   refreshCommandKPIs();
   renderSocialTabs();
+  filterByActiveClients();
   // Auto-check Ollama on load
   checkOllama();
   // Load default social client — pick first available in case some were deleted
