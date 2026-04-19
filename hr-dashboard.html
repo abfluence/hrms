@@ -1993,7 +1993,7 @@ body{
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Deals & Proposals</div>
-          <div class="ph-sub">6 active proposals · $24,600 total value · 2 expiring soon</div>
+          <div class="ph-sub" id="deals-ph-sub">0 proposals</div>
         </div>
         <div class="ph-actions">
           <button class="btn btn-secondary btn-sm" onclick="toast('Export deals','info')">Export</button>
@@ -2122,7 +2122,7 @@ body{
       <div class="ph">
         <div class="ph-left">
           <div class="ph-title">Brand & Strategy</div>
-          <div class="ph-sub">3 clients · 11 active projects · 6 deliverables due this week</div>
+          <div class="ph-sub" id="brand-ph-sub">0 projects</div>
         </div>
         <div class="ph-actions">
           <button class="btn btn-secondary btn-sm" onclick="toast('Export projects','info')">Export</button>
@@ -3232,15 +3232,7 @@ function switchTab(btn, tabId) {
 // ═══════════════════════════════════════
 // CLIENT PROFILES
 // ═══════════════════════════════════════
-const clientData = {
-  usman:       { name:'Dr. Usman', sub:'Healthcare · Saudi Arabia · Market Leader', initials:'DU', color:'var(--orange)', mrr:'$1,800', health:'94%', contact:'Dr. Usman Liaqat', industry:'Healthcare / Authority', location:'Saudi Arabia', since:'January 2024', pkg:'Market Leader' },
-  techpak:     { name:'TechPak Solutions', sub:'B2B SaaS · Karachi · AI-First', initials:'TP', color:'var(--blue)', mrr:'$2,200', health:'88%', contact:'Hassan Siddiqui', industry:'B2B SaaS', location:'Karachi, Pakistan', since:'April 2025', pkg:'AI-First' },
-  'karachi-eats':{ name:'Karachi Eats', sub:'F&B · Karachi · Growth Accelerator', initials:'KE', color:'var(--pink)', mrr:'$950', health:'82%', contact:'Ali Raza', industry:'F&B / Food Delivery', location:'Karachi, Pakistan', since:'March 2025', pkg:'Growth Accelerator' },
-  novamed:     { name:'NovaMed Clinic', sub:'Healthcare · Riyadh · Growth Accelerator', initials:'NM', color:'var(--teal)', mrr:'$1,100', health:'71%', contact:'Dr. Khalid Naseem', industry:'Healthcare', location:'Riyadh, Saudi Arabia', since:'November 2024', pkg:'Growth Accelerator' },
-  dxb:         { name:'DXB Retail Group', sub:'Retail · Dubai · Market Leader', initials:'DG', color:'var(--purple)', mrr:'$1,600', health:'90%', contact:'Faisal Al-Rashid', industry:'Retail / E-commerce', location:'Dubai, UAE', since:'February 2025', pkg:'Market Leader' },
-  edupath:     { name:'EduPath Online', sub:'EdTech · Lahore · Starter Brand', initials:'EP', color:'var(--yellow)', mrr:'$450', health:'68%', contact:'Rabia Noor', industry:'EdTech / E-learning', location:'Lahore, Pakistan', since:'December 2024', pkg:'Starter Brand' },
-  gulfstyle:   { name:'GulfStyle Fashion', sub:'Fashion · Dubai · Growth Accelerator', initials:'GS', color:'var(--red)', mrr:'$350', health:'55%', contact:'Rania Al-Hassan', industry:'Fashion / E-commerce', location:'Dubai, UAE', since:'January 2025', pkg:'Growth Accelerator' },
-};
+const clientData = {};
 
 // ═══════════════════════════════════════════════════════════════
 // ACTIVE CLIENT RULE — used by ALL sections, present and future
@@ -3302,20 +3294,7 @@ function openClientProfile(key) {
 // ═══════════════════════════════════════
 // LEAD DETAILS
 // ═══════════════════════════════════════
-const leadData = {
-  'GulfStyle E-commerce': { val:'$2,200/mo', stage:'New', contact:'Rania Al-Hassan · CEO', loc:'Dubai, UAE', source:'Inbound', interest:'Market Leader Package' },
-  'Lahore Organics':      { val:'$950/mo',   stage:'New', contact:'Sana Mirza · Marketing Head', loc:'Lahore, Pakistan', source:'Referral', interest:'Growth Accelerator' },
-  'PixelCraft Studio':    { val:'$1,400/mo', stage:'New', contact:'Bilal Akhtar · Co-founder', loc:'Islamabad, Pakistan', source:'LinkedIn', interest:'SEO/AEO + Lead Gen' },
-  'MedHub Arabia':        { val:'$1,800/mo', stage:'New', contact:'Dr. Khalid Rashed · CMO', loc:'Riyadh, Saudi Arabia', source:'Referral', interest:'AI-First Package' },
-  'FoodBox PK':           { val:'$1,200/mo', stage:'Contacted', contact:'Omar Farooq · CEO', loc:'Karachi, Pakistan', source:'Cold Email', interest:'Growth Accelerator' },
-  'ZenFit UAE':           { val:'$1,600/mo', stage:'Contacted', contact:'Sara Al-Mansoori · Founder', loc:'Dubai, UAE', source:'Instagram', interest:'Social + Influencer' },
-  'Islamabad Realty':     { val:'$2,400/mo', stage:'Contacted', contact:'Ahmed Butt · Director', loc:'Islamabad, Pakistan', source:'Referral', interest:'Market Leader Package' },
-  'DXB Retail Group':     { val:'$3,200/mo', stage:'Proposal Sent', contact:'Faisal Al-Rashid · CMO', loc:'Dubai, UAE', source:'Referral', interest:'Market Leader Package' },
-  'EduPath Online':       { val:'$1,800/mo', stage:'Proposal Sent', contact:'Rabia Noor · Founder', loc:'Lahore, Pakistan', source:'LinkedIn', interest:'AI-First Package' },
-  'TechPak Solutions':    { val:'$2,200/mo', stage:'Won', contact:'Hassan Siddiqui · CEO', loc:'Karachi, Pakistan', source:'Cold Email', interest:'AI-First Package' },
-  'Karachi Eats':         { val:'$950/mo',   stage:'Won', contact:'Ali Raza · Co-founder', loc:'Karachi, Pakistan', source:'Instagram', interest:'Growth Accelerator' },
-  'CityMart':             { val:'$1,400/mo', stage:'Lost', contact:'Usman Tariq · Owner', loc:'Rawalpindi, Pakistan', source:'Inbound', interest:'Starter Brand' },
-};
+const leadData = {};
 
 function openLeadDetail(name) {
   const d = leadData[name] || {};
@@ -3821,144 +3800,12 @@ function syncFluenceDot(online) {
 // ═══════════════════════════════════════
 // SOCIAL MEDIA — CLIENT SWITCHER
 // ═══════════════════════════════════════
-const socialData = {
-  usman: {
-    name:'Dr. Usman', initials:'DU', color:'#e8521a', tabId:'sct-usman',
-    platforms:[
-      {icon:'📸',name:'Instagram',handle:'@drusmanliaqat',followers:'32K',eng:'6.8%',growth:'+2.4%',up:true,bg:'rgba(219,39,119,.12)'},
-      {icon:'💼',name:'LinkedIn',handle:'@drusmanliaqat',followers:'12K',eng:'4.2%',growth:'+1.8%',up:true,bg:'rgba(37,99,235,.08)'},
-      {icon:'▶️',name:'YouTube',handle:'@drusmanofficial',followers:'3.2K',eng:'5.1%',growth:'+8.3%',up:true,bg:'rgba(220,38,38,.08)'},
-      {icon:'📘',name:'Facebook',handle:'Dr. Usman Liaqat',followers:'8K',eng:'2.1%',growth:'-0.3%',up:false,bg:'rgba(37,99,235,.06)'},
-    ],
-    kpis:{posts:'18',eng:'6.2%',reach:'142K',scheduled:'6'},
-    queue:[
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:"Authority in medicine isn't just credentials — it's showing up daily…",meta:'Instagram · Today 6:00 PM',status:'qs-scheduled',label:'Scheduled'},
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'Behind the scenes: a full day at my Riyadh clinic',meta:'YouTube · Apr 19 · 8:00 PM',status:'qs-review',label:'In Review'},
-      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'3 signs your healthcare brand needs a rebrand in 2026',meta:'LinkedIn · Apr 21 · 9:00 AM',status:'qs-draft',label:'Draft'},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Patient success story — from chronic pain to full recovery',meta:'Instagram · Apr 23 · 7:00 PM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Clinic tour reel — Riyadh',sub:'Instagram · 142K reach · 8.4% eng',tag:'Top',tc:'tag-green'},
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'Morning routine of a surgeon',sub:'YouTube · 28K views · 6.1% eng',tag:'Strong',tc:''},
-    ],
-    checks:[
-      {label:'Brand guide PDF — final version',due:'Today',urgent:true},
-      {label:'Gulf competitor audit — 4 remaining profiles',due:'Apr 28',urgent:false},
-    ]
-  },
-  techpak: {
-    name:'TechPak Solutions', initials:'TP', color:'#2563eb', tabId:'sct-techpak',
-    platforms:[
-      {icon:'💼',name:'LinkedIn',handle:'@techpakpk',followers:'9K',eng:'3.8%',growth:'+2.1%',up:true,bg:'rgba(37,99,235,.08)'},
-      {icon:'▶️',name:'YouTube',handle:'@techpakofficial',followers:'2.1K',eng:'4.4%',growth:'+6.2%',up:true,bg:'rgba(220,38,38,.08)'},
-      {icon:'✖',name:'X (Twitter)',handle:'@techpakpk',followers:'1K',eng:'1.2%',growth:'+0.4%',up:true,bg:'rgba(0,0,0,.05)'},
-    ],
-    kpis:{posts:'12',eng:'3.8%',reach:'38K',scheduled:'4'},
-    queue:[
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'How TechPak built a SaaS used by 200+ companies — full demo',meta:'YouTube · Today 8:00 PM',status:'qs-scheduled',label:'Scheduled'},
-      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'Case study: 0 to 200 B2B clients in 18 months',meta:'LinkedIn · Apr 21 · 9:00 AM',status:'qs-review',label:'In Review'},
-      {icon:'✖',bg:'rgba(0,0,0,.05)',caption:'Hot take: most Pakistani SaaS founders build for the wrong market',meta:'X · Apr 22 · 2:00 PM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'💼',bg:'rgba(37,99,235,.08)',title:'SaaS growth story post',sub:'LinkedIn · 24K impressions · 4.2% eng',tag:'Strong',tc:''},
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'Product demo walkthrough',sub:'YouTube · 12K views · 5.8% eng',tag:'Top',tc:'tag-green'},
-    ],
-    checks:[
-      {label:'LinkedIn case study — needs final approval',due:'Apr 21',urgent:false},
-      {label:'YouTube thumbnail set — 3 videos backlog',due:'Apr 25',urgent:false},
-    ]
-  },
-  dxb: {
-    name:'DXB Retail Group', initials:'DG', color:'#7c3aed', tabId:'sct-dxb',
-    platforms:[
-      {icon:'📸',name:'Instagram',handle:'@dxbretail',followers:'18K',eng:'4.1%',growth:'+3.3%',up:true,bg:'rgba(219,39,119,.12)'},
-      {icon:'📘',name:'Facebook',handle:'DXB Retail Group',followers:'11K',eng:'2.8%',growth:'-0.2%',up:false,bg:'rgba(37,99,235,.06)'},
-      {icon:'🎵',name:'TikTok',handle:'@dxbretail',followers:'2K',eng:'7.2%',growth:'+12%',up:true,bg:'rgba(0,0,0,.05)'},
-    ],
-    kpis:{posts:'22',eng:'4.1%',reach:'74K',scheduled:'5'},
-    queue:[
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:"New collection just dropped — Dubai's hottest fashion finds this spring",meta:'Instagram + Facebook · Apr 19 · 12:00 PM',status:'qs-review',label:'In Review'},
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:'POV: Shopping at DXB Retail — 5 items under AED 200',meta:'TikTok · Apr 22 · 6:00 PM',status:'qs-draft',label:'Draft'},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Weekend flash sale — 30% off sitewide. Link in bio.',meta:'Instagram · Apr 26 · 10:00 AM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Summer collection launch reel',sub:'Instagram · 62K reach · 5.8% eng',tag:'Top',tc:'tag-green'},
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Product unboxing haul',sub:'TikTok · 34K views · 7.2% eng',tag:'Strong',tc:''},
-    ],
-    checks:[
-      {label:'Apr 19 Instagram post needs client approval',due:'Today',urgent:true},
-      {label:'UAE GTM launch calendar — final review',due:'Apr 22',urgent:false},
-    ]
-  },
-  'karachi-eats': {
-    name:'Karachi Eats', initials:'KE', color:'#db2777', tabId:'sct-karachi-eats',
-    platforms:[
-      {icon:'📸',name:'Instagram',handle:'@karachieats',followers:'14K',eng:'5.9%',growth:'+4.1%',up:true,bg:'rgba(219,39,119,.12)'},
-      {icon:'📘',name:'Facebook',handle:'Karachi Eats',followers:'6K',eng:'3.2%',growth:'+0.8%',up:true,bg:'rgba(37,99,235,.06)'},
-      {icon:'🎵',name:'TikTok',handle:'@karachieats',followers:'2K',eng:'9.1%',growth:'+18%',up:true,bg:'rgba(0,0,0,.05)'},
-    ],
-    kpis:{posts:'20',eng:'5.9%',reach:'54K',scheduled:'4'},
-    queue:[
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'New menu alert — Try our signature Nihari now available for delivery',meta:'Instagram · Apr 20 · 1:00 PM',status:'qs-scheduled',label:'Scheduled'},
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:"ASMR: Making Karachi's best biryani from scratch",meta:'TikTok · Apr 22 · 7:00 PM',status:'qs-draft',label:'Draft'},
-      {icon:'📘',bg:'rgba(37,99,235,.06)',caption:'Weekend special: Family deal for 4 starting at Rs. 2,999',meta:'Facebook · Apr 26 · 11:00 AM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Food challenge — biryani eating contest',sub:'TikTok · 88K views · 9.1% eng',tag:'Top',tc:'tag-green'},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'New menu launch reel',sub:'Instagram · 32K reach · 6.4% eng',tag:'Strong',tc:''},
-    ],
-    checks:[
-      {label:'Monthly content calendar — needs sign-off',due:'Apr 20',urgent:false},
-      {label:'Ramadan wrap video — edit pending',due:'Apr 28',urgent:false},
-    ]
-  },
-  edupath: {
-    name:'EduPath Online', initials:'EP', color:'#d97706', tabId:'sct-edupath',
-    platforms:[
-      {icon:'📸',name:'Instagram',handle:'@edupathpk',followers:'5K',eng:'3.2%',growth:'+1.1%',up:true,bg:'rgba(219,39,119,.12)'},
-      {icon:'💼',name:'LinkedIn',handle:'@edupathpk',followers:'3K',eng:'2.8%',growth:'+1.4%',up:true,bg:'rgba(37,99,235,.08)'},
-      {icon:'▶️',name:'YouTube',handle:'@edupathonline',followers:'1K',eng:'3.6%',growth:'+5.0%',up:true,bg:'rgba(220,38,38,.08)'},
-    ],
-    kpis:{posts:'10',eng:'3.2%',reach:'18K',scheduled:'3'},
-    queue:[
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',caption:'Full tutorial: How to apply for a UK student visa in 2026',meta:'YouTube · Apr 23 · 4:00 PM',status:'qs-scheduled',label:'Scheduled'},
-      {icon:'💼',bg:'rgba(37,99,235,.08)',caption:'5 scholarships Pakistani students are missing in 2026',meta:'LinkedIn · Apr 25 · 9:00 AM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'▶️',bg:'rgba(220,38,38,.08)',title:'UK visa guide tutorial',sub:'YouTube · 8K views · 4.8% eng',tag:'Strong',tc:''},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'Student success story reel',sub:'Instagram · 9K reach · 3.9% eng',tag:'Good',tc:''},
-    ],
-    checks:[
-      {label:'Monthly content calendar — not approved',due:'Apr 21',urgent:false},
-      {label:'EduPath logo suite (3 variants) — deliver to client',due:'Apr 20',urgent:true},
-    ]
-  },
-  gulfstyle: {
-    name:'GulfStyle Fashion', initials:'GS', color:'#dc2626', tabId:'sct-gulfstyle',
-    platforms:[
-      {icon:'📸',name:'Instagram',handle:'@gulfstylee',followers:'12K',eng:'2.8%',growth:'-0.6%',up:false,bg:'rgba(219,39,119,.12)'},
-      {icon:'🎵',name:'TikTok',handle:'@gulfstylee',followers:'6K',eng:'5.4%',growth:'+7.2%',up:true,bg:'rgba(0,0,0,.05)'},
-      {icon:'📘',name:'Facebook',handle:'GulfStyle Fashion',followers:'2K',eng:'1.4%',growth:'-1.1%',up:false,bg:'rgba(37,99,235,.06)'},
-    ],
-    kpis:{posts:'15',eng:'2.8%',reach:'24K',scheduled:'2'},
-    queue:[
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',caption:'POV: You hired an agency and your reach went 10x in 30 days',meta:'TikTok · Apr 22 · 7:00 PM',status:'qs-draft',label:'Draft'},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',caption:'Spring edit: 5 looks you need in your wardrobe right now',meta:'Instagram · Apr 25 · 6:00 PM',status:'qs-draft',label:'Draft'},
-    ],
-    topPosts:[
-      {icon:'🎵',bg:'rgba(0,0,0,.05)',title:'Fashion haul TikTok',sub:'TikTok · 44K views · 6.8% eng',tag:'Strong',tc:''},
-      {icon:'📸',bg:'rgba(219,39,119,.1)',title:'New collection carousel',sub:'Instagram · 11K reach · 3.2% eng',tag:'OK',tc:''},
-    ],
-    checks:[
-      {label:'3 TikTok drafts waiting for review',due:'Apr 20',urgent:true},
-      {label:'Instagram engagement rate declining — strategy review needed',due:'Apr 22',urgent:false},
-    ]
-  }
-};
+const socialData = {};
 
 let activeSocialClient = 'usman';
 
 function switchSocialClient(key) {
+  if (!key || !socialData[key]) { renderSocialTabs(); return; }
   activeSocialClient = key;
   const d = socialData[key];
   // Reset all tabs
@@ -4196,19 +4043,7 @@ function loadAll() {
 // ═══════════════════════════════════════
 // BRAND PROJECTS DATA + RENDER
 // ═══════════════════════════════════════
-const projectData = [
-  {id:1, client:'Dr. Usman',          initials:'DU', color:'var(--orange)', type:'identity',    name:'Brand Identity v2',             status:'review',   pct:85,  due:'Apr 22', assigned:'HR'},
-  {id:2, client:'Dr. Usman',          initials:'DU', color:'var(--orange)', type:'positioning', name:'Authority Positioning Strategy', status:'progress', pct:60,  due:'Apr 28', assigned:'HR'},
-  {id:3, client:'Dr. Usman',          initials:'DU', color:'var(--orange)', type:'competitor',  name:'Gulf Medical Competitor Audit',  status:'progress', pct:40,  due:'Apr 30', assigned:'Zara'},
-  {id:4, client:'TechPak Solutions',  initials:'TP', color:'var(--blue)',   type:'identity',    name:'SaaS Brand Identity Full Kit',  status:'completed',pct:100, due:'Done',   assigned:'HR'},
-  {id:5, client:'TechPak Solutions',  initials:'TP', color:'var(--blue)',   type:'research',    name:'Pakistan SaaS Market Research', status:'progress', pct:55,  due:'Apr 25', assigned:'Ali'},
-  {id:6, client:'TechPak Solutions',  initials:'TP', color:'var(--blue)',   type:'gtm',         name:'UAE GTM Strategy 2026',         status:'review',   pct:78,  due:'Apr 24', assigned:'HR'},
-  {id:7, client:'DXB Retail Group',   initials:'DG', color:'var(--purple)', type:'competitor',  name:'UAE Retail Competitor Report',  status:'progress', pct:70,  due:'Apr 19', assigned:'Zara'},
-  {id:8, client:'DXB Retail Group',   initials:'DG', color:'var(--purple)', type:'gtm',         name:'UAE Launch Calendar',           status:'progress', pct:50,  due:'Apr 22', assigned:'HR'},
-  {id:9, client:'DXB Retail Group',   initials:'DG', color:'var(--purple)', type:'positioning', name:'Retail Positioning Deck',       status:'review',   pct:90,  due:'Apr 20', assigned:'HR'},
-  {id:10,client:'NovaMed Clinic',     initials:'NM', color:'var(--teal)',   type:'identity',    name:'Clinic Brand Guidelines',       status:'progress', pct:30,  due:'May 5',  assigned:'Ali'},
-  {id:11,client:'EduPath Online',     initials:'EP', color:'var(--yellow)', type:'identity',    name:'EduPath Logo Suite',            status:'progress', pct:65,  due:'Apr 20', assigned:'HR'},
-];
+const projectData = [];
 let nextProjectId = 12;
 let _activeBrandFilter = 'all';
 const statusMap = {
@@ -4246,6 +4081,9 @@ function renderBrandProjects(filterType) {
       <div class="project-footer"><span class="tag tag-grey" style="font-size:10px">${p.type}</span><span style="font-size:11px;color:var(--text2)">Due: ${p.due}</span></div>
     </div>`;
   }).join('');
+  // Keep brand page header in sync
+  const bps = document.getElementById('brand-ph-sub');
+  if (bps) bps.textContent = activeProjects.length + ' project' + (activeProjects.length !== 1 ? 's' : '');
 }
 
 function openProjectDetail(id) {
@@ -4314,13 +4152,13 @@ function renderKanban() {
       ${cards}${addBtn}
     </div>`;
   }).join('');
-  // Update header
+  // Update header + sidebar badge
+  const total = Object.keys(leadData).length;
+  const pipe  = Object.values(leadData).filter(v => !['Won','Lost'].includes(v.stage)).reduce((s,v) => s + parseInt((v.val||'$0').replace(/[^0-9]/g,'')), 0);
   const sub = document.querySelector('#page-leads .ph-sub');
-  if (sub) {
-    const total = Object.keys(leadData).length;
-    const pipe  = Object.values(leadData).filter(v => !['Won','Lost'].includes(v.stage)).reduce((s,v) => s + parseInt((v.val||'$0').replace(/[^0-9]/g,'')), 0);
-    sub.textContent = total + ' leads · $' + pipe.toLocaleString() + ' active pipeline';
-  }
+  if (sub) sub.textContent = total + ' leads · $' + pipe.toLocaleString() + ' active pipeline';
+  const bl = document.getElementById('badge-leads');
+  if (bl) bl.textContent = total || '';
 }
 
 function saveNewLead() {
@@ -4514,6 +4352,13 @@ function filterByActiveClients() {
   document.querySelectorAll('[data-client]').forEach(el => {
     el.style.display = isActiveClient(el.dataset.client) ? '' : 'none';
   });
+  // Recount deals after visibility update (deal cards are static HTML with data-client)
+  const visibleDeals = document.querySelectorAll('.deal-card[data-client]');
+  const dealCount = Array.from(visibleDeals).filter(el => el.style.display !== 'none').length
+    + document.querySelectorAll('.deal-card:not([data-client])').length;
+  const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setEl('badge-deals', dealCount || '');
+  setEl('deals-ph-sub', dealCount + ' proposal' + (dealCount !== 1 ? 's' : ''));
 }
 
 // CLIENT HISTORY
@@ -4567,6 +4412,12 @@ function renderSocialTabs() {
     return n.substring(0,2).toUpperCase();
   };
   const keys = Object.keys(socialData).filter(k => clientData[k]);
+  if (!keys.length) {
+    container.innerHTML = '<div style="color:var(--text2);font-size:13px;padding:8px 4px">No clients — add a client first.</div>';
+    const sc = document.getElementById('social-brand-view');
+    if (sc) sc.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text2);font-size:14px">Add a client to start tracking social media.</div>';
+    return;
+  }
   container.innerHTML = keys.map(key => {
     const d = socialData[key];
     const isActive = key === activeSocialClient;
@@ -4589,19 +4440,24 @@ function renderSocialTabs() {
 // REFRESH COMMAND KPIs FROM clientData
 // ═══════════════════════════════════════
 function refreshCommandKPIs() {
-  const keys   = Object.keys(clientData);
-  const count  = keys.length;
+  const keys     = Object.keys(clientData);
+  const count    = keys.length;
   const totalMrr = keys.reduce((s,k) => s + parseInt((clientData[k].mrr||'$0').replace(/[^0-9]/g,'')), 0);
   const avgHealth = count ? Math.round(keys.reduce((s,k) => s + parseInt(clientData[k].health), 0) / count) : 0;
   const atRiskKeys = keys.filter(k => parseInt(clientData[k].health) < 70);
-  const avgMrr = count ? Math.round(totalMrr / count) : 0;
-  const mrrStr = '$' + totalMrr.toLocaleString();
+  const avgMrr   = count ? Math.round(totalMrr / count) : 0;
+  const mrrStr   = '$' + totalMrr.toLocaleString();
+  const leadCount = Object.keys(leadData).length;
 
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  // Command Center KPIs
   set('kpi-mrr-val',    mrrStr);
   set('kpi-clients-val', count);
   set('kpi-pkgs-trend', 'Across ' + count + ' client' + (count !== 1 ? 's' : ''));
   set('target-mrr-val', mrrStr);
+
+  // Clients page stat strip
   set('sstrip-mrr',     mrrStr);
   set('sstrip-clients', count);
   set('sstrip-health',  avgHealth + '%');
@@ -4609,6 +4465,15 @@ function refreshCommandKPIs() {
   set('sstrip-avg-mrr', '$' + avgMrr.toLocaleString());
   const riskNames = document.getElementById('sstrip-risk-names');
   if (riskNames) riskNames.textContent = atRiskKeys.map(k => clientData[k].name.split(' ')[0]).join(' · ') || 'None';
+
+  // Sidebar nav badges — always in sync with real data
+  set('badge-clients', count || '');
+  set('badge-leads',   leadCount || '');
+
+  // Brand page header
+  const activeProjects = projectData.filter(p => activeClientNames().has(p.client));
+  const projCount = activeProjects.length;
+  set('brand-ph-sub', projCount + ' project' + (projCount !== 1 ? 's' : ''));
 }
 
 // ═══════════════════════════════════════
@@ -4677,10 +4542,11 @@ document.addEventListener('DOMContentLoaded', () => {
   filterByActiveClients();
   // Auto-check Ollama on load
   checkOllama();
-  // Load default social client — pick first available in case some were deleted
-  const _defaultSocial = Object.keys(socialData).find(k => clientData[k]) || 'usman';
+  // Load default social client — pick first active client, or show empty state
+  const _defaultSocial = Object.keys(socialData).find(k => clientData[k]) || '';
   activeSocialClient = _defaultSocial;
-  switchSocialClient(_defaultSocial);
+  if (_defaultSocial) switchSocialClient(_defaultSocial);
+  else renderSocialTabs();
   // Ctrl+K to focus chat
   document.addEventListener('keydown', e => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
