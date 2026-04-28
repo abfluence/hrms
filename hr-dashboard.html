@@ -2009,7 +2009,7 @@ body{
         <div class="ph-actions">
           <button class="btn btn-danger btn-sm" onclick="resetSection('deals')">Reset</button>
           <button class="btn btn-secondary btn-sm" onclick="toast('Export deals','info')">Export</button>
-          <button class="btn btn-primary btn-sm" onclick="openModal('proposalModal')">
+          <button class="btn btn-primary btn-sm" onclick="openProposalModal()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             New Proposal
           </button>
@@ -2020,113 +2020,28 @@ body{
       <div class="g4" style="margin-bottom:16px">
         <div class="card-sm" style="text-align:center">
           <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Active Proposals</div>
-          <div style="font-size:24px;font-weight:800;color:var(--blue);margin:4px 0">6</div>
+          <div id="deal-stat-active" style="font-size:24px;font-weight:800;color:var(--blue);margin:4px 0">0</div>
           <div style="font-size:11px;color:var(--text2)">Awaiting decision</div>
         </div>
         <div class="card-sm" style="text-align:center">
           <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Total Value</div>
-          <div style="font-size:24px;font-weight:800;color:var(--orange);margin:4px 0">$24,600</div>
+          <div id="deal-stat-value" style="font-size:24px;font-weight:800;color:var(--orange);margin:4px 0">$0</div>
           <div style="font-size:11px;color:var(--text2)">Per month</div>
         </div>
         <div class="card-sm" style="text-align:center">
           <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Expiring Soon</div>
-          <div style="font-size:24px;font-weight:800;color:var(--red);margin:4px 0">2</div>
+          <div id="deal-stat-expiring" style="font-size:24px;font-weight:800;color:var(--red);margin:4px 0">0</div>
           <div style="font-size:11px;color:var(--text2)">Within 48hrs</div>
         </div>
         <div class="card-sm" style="text-align:center">
           <div style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2)">Close Rate</div>
-          <div style="font-size:24px;font-weight:800;color:var(--green);margin:4px 0">36.8%</div>
-          <div style="font-size:11px;color:var(--text2)">↑ from 28% last month</div>
+          <div id="deal-stat-rate" style="font-size:24px;font-weight:800;color:var(--green);margin:4px 0">—</div>
+          <div style="font-size:11px;color:var(--text2)">Won vs total</div>
         </div>
       </div>
 
-      <!-- Deals Kanban -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-
-        <!-- Sent -->
-        <div class="kanban-col">
-          <div class="kanban-header" style="color:var(--blue)">Proposal Sent <span class="kanban-count">3</span></div>
-
-          <div class="deal-card" data-client="DXB Retail Group" onclick="openModal('proposalModal')">
-            <div class="deal-card-name">DXB Retail Group</div>
-            <div class="deal-card-pkg"><span class="tag tag-orange">Market Leader Package</span></div>
-            <div class="deal-card-value">$3,200/mo</div>
-            <div class="deal-card-meta">🇦🇪 Dubai · Faisal Al-Rashid</div>
-            <div class="deal-card-expires" style="color:var(--red)">⚠ Expires today</div>
-          </div>
-
-          <div class="deal-card" data-client="EduPath Online" onclick="openModal('proposalModal')">
-            <div class="deal-card-name">EduPath Online</div>
-            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
-            <div class="deal-card-value">$1,800/mo</div>
-            <div class="deal-card-meta">🇵🇰 Lahore · Rabia Noor</div>
-            <div class="deal-card-expires" style="color:var(--yellow)">Expires in 3 days</div>
-          </div>
-
-          <div class="deal-card">
-            <div class="deal-card-name">ZenFit UAE</div>
-            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
-            <div class="deal-card-value">$1,600/mo</div>
-            <div class="deal-card-meta">🇦🇪 Dubai · Sara Al-Mansoori</div>
-            <div class="deal-card-expires" style="color:var(--text2)">Expires in 7 days</div>
-          </div>
-
-          <button class="kanban-add" onclick="openModal('proposalModal')">+ New Proposal</button>
-        </div>
-
-        <!-- In Review -->
-        <div class="kanban-col">
-          <div class="kanban-header" style="color:var(--yellow)">In Review <span class="kanban-count">2</span></div>
-
-          <div class="deal-card">
-            <div class="deal-card-name">Islamabad Realty</div>
-            <div class="deal-card-pkg"><span class="tag tag-orange">Market Leader Package</span></div>
-            <div class="deal-card-value">$2,400/mo</div>
-            <div class="deal-card-meta">🇵🇰 Islamabad · Ahmed Butt</div>
-            <div class="deal-card-expires" style="color:var(--blue)">Viewed 3 times</div>
-          </div>
-
-          <div class="deal-card">
-            <div class="deal-card-name">MedHub Arabia</div>
-            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
-            <div class="deal-card-value">$1,800/mo</div>
-            <div class="deal-card-meta">🇸🇦 Riyadh · Dr. Khalid</div>
-            <div class="deal-card-expires" style="color:var(--blue)">Viewed yesterday</div>
-          </div>
-        </div>
-
-        <!-- Negotiating -->
-        <div class="kanban-col">
-          <div class="kanban-header" style="color:var(--purple)">Negotiating <span class="kanban-count">1</span></div>
-
-          <div class="deal-card">
-            <div class="deal-card-name">FoodBox PK</div>
-            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
-            <div class="deal-card-value">$1,200/mo</div>
-            <div class="deal-card-meta">🇵🇰 Karachi · Omar Farooq</div>
-            <div class="deal-card-expires" style="color:var(--purple)">Requested discount</div>
-          </div>
-        </div>
-
-        <!-- Won / Lost -->
-        <div class="kanban-col">
-          <div class="kanban-header" style="color:var(--green)">Won This Month <span class="kanban-count">2</span></div>
-
-          <div class="deal-card" data-client="TechPak Solutions" style="border-left:3px solid var(--green)">
-            <div class="deal-card-name">TechPak Solutions</div>
-            <div class="deal-card-pkg"><span class="tag tag-purple">AI-First Package</span></div>
-            <div class="deal-card-value">$2,200/mo</div>
-            <div class="deal-card-meta">🇵🇰 Karachi · Closed Apr 15</div>
-          </div>
-
-          <div class="deal-card" data-client="Karachi Eats" style="border-left:3px solid var(--green)">
-            <div class="deal-card-name">Karachi Eats</div>
-            <div class="deal-card-pkg"><span class="tag tag-blue">Growth Accelerator</span></div>
-            <div class="deal-card-value">$950/mo</div>
-            <div class="deal-card-meta">🇵🇰 Karachi · Closed Apr 10</div>
-          </div>
-        </div>
-      </div>
+      <!-- Deals Kanban (dynamic) -->
+      <div id="deal-kanban" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
     </div>
 
     <!-- ══════════ BRAND & STRATEGY ══════════ -->
@@ -2692,26 +2607,25 @@ body{
 <div class="modal-overlay" id="proposalModal" onclick="if(event.target===this)closeModal('proposalModal')">
   <div class="modal modal-lg">
     <div class="modal-header">
-      <div class="modal-title">New Proposal Builder</div>
+      <div class="modal-title">New Proposal</div>
       <button class="modal-close" onclick="closeModal('proposalModal')">✕</button>
     </div>
 
-    <!-- Step 1: Client -->
-    <div class="form-group">
-      <label class="form-label">Step 1 — Select Client / Lead</label>
-      <select class="form-select" id="propClient" onchange="updateProposalTotal()">
-        <option value="">-- Select --</option>
-        <option>GulfStyle E-commerce (Lead)</option>
-        <option>Lahore Organics (Lead)</option>
-        <option>ZenFit UAE (Lead)</option>
-        <option>EduPath Online (Lead)</option>
-        <option>DXB Retail Group (Client — upsell)</option>
-      </select>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Client / Lead Name *</label>
+        <select class="form-select" id="deal-client" onchange="updateProposalTotal()">
+          <option value="">-- Select --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Location</label>
+        <input id="deal-location" class="form-input" placeholder="e.g. Dubai, UAE">
+      </div>
     </div>
 
-    <!-- Step 2: Package -->
     <div class="form-group">
-      <label class="form-label">Step 2 — Select Package</label>
+      <label class="form-label">Package</label>
       <div class="prop-pkg-grid">
         <div class="prop-pkg-card" onclick="selectPkg(this,500)" data-price="500">
           <div class="prop-pkg-name">Starter Brand</div>
@@ -2733,37 +2647,47 @@ body{
           <div class="prop-pkg-price">from $2,800/mo</div>
           <div class="prop-pkg-desc">AI content + chatbot + automations + AI video + predictive analytics</div>
         </div>
+        <div class="prop-pkg-card" onclick="selectPkg(this,0)" data-price="0">
+          <div class="prop-pkg-name">Custom</div>
+          <div class="prop-pkg-price">Set custom value</div>
+          <div class="prop-pkg-desc">Enter a custom monthly value below</div>
+        </div>
       </div>
     </div>
 
-    <!-- Step 3: Add-ons -->
-    <div class="form-group">
-      <label class="form-label">Step 3 — Add Individual Services (optional)</label>
-      <div class="prop-svc-grid">
-        <div class="prop-svc-item" onclick="toggleSvc(this,200)"><div class="prop-svc-check"></div>WhatsApp Marketing (+$200)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,150)"><div class="prop-svc-check"></div>SMS Campaigns (+$150)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,300)"><div class="prop-svc-check"></div>Influencer Management (+$300)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,400)"><div class="prop-svc-check"></div>AI Video Creation (+$400)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,250)"><div class="prop-svc-check"></div>PR & Media Outreach (+$250)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,350)"><div class="prop-svc-check"></div>Podcast Production (+$350)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,500)"><div class="prop-svc-check"></div>Full Web Build (+$500 one-time)</div>
-        <div class="prop-svc-item" onclick="toggleSvc(this,200)"><div class="prop-svc-check"></div>Custom Dashboard (+$200)</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Monthly Value ($)</label>
+        <input id="deal-value" class="form-input" type="number" placeholder="e.g. 1500" oninput="updateProposalTotal()">
       </div>
+      <div class="form-group">
+        <label class="form-label">Proposal Expiry Date</label>
+        <input id="deal-expiry" class="form-input" type="date">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Initial Stage</label>
+      <select class="form-select" id="deal-stage">
+        <option value="Proposal Sent">Proposal Sent</option>
+        <option value="In Review">In Review</option>
+        <option value="Negotiating">Negotiating</option>
+        <option value="Closed Won">Closed Won</option>
+      </select>
     </div>
 
     <!-- Total -->
     <div class="prop-total">
       <div>
         <div class="prop-total-label">Proposal Total</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:2px">Per month · excludes one-time fees</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px">Per month</div>
       </div>
       <div class="prop-total-val" id="propTotal">$0/mo</div>
     </div>
 
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('proposalModal')">Cancel</button>
-      <button class="btn btn-ghost" onclick="toast('Preview coming soon','info')">Preview</button>
-      <button class="btn btn-primary" onclick="closeModal('proposalModal');toast('Proposal created & ready to send','success')">Create Proposal</button>
+      <button class="btn btn-primary" onclick="saveNewDeal()">Add to Pipeline</button>
     </div>
   </div>
 </div>
@@ -3032,7 +2956,7 @@ body{
     </div>
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal('leadDetailModal')">Close</button>
-      <button class="btn btn-ghost" onclick="closeModal('leadDetailModal');openModal('proposalModal')">Build Proposal</button>
+      <button class="btn btn-ghost" onclick="closeModal('leadDetailModal');openProposalModal()">Build Proposal</button>
       <button class="btn btn-primary" onclick="saveLeadUpdate()">Save Changes</button>
     </div>
   </div>
@@ -3332,6 +3256,9 @@ function selectPkg(el, price) {
   document.querySelectorAll('.prop-pkg-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   propBasePrice = price;
+  // Prefill value input if it's empty and price > 0
+  const valEl = document.getElementById('deal-value');
+  if (valEl && !valEl.value && price > 0) valEl.value = price;
   updateProposalTotal();
 }
 function toggleSvc(el, price) {
@@ -3344,7 +3271,8 @@ function toggleSvc(el, price) {
   updateProposalTotal();
 }
 function updateProposalTotal() {
-  const total = propBasePrice + propAddons;
+  const manualVal = parseInt(document.getElementById('deal-value')?.value || '0') || 0;
+  const total = manualVal > 0 ? manualVal : (propBasePrice + propAddons);
   document.getElementById('propTotal').textContent = total > 0 ? '$' + total.toLocaleString() + '/mo' : '$0/mo';
 }
 
@@ -4026,7 +3954,7 @@ function resetSection(type) {
     leads:    'Reset Leads? All leads in the pipeline will be permanently deleted.',
     social:   'Reset Social? All social media data for every client will be deleted.',
     projects: 'Reset Projects? All brand & strategy projects will be permanently deleted.',
-    deals:    'Reset Deals? All deal cards will be hidden from view.',
+    deals:    'Reset Deals? All proposals will be permanently deleted.',
     all:      'Reset ALL data? Every client, lead, project, and social record will be wiped. This cannot be undone.'
   };
   if (!confirm(labels[type] || 'Reset this section?')) return;
@@ -4045,11 +3973,14 @@ function resetSection(type) {
   if (type === 'projects' || type === 'clients' || type === 'all') {
     projectData.splice(0, projectData.length);
   }
+  if (type === 'all') {
+    dealData.splice(0, dealData.length);
+  }
   if (type === 'deals') {
-    document.querySelectorAll('.deal-card').forEach(el => el.style.display = 'none');
-    const setEl = (id,v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
-    setEl('badge-deals', '');
-    setEl('deals-ph-sub', '0 proposals');
+    dealData.splice(0, dealData.length);
+    saveAll();
+    renderDealKanban();
+    refreshCommandKPIs();
     toast('Deals reset', 'info');
     return;
   }
@@ -4061,6 +3992,7 @@ function resetSection(type) {
   renderClientHistory();
   renderClientHealthGrid();
   renderKanban();
+  renderDealKanban();
   renderBrandProjects('all');
   renderSocialTabs();
   refreshCommandKPIs();
@@ -4073,7 +4005,7 @@ function resetSection(type) {
 // ═══════════════════════════════════════
 const LS_KEY = 'abfluence_hrms_v1';
 function saveAll() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({ clientData, leadData, socialData, projectData, clientHistory })); } catch(e) {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ clientData, leadData, socialData, projectData, clientHistory, dealData })); } catch(e) {}
 }
 function savePage(pageId) {
   try { localStorage.setItem(LS_KEY + '_page', pageId); } catch(e) {}
@@ -4104,6 +4036,11 @@ function loadAll() {
       Object.keys(clientHistory).forEach(k => delete clientHistory[k]);
       Object.assign(clientHistory, saved.clientHistory);
     }
+    if (saved.dealData && Array.isArray(saved.dealData)) {
+      dealData.length = 0;
+      saved.dealData.forEach(d => dealData.push(d));
+      if (dealData.length) nextDealId = Math.max(...dealData.map(d => d.id || 0)) + 1;
+    }
   } catch(e) {}
 }
 
@@ -4112,6 +4049,29 @@ function loadAll() {
 // ═══════════════════════════════════════
 const projectData = [];
 let nextProjectId = 12;
+
+// ═══════════════════════════════════════
+// DEALS DATA STORE
+// ═══════════════════════════════════════
+const dealData = []; // { id, client, pkg, value, location, expiry, stage }
+// stages: 'Proposal Sent' | 'In Review' | 'Negotiating' | 'Closed Won'
+
+let nextDealId = 1;
+
+function addDeal(d) { dealData.push(d); saveAll(); renderDealKanban(); refreshCommandKPIs(); }
+function removeDeal(id) { const i = dealData.findIndex(d => d.id === id); if (i > -1) { dealData.splice(i,1); saveAll(); renderDealKanban(); refreshCommandKPIs(); filterByActiveClients(); } }
+function updateDealStage(id, stage) { const d = dealData.find(d => d.id === id); if (d) { d.stage = stage; saveAll(); renderDealKanban(); } }
+
+function daysUntil(iso) {
+  return Math.ceil((new Date(iso).getTime() - Date.now()) / 86400000);
+}
+
+const PALETTE = ['#e8521a','#2563eb','#7c3aed','#0891b2','#db2777','#16a34a','#d97706','#dc2626'];
+function colorFor(seed) {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return PALETTE[h % PALETTE.length];
+}
 let _activeBrandFilter = 'all';
 const statusMap = {
   progress:  {label:'In Progress', cls:'badge-yellow'},
@@ -4189,6 +4149,117 @@ function saveNewBrandProject() {
 }
 
 // ═══════════════════════════════════════
+// DEAL KANBAN — DYNAMIC RENDER
+// ═══════════════════════════════════════
+const dealStages = ['Proposal Sent','In Review','Negotiating','Closed Won'];
+const dealStageColors = {'Proposal Sent':'var(--blue)','In Review':'var(--yellow)','Negotiating':'var(--purple)','Closed Won':'var(--green)'};
+const pkgBadgeMap = {'Starter Brand':'tag-green','Growth Accelerator':'tag-blue','Market Leader':'tag-orange','AI-First Package':'tag-purple','Custom':'tag-grey'};
+
+function renderDealKanban() {
+  const board = document.getElementById('deal-kanban');
+  if (!board) return;
+  const activeNames = activeClientNames();
+  // Only show deals for active clients (or all if no clients set yet)
+  const visibleDeals = dealData.filter(d => !d.client || activeNames.size === 0 || activeNames.has(d.client));
+
+  board.innerHTML = dealStages.map(stage => {
+    const stageDeals = visibleDeals.filter(d => d.stage === stage);
+    const cards = stageDeals.map(d => {
+      const expiryHtml = (() => {
+        if (stage === 'Closed Won') return '<div class="deal-card-expires" style="color:var(--green)">Closed</div>';
+        if (!d.expiry) return '';
+        const days = daysUntil(d.expiry);
+        let color, label;
+        if (days < 0) { color = 'var(--red)'; label = 'Expired ' + Math.abs(days) + 'd ago'; }
+        else if (days === 0) { color = 'var(--red)'; label = '⚠ Expires today'; }
+        else if (days <= 7) { color = 'var(--yellow)'; label = 'Expires in ' + days + 'd'; }
+        else { color = 'var(--text2)'; label = 'Expires in ' + days + 'd'; }
+        return `<div class="deal-card-expires" style="color:${color}">${label}</div>`;
+      })();
+      const valFmt = d.value ? '$' + parseInt(d.value).toLocaleString() + '/mo' : '—';
+      const pkgCls = pkgBadgeMap[d.pkg] || 'tag-grey';
+      const safeId = d.id;
+      const moveOptions = dealStages.filter(s => s !== stage).map(s =>
+        `<option value="${s}">${s}</option>`
+      ).join('');
+      return `<div class="deal-card" data-client="${d.client||''}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px">
+          <div>
+            <div class="deal-card-name">${d.client||'Unknown'}</div>
+            <div class="deal-card-pkg"><span class="tag ${pkgCls}">${d.pkg||'Custom'}</span></div>
+          </div>
+          <button onclick="if(confirm('Remove this deal?')){removeDeal(${safeId})}" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:14px;line-height:1;padding:2px 4px;opacity:.6;flex-shrink:0" title="Remove deal">✕</button>
+        </div>
+        <div class="deal-card-value">${valFmt}</div>
+        <div class="deal-card-meta">${d.location||''}</div>
+        ${expiryHtml}
+        <div style="margin-top:8px">
+          <select onchange="updateDealStage(${safeId},this.value)" style="font-size:11px;padding:3px 6px;border:1px solid var(--border2);border-radius:var(--rs);background:var(--surface);color:var(--text2);cursor:pointer;width:100%">
+            <option value="${stage}" selected>Move to...</option>
+            ${moveOptions}
+          </select>
+        </div>
+      </div>`;
+    }).join('');
+    const addBtn = stage === 'Proposal Sent' ? '<button class="kanban-add" onclick="openProposalModal()">+ New Proposal</button>' : '';
+    return `<div class="kanban-col">
+      <div class="kanban-header" style="color:${dealStageColors[stage]}">${stage} <span class="kanban-count">${stageDeals.length}</span></div>
+      ${cards}${addBtn}
+    </div>`;
+  }).join('');
+
+  // Update stat cards
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const active = visibleDeals.filter(d => d.stage !== 'Closed Won');
+  const totalVal = active.reduce((s, d) => s + (parseInt(d.value) || 0), 0);
+  const expiringSoon = active.filter(d => d.expiry && daysUntil(d.expiry) <= 2).length;
+  const won = visibleDeals.filter(d => d.stage === 'Closed Won').length;
+  const total = visibleDeals.length;
+  const rate = total ? Math.round((won / total) * 100) + '%' : '—';
+  set('deal-stat-active', active.length);
+  set('deal-stat-value', '$' + totalVal.toLocaleString());
+  set('deal-stat-expiring', expiringSoon);
+  set('deal-stat-rate', rate);
+  const dealCount = visibleDeals.length;
+  set('badge-deals', dealCount || '');
+  set('deals-ph-sub', dealCount + ' proposal' + (dealCount !== 1 ? 's' : ''));
+}
+
+function openProposalModal() {
+  // Populate client dropdown from active clients + leads
+  const sel = document.getElementById('deal-client');
+  if (sel) {
+    const activeNames = Array.from(activeClientNames());
+    const leadNames = Object.keys(leadData);
+    sel.innerHTML = '<option value="">-- Select --</option>'
+      + activeNames.map(n => `<option value="${n}">${n} (Client)</option>`).join('')
+      + leadNames.map(n => `<option value="${n}">${n} (Lead)</option>`).join('');
+  }
+  // Reset form
+  ['deal-location','deal-expiry'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const valEl = document.getElementById('deal-value'); if (valEl) valEl.value = '';
+  document.querySelectorAll('.prop-pkg-card').forEach(c => c.classList.remove('selected'));
+  propBasePrice = 0; propAddons = 0; updateProposalTotal();
+  openModal('proposalModal');
+}
+
+function saveNewDeal() {
+  const client = document.getElementById('deal-client')?.value.trim();
+  if (!client) { toast('Select a client or lead', 'error'); return; }
+  const valRaw = document.getElementById('deal-value')?.value.trim();
+  const value = valRaw ? parseInt(valRaw) : propBasePrice;
+  if (!value) { toast('Select a package or enter a value', 'error'); return; }
+  const selectedPkg = document.querySelector('.prop-pkg-card.selected');
+  const pkg = selectedPkg ? selectedPkg.querySelector('.prop-pkg-name')?.textContent : 'Custom';
+  const location = document.getElementById('deal-location')?.value.trim() || '';
+  const expiry = document.getElementById('deal-expiry')?.value || '';
+  const stage = document.getElementById('deal-stage')?.value || 'Proposal Sent';
+  addDeal({ id: nextDealId++, client, pkg, value, location, expiry, stage });
+  closeModal('proposalModal');
+  toast(client + ' added to pipeline', 'success');
+}
+
+// ═══════════════════════════════════════
 // KANBAN — DYNAMIC RENDER
 // ═══════════════════════════════════════
 const stages = ['New','Contacted','Proposal Sent','Won','Lost'];
@@ -4203,7 +4274,7 @@ function renderKanban() {
     const cards = leads.map(([name,v]) => {
       const safeName = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
       return `<div class="lead-card" onclick="openLeadDetail('${safeName}')">
-        <div class="lead-card-top"><div class="lead-card-name">${name}</div><div class="lead-card-val">${v.val||'—'}</div></div>
+        <div class="lead-card-top"><div class="lead-card-name">${name}</div><div class="lead-card-val">${v.val||'—'}</div><button onclick="event.stopPropagation();if(confirm('Remove ${safeName}?')){delete leadData['${safeName}'];saveAll();renderKanban();refreshCommandKPIs();toast('${safeName} removed','info')}" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:14px;line-height:1;padding:0 2px;opacity:.6;margin-left:4px" title="Remove lead">✕</button></div>
         <div class="lead-card-meta">${v.loc||''}</div>
         <div class="lead-card-contact">👤 ${v.contact||''}</div>
         <div class="lead-card-footer">
@@ -4325,8 +4396,7 @@ function saveNewClient() {
   const key = name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
   if (clientData[key]) { toast('Client already exists', 'error'); return; }
   const initials = name.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
-  const palette  = ['var(--orange)','var(--blue)','var(--purple)','var(--teal)','var(--pink)','var(--green)','var(--yellow)'];
-  const color    = palette[Object.keys(clientData).length % palette.length];
+  const color    = colorFor(key);
   const mrrRaw   = g('ob-mrr');
   const mrr      = mrrRaw ? '$' + parseInt(mrrRaw.replace(/[^0-9]/g,'')).toLocaleString() : '$0';
   const pkg      = document.getElementById('ob-package')?.value || 'Starter Brand';
@@ -4372,11 +4442,17 @@ function removeClient(key) {
     if (projectData[i].client === c.name) projectData.splice(i, 1);
   }
 
+  // ── Remove their deals from dealData ─────────────────────
+  for (let i = dealData.length - 1; i >= 0; i--) {
+    if (dealData[i].client === c.name) dealData.splice(i, 1);
+  }
+
   saveAll();
   renderClientTable();
   renderClientHistory();
   renderClientHealthGrid();
   renderBrandProjects();
+  renderDealKanban();
   refreshCommandKPIs();
   filterByActiveClients();
   toast(c.name + ' archived', 'info');
@@ -4419,13 +4495,8 @@ function filterByActiveClients() {
   document.querySelectorAll('[data-client]').forEach(el => {
     el.style.display = isActiveClient(el.dataset.client) ? '' : 'none';
   });
-  // Recount deals after visibility update (deal cards are static HTML with data-client)
-  const visibleDeals = document.querySelectorAll('.deal-card[data-client]');
-  const dealCount = Array.from(visibleDeals).filter(el => el.style.display !== 'none').length
-    + document.querySelectorAll('.deal-card:not([data-client])').length;
-  const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  setEl('badge-deals', dealCount || '');
-  setEl('deals-ph-sub', dealCount + ' proposal' + (dealCount !== 1 ? 's' : ''));
+  // Deals are rendered dynamically from dealData — re-render to apply active client filter
+  renderDealKanban();
 }
 
 // CLIENT HISTORY
@@ -4536,6 +4607,9 @@ function refreshCommandKPIs() {
   // Sidebar nav badges — always in sync with real data
   set('badge-clients', count || '');
   set('badge-leads',   leadCount || '');
+  const activeNames = activeClientNames();
+  const dealCount = dealData.filter(d => activeNames.has(d.client)).length;
+  set('badge-deals', dealCount || '');
 
   // Brand page header
   const activeProjects = projectData.filter(p => activeClientNames().has(p.client));
@@ -4600,6 +4674,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sub = document.getElementById('cc-greeting');
   if (sub) sub.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()} — Good ${d.getHours() < 12 ? 'morning' : d.getHours() < 17 ? 'afternoon' : 'evening'}, HR.`;
   renderKanban();
+  renderDealKanban();
   renderClientTable();
   renderClientHistory();
   renderClientHealthGrid();
